@@ -108,15 +108,18 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	let newContact = document.getElementById("contactText").value;
+	let userId = document.getElementById("userId").value; // bit confused where to obtain this (current user?)
+	let newPhone = document.getElementById("phone").value;
+	let newEmail = document.getElementById("email").value;
+	document.getElementById("contactAddResult").innerHTML = "";
 
-	let tmp = {color:newColor,userId,userId};
+	let tmp = {name:newContact, userId:userId, phone:newPhone, email:newEmail}; // this is where the json object is created for the api
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/AddColor.' + extension;
+	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -127,14 +130,14 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 	
 }
