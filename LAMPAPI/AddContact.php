@@ -2,7 +2,8 @@
 	$inData = getRequestInfo();
 	
 	// replace with correct form information (assuming from html)
-	$name = $inData["name"];
+	$firstName = $inData["firstName"];
+	$lastName = $inData["lastName"];
 	$userId = $inData["userId"];
 	$phone = $inData["phone"];
 	$email = $inData["email"];
@@ -15,8 +16,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (UserId,Name) VALUES(?,?)");
-		$stmt->bind_param("ss", $name, $userId, $phone, $email);
+		$stmt = $conn->prepare("INSERT into Contacts (firstName, lastName, Phone, Email, UserId) VALUES(?,?)");
+		$stmt->bind_param("sssi", $firstName, $lastName, $phone, $email, $userId);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
