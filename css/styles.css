@@ -1,4 +1,108 @@
-body 
+* {
+ 	margin: 0;
+ 	padding: 0;
+	box-sizing: border-box;
+}
+body {
+ 	font-family: 'Poppins', sans-serif;
+ 	background-color: #f0f0f0;
+ 	display: flex;
+ 	align-items: center;
+	justify-content: center;
+            height: 100vh;
+}
+.container {
+        width: 100%;
+        max-width: 400px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        position: relative;
+}
+.form-toggle {
+        display: flex;
+        justify-content: space-around;
+        background-color: #ddd;
+        padding: 10px 0;
+}
+.toggle-btn {
+        background: #eee;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s;
+}
+.toggle-btn.active {
+        background: #333;
+        color: #fff;
+}
+.toggle-btn:hover {
+        background: #ccc;
+}
+.forms-container {
+        padding: 20px;
+}
+form {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+}
+form.active {
+        display: flex;
+}
+.title {
+        font-size: 2rem;
+        color: #444;
+        margin-bottom: 20px;
+}
+.input-field {
+        width: 100%;
+        max-width: 380px;
+        height: 55px;
+        background-color: #f0f0f0;
+        margin: 10px 0;
+        border-radius: 55px;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+}
+.input-field i {
+        color: #acacac;
+        font-size: 1.5rem;
+        margin-right: 10px;
+}
+.input-field input {
+        background: none;
+        border: none;
+        outline: none;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #333;
+        flex: 1;
+}
+.input-field input::placeholder {
+        color: #aaa;
+        font-weight: 500;
+}
+.btn {
+        width: 150px;
+        height: 49px;
+        border: none;
+        border-radius: 48px;
+        background-color: #20dbc;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: background 0.5s;
+}
+.btn:hover {
+        background: #00bfa6;
+}
+<!--body 
 {
     background-color: #4a4a4a;
 }
@@ -137,4 +241,4 @@ select{
     margin-bottom: 1%;
     font-family: 'Ubuntu', sans-serif;
     color: #95060a;
-}
+}-->
