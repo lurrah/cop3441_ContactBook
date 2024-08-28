@@ -4,10 +4,9 @@
 	// replace with correct form information (assuming from html)
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
-	$userId = $inData["userId"];
 	$phone = $inData["phone"];
 	$email = $inData["email"];
-
+	$userId = $inData["userId"];
 
 	$conn = new mysqli("localhost", "Team25", "smallProj1", "COP4331"); 
 
@@ -17,7 +16,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID) VALUES(?,?,?,?,?)");
+		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, Phone, Email, UserID) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $userId);
 		$stmt->execute();
 		$stmt->close();
