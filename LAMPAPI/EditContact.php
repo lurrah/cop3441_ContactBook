@@ -15,10 +15,20 @@
 
     if ($conn->connect_error) {
         returnWithError($conn->connect_error);
-    }
+    } else {
+        // Prepare and execute SQL update query
+        $stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ?");
+        $stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $contactId);
+        $stmt->execute();
 
-    // Placeholder for SQL update query
-    // ...
+        if ($stmt->affected_rows > 0) {
+            returnWithInfo("Contact updated successfully");
+        } else {
+            returnWithError("No contact found with the given ID");
+        }
+
+        $stmt->close();
+    }
 
     $conn->close();
 
@@ -33,6 +43,11 @@
 
     function returnWithError($err) {
         $retValue = '{"error":"' . $err . '"}';
+        sendResultInfoAsJson($retValue);
+    }
+
+    function returnWithInfo($message) {
+        $retValue = '{"message":"' . $message . '","error":""}';
         sendResultInfoAsJson($retValue);
     }
 
