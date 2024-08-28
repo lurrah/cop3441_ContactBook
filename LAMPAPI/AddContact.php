@@ -9,15 +9,16 @@
 	$email = $inData["email"];
 
 
-	$conn = new mysqli("localhost", "Team25", "smallProj1", "COP4331"); 	
+	$conn = new mysqli("localhost", "Team25", "smallProj1", "COP4331"); 
+
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (firstName, lastName, Phone, Email, UserId) VALUES(?,?)");
-		$stmt->bind_param("sssi", $firstName, $lastName, $phone, $email, $userId);
+		$stmt = $conn->prepare("INSERT INTO Contacts (FirstName, LastName, Phone, Email, UserID) VALUES(?,?)");
+		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $userId);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
