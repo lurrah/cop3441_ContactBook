@@ -1,22 +1,21 @@
 <?php
 
-    // Get request data
     $inData = getRequestInfo();
 
-    // Extract contact details
+    // Extract contact details from the request
     $contactId = $inData["contactId"];
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     $phone = $inData["phone"];
     $email = $inData["email"];
 
-    // Connect to the database
+    // Database connection
     $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 
     if ($conn->connect_error) {
         returnWithError($conn->connect_error);
     } else {
-        // Prepare and execute SQL update query
+        // Prepare and execute the update query
         $stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ?");
         $stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $contactId);
         $stmt->execute();
@@ -28,9 +27,8 @@
         }
 
         $stmt->close();
+        $conn->close();
     }
-
-    $conn->close();
 
     function getRequestInfo() {
         return json_decode(file_get_contents('php://input'), true);
