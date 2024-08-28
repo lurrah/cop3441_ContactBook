@@ -111,7 +111,7 @@ function doLogout()
 function addContact()
 {
 	let newContact = document.getElementById("contactText").value;
-	let userId = document.getElementById("userId").value; // bit confused where to obtain this (current user?)
+	let userId = document.getElementById("userId").value;
 	let newPhone = document.getElementById("phone").value;
 	let newEmail = document.getElementById("email").value;
 	document.getElementById("contactAddResult").innerHTML = "";
