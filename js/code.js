@@ -16,7 +16,7 @@ function doSignIn()
 	let password = document.getElementById("signInPassword").value;
 //	var hash = md5( password );
 	
-	document.getElementById("signInResult").innerHTML = "";
+	document.getElementById("loginResult").innerHTML = "";
 
 	let tmp = {login:login,password:password};
 //	var tmp = {login:login,password:hash};
@@ -38,7 +38,7 @@ function doSignIn()
 		
 				if( userId < 1 )
 				{		
-					document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
+					document.getElementById("loginResult").innerHTML = "Username or password is incorrect.";
 					return;
 				}
 		
@@ -54,7 +54,7 @@ function doSignIn()
 	}
 	catch(err)
 	{
-		document.getElementById("signInResult").innerHTML = err.message;
+		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
 }
