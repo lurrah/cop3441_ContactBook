@@ -5,14 +5,15 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
-function doLogin()
+function doSignIn()
 {
+	console.log("Did sign-in.");
 	userId = 0;
 	firstName = "";
 	lastName = "";
 	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
+	let login = document.getElementById("signInUsername").value;
+	let password = document.getElementById("signInPassword").value;
 //	var hash = md5( password );
 	
 	document.getElementById("loginResult").innerHTML = "";
@@ -37,7 +38,7 @@ function doLogin()
 		
 				if( userId < 1 )
 				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("loginResult").innerHTML = "Username or password is incorrect.";
 					return;
 				}
 		
