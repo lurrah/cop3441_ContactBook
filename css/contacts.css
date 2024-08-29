@@ -1,1 +1,146 @@
+body {
+    background-color: #33c4ff;
+    background-image: url('imagee.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /*table height*/
+    margin: 0;
+}
+
+.scrollable-table {
+    display: flex;
+    flex-direction: column;
+    height: 300px; /*moves the table to the bottom*/
+    overflow-y: auto; /*allows scrolling*/
+    border-radius: 4px;
+}
+
+.table-fixed {
+    width: 80%; /*increase width to make the table larger*/
+    background-color: #fff; /*white for the table background*/
+    border-collapse: collapse;
+    border-radius: 5px;
+    box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.15);
+    margin: 20px auto; /*centers the table horizontally and add some space from top and bottom*/
+}
+
+.table-fixed thead, 
+.table-fixed thead > th {
+    background: #4d7275;
+    color: #fff;
+    font-size: 15px;
+    text-align: left;
+    position: sticky; /*makes the header stick to the top of the container when scrolling*/
+    top: 0;
+    border-radius: 4px;
+}
+
+.table-fixed th,
+.table-fixed td{
+    padding: 12px 25px;
+}
+
+.table-fixed tbody tr td {
+    background: #fff;
+}
+
+.table-fixed .col {
+    width: 20%; /*col width*/
+}
+
+.table-fixed tbody {
+    display: block;
+    height: 300px; /*increase height to allow more rows to be visible before scrolling*/
+    overflow-y: auto; /*scrolling in table body*/
+}
+
+.table-fixed tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.button, .button-propone, .button-proptwo{
+    --button-color:#333333; 
+    --button-background: #4d7275;
+    --button-background-hover: #cccccc;
+    display: inline-flex;
+    align-items: center;
+    gap:6px;
+    background: var(--button-background);
+    color: var(--button-color);
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 13px 19px; /*top and bottom | left and right*/
+    cursor: pointer; /*clickable when hovered over*/
+    margin-top: 50px;
+    margin: 20px;
+}
+
+.button:hover, .button-propone:hover, .button-proptwo:hover
+.button:active, .button-propone:active, .button-proptwo:active{
+    background: var(--button-background-hover); /*when cursor hovers over, the button changes color*/
+}
+
+.button:active, .button-propone:active, .button-proptwo:active{
+    background-color: var(--button-background-active);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 30px; /*away from the table*/
+ }
+
+.search{
+    --search-color:#333333; 
+    --search-background: #4d7275;
+    --search-background-hover: #cccccc;
+    --padding: 10px;
+    width: max-content;
+    display: flex;
+    align-items: center;/*align icon with placeholder*/
+    padding: var(--padding);
+    border-radius: 20px;
+    background: var(--search-background);
+    color: var(--search-color);
+    color: white;
+    width: 600px;
+    transition: background 0.25s;
+    position: absolute;
+    left: 30%;
+    top: 15%;
+}
+ 
+.search: focus-within{
+    color: #cccccc;
+}
+.search-input{
+    font-size: 16px;
+    font-family: 'Lexend', sans-serif;
+    color: white;
+    margin-left: var(--padding);
+    outline: none;
+    border: none;
+    background: transparent;
+    flex: 1;
+}
+
+.search-input:: placeholder,
+.search-icon{
+    color: white;
+}
+
 
