@@ -1,21 +1,22 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
+const urlBase = 'http://lamp-project.com/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
 let firstName = "";
 let lastName = "";
 
-function doLogin()
+function doSignIn()
 {
+	console.log("Did sign-in.");
 	userId = 0;
 	firstName = "";
 	lastName = "";
 	
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginPassword").value;
+	let login = document.getElementById("signInUsername").value;
+	let password = document.getElementById("signInPassword").value;
 //	var hash = md5( password );
 	
-	document.getElementById("loginResult").innerHTML = "";
+	document.getElementById("signInResult").innerHTML = "";
 
 	let tmp = {login:login,password:password};
 //	var tmp = {login:login,password:hash};
@@ -37,7 +38,7 @@ function doLogin()
 		
 				if( userId < 1 )
 				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
 					return;
 				}
 		
@@ -53,7 +54,7 @@ function doLogin()
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("signInResult").innerHTML = err.message;
 	}
 
 }

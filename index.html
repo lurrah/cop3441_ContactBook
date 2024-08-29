@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In and Sign Up Form</title>
     <link rel="stylesheet" href = "./css/styles.css">
+    <script type="text/javascript" src="js/code.js"></script>
     </head>
 <body>
     <div class="container">
@@ -17,33 +18,33 @@
                 <h2 class="title">Sign In</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" />
+                    <input type="text" placeholder="Username" id="signInUsername" />
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password" id="signInPassword" />
                 </div>
-                <input type="submit" class="btn" value="Login" />
+                <input id="signInSubmitBtn" type="submit" class="btn" value="Sign in" />
             </form>
             <form id="signUpForm" class="form">
                 <h2 class="title">Sign Up</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="First Name" />
+                    <input type="text" placeholder="First Name" id="signUpFirstName" />
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Last Name" />
+                    <input type="text" placeholder="Last Name" id="signUpLastName" />
                 </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" />
+                    <input type="text" placeholder="Username" id="signUpUsername" />
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Password" id="signUpPassword" />
                 </div>
-                <input type="submit" class="btn" value="Signup" />
+                <input id="signUpSubmitBtn" type="submit" class="btn" value="Sign up" />
             </form>
         </div>
     </div>
@@ -67,6 +68,14 @@
                 signInForm.classList.remove('active');
                 signUpBtn.classList.add('active');
                 signInBtn.classList.remove('active');
+            });
+
+            signInSubmitBtn.addEventListener('click', () => {
+                doSignIn();
+            });
+
+            signUpSubmitBtn.addEventListener('click', () => {
+                doSignUp();
             });
         });
     </script>
