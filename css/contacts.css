@@ -124,10 +124,11 @@ body {
     top: 15%;
 }
  
-.search: focus-within{
+.search:focus-within{
     color: #cccccc;
 }
-.search-input{
+
+#searchInput{
     font-size: 16px;
     font-family: 'Lexend', sans-serif;
     color: white;
@@ -138,7 +139,6 @@ body {
     flex: 1;
 }
 
-.search-input:: placeholder,
 .search-icon{
     color: white;
 }
