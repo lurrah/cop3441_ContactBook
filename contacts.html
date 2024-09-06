@@ -14,15 +14,15 @@
       </div>
     </form>
     <div class="container">
-      <button class="button" type="button">
-        <span class="material-symbols-outlined">logout</span>
-        <span>Logout</span>
+      <button class="button" type="button" id="signOutBtn">
+        <span class="material-symbols-outlined">sign out</span>
+        <span>Sign Out</span>
       </button>
-      <button class="button-propone" type="button">
+      <button class="button-propone" type="button" id="contactsBtn">
         <span class="material-symbols-outlined">contacts</span>
         <span>Contacts</span>
       </button>
-      <button class="button-proptwo" type="button">
+      <button class="button-proptwo" type="button" id="homeBtn">
         <span class="material-symbols-outlined">home</span>
         <span>Home</span>
       </button>
@@ -53,5 +53,25 @@
         </table>
     </div>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const signOutBtn = document.getElementById('signOutBtn');
+      const contactsBtn = document.getElementById('contactsBtn');
+      const homeBtn = document.getElementById('homeBtn');
+
+      signOutBtn.addEventListener('click', () => {
+        //event.preventDefault();
+        doSignOut();
+      });
+
+      contactsBtn.addEventListener('click', () => {
+          
+      });
+
+      homeBtn.addEventListener('click', (event) => {
+         
+      });
+  });
+</script>
 </html>
 

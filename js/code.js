@@ -60,13 +60,11 @@ function doSignIn()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 		
-				
 				if( userId < 1 )
 				{		
 					document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
 					return;
 				}
-				
 				
 				userFirstName = jsonObject.firstName;
 				userLastName = jsonObject.LastName;
@@ -93,7 +91,7 @@ function doSignUp()
 	userLastName = "";
 	
 	let signUpFirstName = document.getElementById("signUpFirstName").value;
-	let signUpLastName = document.getElementById("signUpFirstName").value;
+	let signUpLastName = document.getElementById("signUpLastName").value;
 	let signUpUsername = document.getElementById("signUpUsername").value;
 	let signUpPassword = document.getElementById("signUpPassword").value;
 	
@@ -111,22 +109,20 @@ function doSignUp()
 	{
 		xhr.onreadystatechange = function() 
 		{
-			if (this.readyState != 4) { // No response yet
-				return;
-			}
-
-			if (this.status == 409) { // Status set to "Username taken"
-				document.getElementById("signUpResult").innerHTML = "Username is already taken.";
-				return;
-			}
-			if (this.status == 200) {// Status set to success
+			if (this.readyState == 4 && this.status == 200) {// Status set to success
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
+
+				if (jsonObject.error != "") {
+					document.getElementById("signUpResult").innerHTML = jsonObject.error;
+					return;
+				}
 
 				saveCookie();
 	
 				window.location.href = "contacts.html";
 			}
+			
 		};
 		xhr.send(jsonPayload);
 	}
