@@ -36,7 +36,7 @@
 			returnWithInfo($searchResults);
 		} else {
 			http_response_code(409);
-			returnWithError("Username taken");
+			returnWithError("Username is already taken.");
 		}
 	}
 
