@@ -26,7 +26,27 @@
       </form>
       <p id="addContactResult"></p>
     </section>
+
+    <section class="table-section">
+      <h2>Your Contacts</h2>
+      <input type="text" id="searchInput" placeholder="Search contacts..." onkeyup="searchContacts()">
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="contactTableBody">
+          <!-- Contacts will be dynamically added here -->
+        </tbody>
+      </table>
+      <p id="searchContactsResult"></p>
+    </section>
   </div>
 </body>
 
-</html>
+</html>Added search input and dynamically generated contact table to display contact list.
