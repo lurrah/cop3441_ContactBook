@@ -236,12 +236,19 @@ function addContact()
 
 function searchContacts()
 {
-	let searchInput = document.getElementById("searchInput").value;
+	const srch = document.getElementById("searchInput").value;
 	document.getElementById("searchContactsResult").innerHTML = "";
-	
-	let contactList = "";
 
-	let tmp = {search:searchInput,userId:userId};
+	const table = document.getElementById("contacts"); // table in contacts.html needs to have id="contacts"
+	const row = table.getElementsByTagName("tr");  
+
+	// reset contact table
+	while (table.rows.length > 1) {
+		table.deleteRow(1);
+	}
+	
+	let tmp = {search:srch,userId:userId};
+
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContacts.' + extension;
@@ -258,24 +265,24 @@ function searchContacts()
 				document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
 				let jsonObject = JSON.parse( xhr.responseText );
 				
-				for( let i=0; i<jsonObject.results.length; i++ )
+				for (let i=0; i<jsonObject.results.length; i++)
 				{
-					contactList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br />\r\n";
-					}
+					tableHTML += "<tr id='row" + i + "'>";
+					tableHTML += "<td id= 'firstName" + i + "'><span>" + jsonObject.results[i].FirstName + "</span></td>";
+					tableHTML += "<td id = 'lastName" + i +"'><span>" + jsonObject.results[i].LastName + "</span></td>";
+					tableHTML += "<td id = 'email" + i + "'><span>" + jsonObject.results[i].Email + "</span></td>";
+					tableHTML += "<td id = 'phone" + i + "'><span>" + jsonObject.results[i].Phone + "</span></td>";
+					tableHTML += "<td>" 
 				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = contactList;
+				//tableHTML += "</table>";
+				document.getElementById("tbody").innerHTML = tableHTML;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("contactSearchResult").innerHTML = err.message;
-	}
+		document.getElementById("searchContactsResult").innerHTML = err.message;	}
 	
 }
 
