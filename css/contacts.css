@@ -1,302 +1,101 @@
-body {
-    background-color: #d4e1e1;
-    background-image: url('imagee.png');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    /*justify-content: center;
-    align-items: center;*/
-    height: 100vh; /*table height*/
+
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container{
-    position: fixed;
-    left: 0px;
-    /*left: -250px;*/
-    width: 250px;
-    height: 100%;
-    background: #042331;
-    transition: all .5s ease;
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f4f7;
+    color: #333;
 }
 
-.container header{
-    font-size: 22px;
-    color: white;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
     text-align: center;
-    line-height: 70px;
-    background: #063146;
-    user-select: none;
-}
-
-.container ul a{
-    display: block;
-    height: 100%;
-    width: 100%;
-    line-height: 65px;
-    font-size: 20px;
+    padding: 20px 0;
+    background-color: #4a90e2;
     color: white;
-    padding-left: 40px;
-    box-sizing: border-box;
-   /* border-top: 1px solid rgba(255, 255, 255, .1);
-    border-bottom: 1px solid black;*/
-    transition: .4s;
+    border-radius: 10px;
+    margin-bottom: 30px;
 }
 
-ul li:hover a{
-    padding-left: 50px;
+header h1 {
+    font-size: 36px;
 }
 
-.container ul a i{
-    margin-left: 16px;
+.form-section,
+.table-section {
+    margin-bottom: 30px;
 }
 
-.search-container {
+.form-section h2,
+.table-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #4a90e2;
+}
+
+form {
     display: flex;
-    align-items: center;
-    gap: 300px; /*Space between the search bar and the button*/
-    position: absolute;
-    left: 30%;
-    top: 15%;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.add-contact-btn {
-    --button-color: #333333; 
-    --button-background: #4d7275;
-    --button-background-hover: #cccccc;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--button-background);
-    color: var(--button-color);
-    color: white;
-    outline: none;
-    border: none;
-    border-radius: 4px;
-    font-family: 'Lexend', sans-serif;
-    font-weight: 600;
-    font-size: 16px; /*font size*/
-    padding: 10px 15px; /*padding*/
-    cursor: pointer; 
-    transition: background 0.3s;
-}
-
-.add-contact-btn:hover {
-    background: var(--button-background-hover); /* Color change on hover */
-}
-
-.add-contact-btn:active {
-    background-color: var(--button-background-active);
-}
-
-.add-contact-btn .material-symbols-outlined {
-    font-size: 20px; /* Adjust icon size if needed */
-}
-/*.search{
-    --search-color:#333333; 
-    --search-background: #4d7275;
-    --search-background-hover: #cccccc;
-    --padding: 10px;
-    width: max-content;
-    display: flex;
-    align-items: center;/*align icon with placeholder*/
- /*   padding: var(--padding);
-    border-radius: 20px;
-    background: var(--search-background);
-    color: var(--search-color);
-    color: white;
-    width: 600px;
-    transition: background 0.25s;
-    position: absolute;
-    left: 26%;
-    top: 15%;
-}*/
-.search {
-    display: flex;
-    align-items: center;
-    background: #4d7275;
-    border-radius: 20px;
-    padding: 10px;
-}
-
- 
-.search:focus-within{
-    color: #cccccc;
-}
-
-.search-input{
-    font-size: 16px;
-    font-family: 'Lexend', sans-serif;
-    color: white;
-    /*margin-left: var(--padding);*/
-    margin-left: 10px;
-    outline: none;
-    border: none;
-    background: transparent;
-    flex: 1;
-}
-
-.search-input::placeholder,
-.search-icon{
-    color: white;
-}
-
-
-
-
-/*
-#check{
-    display: none;
-}
-
-label #btn, label #cancel{
-    position: absolute;
-    cursor: pointer;
-    background: #042331;
-    border-radius: 3px;
-}
-
-label #btn{
-    left: 40px;
-    top: 25px;
-    font-size: 35px;
-    color: white;
-    padding: 6px 12px;
-    transition: all .5s;
-}
-
-label #cancel{
-    z-index: 1111;
-    left: -195px;
-    top: 17px;
-    font-size: 30px;
-    color: #0a5275;
-    padding: 4px 9px;
-    transition: all .5s ease;
-}
-
-#check:checked ~ .container{
-    left: 0;
-}
-
-#check:checked ~ label #btn{
-    left: 250px;
-    opacity: 0;
-    pointer-events: none;
-}
-
-#check:checked ~ label #cancel{
-    left: 195px;
-} */
-
-.table-container {
-    position: absolute;
-    width: 100%;
-    max-width: calc(100% - 250px); /* Ensure the container fits within the available width */
-    /*max-width: 1000px; /* Limit maximum width of the table container */
-    /*margin: 20px auto; /* Center the table horizontally */
-    /*overflow-x: auto; /* Horizontal scrolling if needed */
-    margin: 0 auto; /* Center the container */
-    padding: 0 20px; /* Optional: Add padding to avoid touching edges */
-    box-sizing: border-box;
-    overflow-x: auto; /* Horizontal scrolling if needed */
-    margin-top: 17%;  
-    margin-left: 17%; /*left*/
-}
-
-
-.scrollable-table {
-    display: flex;
-    flex-direction: column;
-    height: 300px; /*moves the table to the bottom*/
-    overflow-y: auto; /*allows scrolling*/
-    border-radius: 4px;
-}
-
-.table-fixed {
-    width: 80%; /*increase width to make the table larger*/
-    background-color: #fff; /*white for the table background*/
-    border-collapse: collapse;
+form input,
+form button {
+    padding: 12px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.15);
-    margin: 20px auto; /*centers the table horizontally and add some space from top and bottom*/
+    font-size: 16px;
 }
 
-.table-fixed thead, 
-.table-fixed thead > th {
-    background: #4d7275;
-    color: #fff;
-    font-size: 15px;
-    text-align: left;
-    position: sticky; /*makes the header stick to the top of the container when scrolling*/
-    top: 0;
-    border-radius: 4px;
-}
-
-.table-fixed th,
-.table-fixed td{
-    padding: 12px 25px;
-}
-
-.table-fixed tbody tr td {
-    background: #fff;
-}
-
-.table-fixed .col {
-    width: 20%; /*col width*/
-}
-
-.table-fixed tbody {
-    display: block;
-    height: 300px; /*increase height to allow more rows to be visible before scrolling*/
-    overflow-y: auto; /*scrolling in table body*/
-}
-
-.table-fixed tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.button, .button-propone, .button-proptwo, .button-propthree{
-    --button-color:#333333; 
-    --button-background: #4d7275;
-    --button-background-hover: #cccccc;
-    display: inline-flex;
-    align-items: center;
-    gap:6px;
-    background: var(--button-background);
-    color: var(--button-color);
+form button {
+    background-color: #4a90e2;
     color: white;
-    outline: none;
     border: none;
-    border-radius: 4px;
-    font-family: 'Lexend', sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    padding: 13px 19px; /*top and bottom | left and right*/
-    cursor: pointer; /*clickable when hovered over*/
-    margin-top: 50px;
-    margin: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.button:hover, .button-propone:hover, .button-proptwo:hover, .button-propthree:hover
-.button:active, .button-propone:active, .button-proptwo:active, .button-propthree:active{
-    background: var(--button-background-hover); /*when cursor hovers over, the button changes color*/
+form button:hover {
+    background-color: #357ABD;
 }
 
-.button:active, .button-propone:active, .button-proptwo:active, .button-propthree:active{
-    background-color: var(--button-background-active);
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-/*.button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 100px; /*away from the table*/
- /*}*/
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
+table th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+input#searchInput {
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
