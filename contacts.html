@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/contacts.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <title>Contacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <form>
+      <div class="search-container">
+        <div class="search">
+          <span class="search-icon material-symbols-outlined">search</span>
+          <input class="search-input" type="search" placeholder="Search">
+        </div>
+        <button class="add-contact-btn" type="button">
+          <span class="material-symbols-outlined">add</span>
+          <span>Add Contact</span>
+        </button>
+      </div>
+    </form>
+    
+   <!--<input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars" id="btn"></i>
+      <i class="fas fa-times" id="cancel"></i>
+    </label>-->
+    <div class="container">
+      <header>Contact Manager</header>
+      <ul>
+      <button class="button" type="button">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Logout</span>
+      </button>
+      <button class="button-propone" type="button">
+        <span class="material-symbols-outlined">contacts</span>
+        <span>Contacts</span>
+      </button>
+      <button class="button-proptwo" type="button">
+        <span class="material-symbols-outlined">home</span>
+        <span>Home</span>
+      </button>
+      <button class="button-propthree" type="button">
+        <span class="material-symbols-outlined">group</span>
+        <span>About</span>
+      </button>
+      </ul>
+    </div>
+
+    <div class="scrollable-table table-container">
+        <table class="table-fixed table table-striped ">
+            <thead>
+                <tr>
+                    <th class="col">First Name</th>
+                    <th class="col">Last Name</th>
+                    <th class="col">Phone</th>
+                    <th class="col">Email</th>
+                    <th class="col">Edit/Delete Icons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col">John</td>
+                    <td class="col">Smith</td>
+                    <td class="col">4008889999</td>
+                    <td class="col">John@email.com</td>
+                    <td class="col">del edit</td>
+                </tr>
+                <tr>
+                  <td class="col">John</td>
+                  <td class="col">Smith</td>
+                  <td class="col">4008889999</td>
+                  <td class="col">John@email.com</td>
+                  <td class="col">del edit</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In and Sign Up Form</title>
-    <link rel="stylesheet" href = "./css/styles.css">
-    <script type="text/javascript" src="js/code.js"></script>
+    <link rel="stylesheet" href = "css/styles.css">
+    <script type="text/javascript" src="/js/code.js"></script>
     </head>
 <body>
     <div class="container">
@@ -25,7 +25,8 @@
                     <i class="fas fa-lock"></i>
                     <input type="password" placeholder="Password" id="signInPassword" />
                 </div>
-                <input id="signInSubmitBtn" type="submit" class="btn" value="Sign in" />
+                <input id="signInSubmitBtn" type="submit" class="btn" value="Sign in"/>
+                <span id="signInResult">Sign-in result.</span>
             </form>
             <form id="signUpForm" class="form">
                 <h2 class="title">Sign Up</h2>
@@ -45,10 +46,10 @@
                     <i class="fas fa-lock"></i>
                     <input type="password" placeholder="Password" id="signUpPassword" />
                 </div>
-                <input id="signUpSubmitBtn" type="submit" class="btn" value="Sign up" onclick={doSignIn()}/>
+                <input id="signUpSubmitBtn" type="submit" class="btn" value="Sign up"/>
+                <span id="signUpResult">Sign-up result.</span>
             </form>
         </div>
-        <span id="loginResult"></span>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
