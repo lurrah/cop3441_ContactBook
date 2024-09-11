@@ -30,7 +30,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"ID":' . $row["ID"] .',"FirstName":"' . $row["FirstName"] .'","LastName":"' . $row["LastName"] .'","Email":"' . $row["Email"] .'","Phone":' . $row["Phone"] . '"}';
+			$searchResults .= '{"ID":' . $row["ID"] .',"FirstName":"' . $row["FirstName"] .'","LastName":"' . $row["LastName"] .'","Email":"' . $row["Email"] .'","Phone":"' . $row["Phone"] . '"}';
 		}
 		
 		if( $searchCount == 0 )
