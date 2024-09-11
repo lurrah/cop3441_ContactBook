@@ -70,10 +70,9 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = [
-			"results" => $searchResults,
-			"error" => ""
-		]
+		$retValue = '{"id":'. searchResults[0] .',"FirstName":'. searchResults[0] .',"LastName":'. searchResults[0] .',"Phone":'. searchResults[0] .',"Email":'. searchResults[0] .',"error":""}';
+
+
 		
 		//'{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( json_encode($retValue) );
