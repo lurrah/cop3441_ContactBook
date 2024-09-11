@@ -35,7 +35,7 @@
 				"LastName" => $row["LastName"],
 				"Email" => $row["Email"],
 				"Phone" => $row["Phone"]
-			] 
+			]; 
 		}
 		
 		if( $searchCount == 0 )
@@ -44,7 +44,7 @@
 		}
 		else
 		{
-			returnWithInfo( json_encode($searchResults) );
+			returnWithInfo( $searchResults );
 		}
 		
 		$stmt->close();
