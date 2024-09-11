@@ -75,7 +75,7 @@
 
 		
 		//'{"results":[' . $searchResults . '],"error":""}';
-		sendResultInfoAsJson( json_encode($retValue) );
+		sendResultInfoAsJson( $retValue );
 	}
 	
 ?>
