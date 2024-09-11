@@ -1,5 +1,7 @@
 let contacts = [];
 
+readCookie();
+
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
     let lastName = document.getElementById("addContactLastName").value;
@@ -44,34 +46,66 @@ function renderContacts() {
 }
 
 function searchContacts() {
-    let searchTerm = document.getElementById("searchInput").value.toLowerCase();
-    let tbody = document.getElementById("contactTableBody");
-    tbody.innerHTML = '';
+    const srch = document.getElementById("searchInput").value;
+	document.getElementById("searchContactsResult").innerHTML = "";
 
-    let filteredContacts = contacts.filter(contact => 
-        contact.firstName.toLowerCase().includes(searchTerm) ||
-        contact.lastName.toLowerCase().includes(searchTerm) ||
-        contact.phone.includes(searchTerm) ||
-        contact.email.toLowerCase().includes(searchTerm)
-    );
+	const table = document.getElementById("contactTableBody"); 
+    table.innerHTML = '';
 
-    filteredContacts.forEach((contact, index) => {
-        let row = `<tr>
-            <td>${contact.firstName}</td>
-            <td>${contact.lastName}</td>
-            <td>${contact.phone}</td>
-            <td>${contact.email}</td>
-            <td>
-                <button onclick="editContact(${index})">Edit</button>
-                <button onclick="deleteContact(${index})">Delete</button>
-            </td>
-        </tr>`;
-        tbody.innerHTML += row;
-    });
+	// reset contact table
+	// while (table.rows.length > 1) {
+	// 	table.deleteRow(1);
+	// }
+	
+	let tmp = {search:srch,userId:userId};
 
-    document.getElementById("searchContactsResult").innerHTML = filteredContacts.length
-        ? `Found ${filteredContacts.length} contact(s).`
-        : "No contacts found.";
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/SearchContacts.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				console.log(jsonObject);
+                if (jsonObject.error !== "") 
+                {
+                    document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
+                } else 
+                {
+				document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
+                }
+
+                console.log(jsonObject);
+				for (let i=0; i<jsonObject.results.length; i++)
+				{
+                    let row = `<tr id='row ${i}'>
+                                    <td id='firstName ${i}'><span>${jsonObject.results[i].FirstName}</span></td>
+                                    <td id='lastName ${i}'><span>${jsonObject.results[i].LastName}</span></td>
+                                    <td id='email ${i}'><span>${jsonObject.results[i].Email}</span></td>
+                                    <td id='phone ${i}'><span>${jsonObject.results[i].Phone}</span></td>
+                                    <td>
+                                        <button onclick="editContact(${i})">Edit</button>
+                                        <button onclick="deleteContact(${i})">Delete</button>
+                                    </td>
+                                </tr>`
+                    table.innerHTML += row;
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("searchContactsResult").innerHTML = err.message;	
+    }
+	
 }
 
 function deleteContact(index) {
