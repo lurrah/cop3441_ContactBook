@@ -71,7 +71,7 @@
 	function returnWithInfo( $searchResults )
 	{
 		$retValue = [
-			"results" => json_decoded($searchResults, true),
+			"results" => json_decode($searchResults, true),
 			"error:" => ""
 		]
 		
