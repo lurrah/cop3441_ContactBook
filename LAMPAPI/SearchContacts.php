@@ -6,7 +6,7 @@
 	
 	$inData = getRequestInfo();
 	
-	$searchResults = "";
+	$searchResults = [];
 	$searchCount = 0;
 
 	$conn = new mysqli("localhost", "Team25", "smallProj1", "COP4331"); 	
@@ -30,7 +30,12 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["FirstName"] .' ' . $row["LastName"] .' ' . $row["Email"] .' ' . $row["Phone"] . '"';
+			$searchResults[] = [
+				"FirstName" => $row["FirstName"],
+				"LastName" => $row["LastName"],
+				"Email" => $row["Email"],
+				"Phone" => $row["Phone"]
+			] 
 		}
 		
 		if( $searchCount == 0 )
@@ -39,7 +44,7 @@
 		}
 		else
 		{
-			returnWithInfo( $searchResults );
+			returnWithInfo( json_encode($searchResults) );
 		}
 		
 		$stmt->close();
