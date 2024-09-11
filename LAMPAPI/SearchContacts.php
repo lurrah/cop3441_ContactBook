@@ -70,7 +70,12 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		$retValue = [
+			"results" => json_decoded($searchResults, true),
+			"error:" => ""
+		]
+		
+		//'{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
