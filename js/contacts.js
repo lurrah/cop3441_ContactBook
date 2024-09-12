@@ -1,4 +1,9 @@
 let contacts = [];
+const urlBase = 'http://lamp-project.com/LAMPAPI';
+// const urlBase = 'http://127.0.0.1:5500/LAMPAPI';
+
+const extension = 'php';
+
 
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
@@ -11,17 +16,38 @@ function addContact() {
         return;
     }
 
+    // Prepare data for API call
     let newContact = {
-        firstName,
-        lastName,
-        phone,
-        email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        userId: 1 // Assuming `userId` is 1. Replace this as needed.
     };
 
-    contacts.push(newContact);
-    renderContacts();
-    document.getElementById("addContactForm").reset();
-    document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+    let url = urlBase + '/AddContact.' + extension;
+
+    // Send contact to the server
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);  // Replace with your actual server path
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = JSON.parse(xhr.responseText);
+            if (response.error === "") {
+                // If success, add the new contact to the local array and render
+                contacts.push(newContact);
+                renderContacts();
+                document.getElementById("addContactForm").reset();
+                document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+            } else {
+                document.getElementById("addContactResult").innerHTML = "Error adding contact: " + response.error;
+            }
+        }
+    };
+    
+    xhr.send(JSON.stringify(newContact));
 }
 
 function renderContacts() {
