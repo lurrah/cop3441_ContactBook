@@ -8,7 +8,7 @@ let lastName = "";
 
 function doSignIn()
 {
-	console.log("Did sign-in.");
+	console.log("Began sign-in.");
 	userId = 0;
 	firstName = "";
 	lastName = "";
@@ -62,6 +62,8 @@ function doSignIn()
 
 function doSignUp()
 {
+	console.log("Began sign-up.")
+	
 	userId = 0;
 	userFirstName = "";
 	userLastName = "";
