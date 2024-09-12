@@ -1,5 +1,6 @@
 const urlBase = 'http://lamp-project.com/LAMPAPI';
 // const urlBase = 'http://127.0.0.1:5500/LAMPAPI';
+// const urlBase = 'http://68.183.105.103/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -48,7 +49,7 @@ function doSignIn()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contacts.html";
 			}
 		};
 		xhr.send(jsonPayload);
