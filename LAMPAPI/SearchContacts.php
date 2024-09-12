@@ -1,5 +1,9 @@
 <?php
-
+    // Allow cross origin requests
+    header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+	header("Content-Type: application/json; charset=UTF-8");
+	
 	$inData = getRequestInfo();
 	
 	$searchResults = "";
@@ -12,7 +16,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ?) AND UserID=?");
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID=?");
 		$contactName = "%" . $inData["search"] . "%";
 		$stmt->bind_param("ssi", $contactName, $contactName, $inData["userId"]);
 		$stmt->execute();
@@ -26,12 +30,12 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '"' . $row["FirstName"] .' ' . $row["LastName"] .' ' . $row["Email"] .' ' $row["Phone"] . '"';
+			$searchResults .= '{"ID":' . $row["ID"] .',"FirstName":"' . $row["FirstName"] .'","LastName":"' . $row["LastName"] .'","Email":"' . $row["Email"] .'","Phone":"' . $row["Phone"] . '"}';
 		}
 		
 		if( $searchCount == 0 )
 		{
-			returnWithError( "No records found.");
+			returnWithError( "No Records Found" );
 		}
 		else
 		{
@@ -62,6 +66,9 @@
 	function returnWithInfo( $searchResults )
 	{
 		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+
+
+
 		sendResultInfoAsJson( $retValue );
 	}
 	
