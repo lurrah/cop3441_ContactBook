@@ -82,7 +82,32 @@ function doSignUp()
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
+	xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+         if (xhr.status === 200) {
+            try {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error) {
+                    document.getElementById("signUpResult").innerHTML = jsonObject.error;
+                } else if (jsonObject.id > 0) {  //check if sign-up was successful
+                    userId = jsonObject.id;
+                    firstName = jsonObject.firstName;
+                    lastName = jsonObject.lastName;
+                    saveCookie(); //save the user details in cookies
+                    window.location.href = "contacts.html"; //redirect to contacts page
+                } else {
+                    document.getElementById("signUpResult").innerHTML = "Signup failed. Please try again.";
+                }
+            } catch (e) {
+                document.getElementById("signUpResult").innerHTML = "Failed to parse server response.";
+            }
+        } else {
+            document.getElementById("signUpResult").innerHTML = "Server error: " + xhr.statusText;
+         }
+        }
+       };
+	/*try
 	{
 		xhr.onreadystatechange = function() 
 		{
@@ -97,7 +122,7 @@ function doSignUp()
 
 				saveCookie();
 	
-				window.location.href = "contacts.html";
+				window.location.href = "color.html";
 			}
 			
 		};
@@ -106,7 +131,7 @@ function doSignUp()
 	catch(err)
 	{
 		document.getElementById("signUpResult").innerHTML = err.message;
-	}
+	}*/
 
 }
 
