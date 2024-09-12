@@ -1,5 +1,7 @@
 const urlBase = 'http://lamp-project.com/LAMPAPI';
-// const urlBase = 'http://127.0.0.1:5500/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
+
+
 const extension = 'php';
 
 let userId = 0;
@@ -30,7 +32,7 @@ function doSignIn()
 	{
 		xhr.onreadystatechange = function() 
 		{
-			/*
+			
 			if (this.readyState != 4) { // No response yet
 				return;
 			}
@@ -42,6 +44,7 @@ function doSignIn()
 
 			if (this.status == 200) // Status set to success
 			{
+				console.log("TEXT", xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 
@@ -52,8 +55,6 @@ function doSignIn()
 	
 				window.location.href = "contacts.html";
 			}
-			*/
-
 			
 			// Previous working version
 			if (this.readyState == 4 && this.status == 200) // Have response w/ status set to success.

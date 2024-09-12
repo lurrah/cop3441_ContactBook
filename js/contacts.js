@@ -1,9 +1,8 @@
 let contacts = [];
 const urlBase = 'http://lamp-project.com/LAMPAPI';
-// const urlBase = 'http://127.0.0.1:5500/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
 
 const extension = 'php';
-
 
 readCookie();
 
