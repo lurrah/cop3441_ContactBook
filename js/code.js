@@ -63,8 +63,8 @@ function doSignIn()
 function doSignUp()
 {
 	userId = 0;
-	userFirstName = "";
-	userLastName = "";
+	firstName = "";
+	lastName = "";
 	
 	let signUpFirstName = document.getElementById("signUpFirstName").value;
 	let signUpLastName = document.getElementById("signUpLastName").value;
