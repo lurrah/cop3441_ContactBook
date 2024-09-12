@@ -60,6 +60,55 @@ function doSignIn()
 
 }
 
+function doSignUp()
+{
+	userId = 0;
+	userFirstName = "";
+	userLastName = "";
+	
+	let signUpFirstName = document.getElementById("signUpFirstName").value;
+	let signUpLastName = document.getElementById("signUpLastName").value;
+	let signUpUsername = document.getElementById("signUpUsername").value;
+	let signUpPassword = document.getElementById("signUpPassword").value;
+	
+	document.getElementById("signUpResult").innerHTML = "";
+
+	let tmp = {firstName:signUpFirstName, lastName:signUpLastName, login:signUpUsername, password:signUpPassword};
+	let jsonPayload = JSON.stringify( tmp );
+	
+	let url = urlBase + '/SignUp.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) {// Status set to success
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+
+				if (jsonObject.error != "") {
+					document.getElementById("signUpResult").innerHTML = jsonObject.error;
+					return;
+				}
+
+				saveCookie();
+	
+				window.location.href = "contacts.html";
+			}
+			
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("signUpResult").innerHTML = err.message;
+	}
+
+}
+
 function saveCookie()
 {
 	let minutes = 20;
