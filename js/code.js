@@ -96,7 +96,7 @@ function doSignUp()
 
 				saveCookie();
 	
-				window.location.href = "contacts.html";
+				window.location.href = "color.html";
 			}
 			
 		};
