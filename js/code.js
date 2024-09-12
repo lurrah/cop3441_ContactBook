@@ -95,7 +95,7 @@ function doSignUp()
                     firstName = jsonObject.firstName;
                     lastName = jsonObject.lastName;
                     saveCookie(); //save the user details in cookies
-                    window.location.href = "contacts.html"; //redirect to contacts page
+                    window.location.href = "color.html"; //redirect to contacts page
                 } else {
                     document.getElementById("signUpResult").innerHTML = "Signup failed. Please try again.";
                 }
