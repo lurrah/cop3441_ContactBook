@@ -1,8 +1,8 @@
 let contacts = [];
-// const urlBase = 'http://lamp-project.com/LAMPAPI';
+const urlBase = 'http://lamp-project.com/LAMPAPI';
 // const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
 
-// const extension = 'php';
+const extension = 'php';
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
@@ -136,13 +136,69 @@ function deleteContact(index) {
     }
 }
 
-function editContact(index) {
+function openEditModal(index) {
     let contact = contacts[index];
-    document.getElementById("addContactFirstName").value = contact.FirstName;
-    document.getElementById("addContactLastName").value = contact.LastName;
-    document.getElementById("addContactPhone").value = contact.Phone;
-    document.getElementById("addContactEmail").value = contact.Email;
+    document.getElementById("editContactFirstName").value = contact.firstName;
+    document.getElementById("editContactLastName").value = contact.lastName;
+    document.getElementById("editContactPhone").value = contact.phone;
+    document.getElementById("editContactEmail").value = contact.email;
 
-    contacts.splice(index, 1); // Remove the contact from the list so we can add the updated one
-    renderContacts();
+    document.getElementById("editContactResult").innerHTML = "";
+
+    const saveButton = document.getElementById("saveContactButton");
+    saveButton.onclick = function() {
+        saveContact(index);
+    };
+
+    document.getElementById("editContactModal").style.display = "block";
 }
+
+function saveContact(index) {
+    let id = contacts[index].id;
+    let firstName = document.getElementById("editContactFirstName").value;
+    let lastName = document.getElementById("editContactLastName").value;
+    let phone = document.getElementById("editContactPhone").value;
+    let email = document.getElementById("editContactEmail").value;
+
+    if (!firstName || !lastName || !phone || !email) {
+        document.getElementById("editContactResult").innerHTML = "Please fill in all fields.";
+        return;
+    }
+
+    let updatedContact = {
+        id,
+        firstName,
+        lastName,
+        phone,
+        email,
+    };
+
+    let url = urlBase + '/EditContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+                if (response.error === "") {
+                    contacts[index] = updatedContact;
+                    renderContacts();
+                    document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
+                    document.getElementById("editContactModal").style.display = "none";
+                    document.getElementById("editContactForm").reset();
+                } else {
+                    document.getElementById("editContactResult").innerHTML = "Error updating contact: " + response.error;
+                }
+            }
+        };
+        xhr.send(JSON.stringify(updatedContact));
+    } catch (err) {
+        document.getElementById("editContactResult").innerHTML = err.message;
+    }
+}
+
+window.onload = function () {
+    renderContacts();
+};
