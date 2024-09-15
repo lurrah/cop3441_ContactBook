@@ -13,7 +13,7 @@
 	$email = $inData["email"];
 	$userId = $inData["userId"];
 
-	$conn = new mysqli("localhost", "Team25", "smallProj1", "COP4331"); 
+	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	
 
 	if ($conn->connect_error) 
 	{

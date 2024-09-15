@@ -15,8 +15,7 @@
     $phone = $inData["phone"];
     $email = $inData["email"];
 
-    // Connect to the mysql database.
-    $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+    $conn = new mysqli("157.230.189.53", "TheBeast", "WeLoveCOP4331", "COP4331");
 
     // If no connection error, delete the contact from the database with the specified firstname, lastname, userId, phone, and email.
     if($conn->connect_error)
