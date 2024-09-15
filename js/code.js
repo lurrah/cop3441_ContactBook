@@ -109,30 +109,37 @@ function saveCookie() {
     let minutes = 20;
     let date = new Date();
     date.setTime(date.getTime() + minutes * 60 * 1000);
-    document.cookie =
-        "firstName=" + userFirstName +
-        ";lastName=" + userLastName +
-        ";userId=" + userId +
-        ";expires=" + date.toGMTString() + ";path=/";
+    const expires = ";expires=" + date.toUTCString() + ";path=/";
+
+    document.cookie = "firstName=" + encodeURIComponent(userFirstName) + expires;
+    document.cookie = "lastName=" + encodeURIComponent(userLastName) + expires;
+    document.cookie = "userId=" + encodeURIComponent(userId) + expires;
 }
 
 function readCookie() {
     userId = -1;
-    const data = document.cookie;
-    const pairs = data.split(";");
+    userFirstName = "";
+    userLastName = "";
 
-    pairs.forEach(pair => {
-        const [key, value] = pair.trim().split("=");
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        let [key, value] = cookie.split("=");
+
+        key = decodeURIComponent(key);
+        value = decodeURIComponent(value);
+
         if (key === "firstName") {
             userFirstName = value;
         } else if (key === "lastName") {
             userLastName = value;
         } else if (key === "userId") {
-            userId = parseInt(value.trim());
+            userId = parseInt(value);
         }
-    });
+    }
 
-    if (userId < 0) {
+    if (userId < 0 || isNaN(userId)) {
         window.location.href = "index.html";
     } else {
         // Optionally display the user's name

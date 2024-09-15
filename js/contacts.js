@@ -9,43 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadContacts();
 });
 
-function saveCookie() {
-    let minutes = 20;
-    let date = new Date();
-    date.setTime(date.getTime() + minutes * 60 * 1000);
-    document.cookie =
-        "firstName=" + userFirstName +
-        ";lastName=" + userLastName +
-        ";userId=" + userId +
-        ";expires=" + date.toGMTString() + ";path=/";
-}
-
-function readCookie() {
-    userId = -1;
-    const data = document.cookie;
-    const pairs = data.split(";");
-
-    pairs.forEach(pair => {
-        const [key, value] = pair.trim().split("=");
-        if (key === "firstName") {
-            userFirstName = value;
-        } else if (key === "lastName") {
-            userLastName = value;
-        } else if (key === "userId") {
-            userId = parseInt(value.trim());
-        }
-    });
-
-    if (userId < 0) {
-        window.location.href = "index.html";
-    } else {
-        // Optionally display the user's name
-        // document.getElementById("userName").innerHTML = "Logged in as " + userFirstName + " " + userLastName;
-    }
-}
-
-readCookie();
-
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
     let lastName = document.getElementById("addContactLastName").value;
