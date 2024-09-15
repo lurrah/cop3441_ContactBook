@@ -183,4 +183,36 @@ function loadContacts() {
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
     try {
-        xhr.onreadystatechange = fun
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let jsonObject = JSON.parse(xhr.responseText);
+
+                if (jsonObject.error) {
+                    document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
+                } else {
+                    contacts = jsonObject.results;
+                    renderContacts();
+                }
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("searchContactsResult").innerHTML = err.message;
+    }
+}
+
+function deleteContact(index) {
+    contacts.splice(index, 1);
+    renderContacts();
+}
+
+function editContact(index) {
+    let contact = contacts[index];
+    document.getElementById("addContactFirstName").value = contact.firstName;
+    document.getElementById("addContactLastName").value = contact.lastName;
+    document.getElementById("addContactPhone").value = contact.phone;
+    document.getElementById("addContactEmail").value = contact.email;
+
+    contacts.splice(index, 1); // Remove the contact from the list so we can add the updated one
+    renderContacts();
+}
