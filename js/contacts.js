@@ -64,7 +64,7 @@ function renderContacts() {
             <td>${contact.Phone}</td>
             <td>${contact.Email}</td>
             <td>
-                <button onclick="editContact(${index})">Edit</button>
+                <button onclick="openEditModal(${index})">Edit</button>
                 <button onclick="deleteContact(${index})">Delete</button>
             </td>
         </tr>`;
