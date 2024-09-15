@@ -1,5 +1,5 @@
-const urlBase = 'http://lamp-project.com/LAMPAPI';
-// const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
+// const urlBase = 'http://lamp-project.com/LAMPAPI';
+const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
 
 
 const extension = 'php';
@@ -111,7 +111,9 @@ function doSignUp()
 	{
 		xhr.onreadystatechange = function() 
 		{
-			if (this.readyState == 4 && this.status == 200) {// Status set to success
+			if (this.readyState == 4 && this.status == 200) {
+				// Status set to success
+				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 
@@ -140,6 +142,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
+	console.log(userFirstName + " : " + userLastName + " : " + userId);
 	document.cookie = "firstName=" + userFirstName + ",lastName=" + userLastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 

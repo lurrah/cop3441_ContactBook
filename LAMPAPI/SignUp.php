@@ -11,7 +11,7 @@
     $login = $inData["login"];
     $password = $inData["password"];
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331");
 
 	if ($conn->connect_error)
 	{
@@ -35,7 +35,7 @@
 			$stmt->close();
 			$conn->close();
 			http_response_code(200);
-			$searchResults .= '{'.'"id": "'.$id.''.'"}';
+			$searchResults = '{'.'"id": "'.$id.''.'"}';
 
 			returnWithInfo($searchResults);
 		} else {
