@@ -30,7 +30,7 @@
 
     <section class="table-section">
       <h2>Your Contacts</h2>
-      <input type="text" id="searchInput" placeholder="Search contacts..." onkeyup="searchContacts()">
+      <input type="text" id="searchInput" placeholder="Search contacts..." oninput="fetchContacts(this.value)">
       <table>
         <thead>
           <tr>

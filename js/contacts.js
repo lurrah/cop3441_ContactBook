@@ -4,9 +4,9 @@ let contacts = [];
 
 // const extension = 'php';
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    loadContacts();
+    fetchContacts(""); // Load all contacts when the page loads
 });
 
 function addContact() {
@@ -33,15 +33,15 @@ function addContact() {
 
     // Send contact to the server
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);  // Replace with your actual server path
+    xhr.open("POST", url, true); // Replace with your actual server path
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    
-    xhr.onreadystatechange = function() {
+
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
                 // Reload contacts after adding a new one
-                loadContacts();
+                fetchContacts("");
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
             } else {
@@ -72,71 +72,11 @@ function renderContacts() {
     });
 }
 
-function searchContacts() {
-    const srch = document.getElementById("searchInput").value;
-	document.getElementById("searchContactsResult").innerHTML = "";
+function fetchContacts(searchTerm) {
+    const srch = searchTerm.trim();
+    document.getElementById("searchContactsResult").innerHTML = "";
 
-	const table = document.getElementById("contactTableBody"); 
-    table.innerHTML = '';
-
-	// reset contact table
-	// while (table.rows.length > 1) {
-	// 	table.deleteRow(1);
-	// }
-	
-	let tmp = {search:srch,userId:userId};
-
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchContacts.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				console.log(jsonObject);
-                if (jsonObject.error !== "") 
-                {
-                    document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
-                } else 
-                {
-				document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-                }
-
-                console.log(jsonObject);
-				for (let i=0; i<jsonObject.results.length; i++)
-				{
-                    let row = `<tr id='row ${i}'>
-                                    <td id='firstName ${i}'><span>${jsonObject.results[i].FirstName}</span></td>
-                                    <td id='lastName ${i}'><span>${jsonObject.results[i].LastName}</span></td>
-                                    <td id='email ${i}'><span>${jsonObject.results[i].Email}</span></td>
-                                    <td id='phone ${i}'><span>${jsonObject.results[i].Phone}</span></td>
-                                    <td>
-                                        <button onclick="editContact(${i})">Edit</button>
-                                        <button onclick="deleteContact(${i})">Delete</button>
-                                    </td>
-                                </tr>`
-                    table.innerHTML += row;
-				}
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("searchContactsResult").innerHTML = err.message;	
-    }
-	
-}
-
-function loadContacts() {
-    let tmp = { search: "", userId: userId };
+    let tmp = { search: srch, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -145,16 +85,19 @@ function loadContacts() {
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
     try {
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
 
-                if (jsonObject.error) {
+                if (jsonObject.error && jsonObject.error !== "") {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
+                    contacts = []; // Clear the contacts array
                 } else {
-                    contacts = jsonObject.results;
-                    renderContacts();
+                    document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
+                    contacts = jsonObject.results; // Update the contacts array
                 }
+
+                renderContacts(); // Use the renderContacts function to display contacts
             }
         };
         xhr.send(jsonPayload);
@@ -175,7 +118,7 @@ function deleteContact(index) {
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
     try {
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response = JSON.parse(xhr.responseText);
                 if (response.error === "") {
@@ -195,10 +138,10 @@ function deleteContact(index) {
 
 function editContact(index) {
     let contact = contacts[index];
-    document.getElementById("addContactFirstName").value = contact.firstName;
-    document.getElementById("addContactLastName").value = contact.lastName;
-    document.getElementById("addContactPhone").value = contact.phone;
-    document.getElementById("addContactEmail").value = contact.email;
+    document.getElementById("addContactFirstName").value = contact.FirstName;
+    document.getElementById("addContactLastName").value = contact.LastName;
+    document.getElementById("addContactPhone").value = contact.Phone;
+    document.getElementById("addContactEmail").value = contact.Email;
 
     contacts.splice(index, 1); // Remove the contact from the list so we can add the updated one
     renderContacts();
