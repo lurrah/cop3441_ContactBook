@@ -68,6 +68,7 @@ function renderContacts() {
             <td>${contact.Email}</td>
             <td>
                 <button onclick="openEditModal(${index})">Edit</button>
+                <button onclick="openEditModal(${index})">Edit</button>
                 <button onclick="deleteContact(${index})">Delete</button>
             </td>
         </tr>`;
@@ -140,7 +141,12 @@ function deleteContact(index) {
 }
 
 function openEditModal(index) {
+function openEditModal(index) {
     let contact = contacts[index];
+    document.getElementById("editContactFirstName").value = contact.firstName;
+    document.getElementById("editContactLastName").value = contact.lastName;
+    document.getElementById("editContactPhone").value = contact.phone;
+    document.getElementById("editContactEmail").value = contact.email;
     document.getElementById("editContactFirstName").value = contact.firstName;
     document.getElementById("editContactLastName").value = contact.lastName;
     document.getElementById("editContactPhone").value = contact.phone;
@@ -203,5 +209,64 @@ function saveContact(index) {
 }
 
 window.onload = function () {
+    document.getElementById("editContactResult").innerHTML = "";
+
+    const saveButton = document.getElementById("saveContactButton");
+    saveButton.onclick = function() {
+        saveContact(index);
+    };
+
+    document.getElementById("editContactModal").style.display = "block";
+}
+
+function saveContact(index) {
+    let id = contacts[index].id;
+    let firstName = document.getElementById("editContactFirstName").value;
+    let lastName = document.getElementById("editContactLastName").value;
+    let phone = document.getElementById("editContactPhone").value;
+    let email = document.getElementById("editContactEmail").value;
+
+    if (!firstName || !lastName || !phone || !email) {
+        document.getElementById("editContactResult").innerHTML = "Please fill in all fields.";
+        return;
+    }
+
+    let updatedContact = {
+        id,
+        firstName,
+        lastName,
+        phone,
+        email,
+    };
+
+    let url = urlBase + '/EditContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+    try {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+                if (response.error === "") {
+                    contacts[index] = updatedContact;
+                    renderContacts();
+                    document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
+                    document.getElementById("editContactModal").style.display = "none";
+                    document.getElementById("editContactForm").reset();
+                } else {
+                    document.getElementById("editContactResult").innerHTML = "Error updating contact: " + response.error;
+                }
+            }
+        };
+        xhr.send(JSON.stringify(updatedContact));
+    } catch (err) {
+        document.getElementById("editContactResult").innerHTML = err.message;
+    }
+}
+
+window.onload = function () {
     renderContacts();
+};
+
 };
