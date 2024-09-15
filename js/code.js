@@ -8,82 +8,50 @@ let userId = 0;
 let userFirstName = "";
 let userLastName = "";
 
-function doSignIn()
-{
+function doSignIn() {
+    userId = 0;
+    userFirstName = "";
+    userLastName = "";
 
-	userId = 0;
-	userFirstName = "";
-	userLastName = "";
-	
-	let signInUsername = document.getElementById("signInUsername").value;
-	let signInPassword = document.getElementById("signInPassword").value;
-	
-	document.getElementById("signInResult").innerHTML = "";
+    let signInUsername = document.getElementById("signInUsername").value;
+    let signInPassword = document.getElementById("signInPassword").value;
 
-	let tmp = {login:signInUsername,password:signInPassword};
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/Login.' + extension;
+    document.getElementById("signInResult").innerHTML = "";
 
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			
-			if (this.readyState != 4) { // No response yet
-				return;
-			}
-			
-			if (this.status == 404) { // Status set to "No records found"
-				document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
-				return;
-			}
+    let tmp = { login: signInUsername, password: signInPassword };
+    let jsonPayload = JSON.stringify(tmp);
 
-			if (this.status == 200) // Status set to success
-			{
-				console.log("TEXT", xhr.responseText);
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
+    let url = urlBase + '/Login.' + extension;
 
-				userFirstName = jsonObject.firstName;
-				userLastName = jsonObject.LastName;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    let jsonObject = JSON.parse(xhr.responseText);
 
-				saveCookie();
-	
-				window.location.href = "contacts.html";
-			}
-			
-			// Previous working version
-			if (this.readyState == 4 && this.status == 200) // Have response w/ status set to success.
-			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-		
-				if( userId < 1 )
-				{		
-					document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
-					return;
-				}
-				
-				userFirstName = jsonObject.firstName;
-				userLastName = jsonObject.LastName;
+                    if (jsonObject.error) {
+                        document.getElementById("signInResult").innerHTML = jsonObject.error;
+                        return;
+                    }
 
-				saveCookie();
-	
-				window.location.href = "contacts.html";
-			}
-			
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("signInResult").innerHTML = err.message;
-	}
+                    userId = jsonObject.id;
+                    userFirstName = jsonObject.firstName;
+                    userLastName = jsonObject.lastName;
 
+                    saveCookie();
+                    window.location.href = "contacts.html";
+                } else {
+                    document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
+                }
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("signInResult").innerHTML = err.message;
+    }
 }
 
 function doSignUp()
