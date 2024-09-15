@@ -1,6 +1,6 @@
 let contacts = [];
 // const urlBase = 'http://lamp-project.com/LAMPAPI';
-const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
+// const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
 
 // const extension = 'php';
 

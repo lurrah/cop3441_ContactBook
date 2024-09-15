@@ -9,7 +9,7 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "Team25", "smallProj1", "COP4331"); 	
+	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -18,7 +18,9 @@
 	{
 		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID=?");
 		$contactName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ssi", $contactName, $contactName, $inData["userId"]);
+		$userId = intval($inData["userId"]); // Ensure it's an integer
+
+		$stmt->bind_param("ssssi", $contactName, $contactName, $contactName, $contactName, $userId);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
