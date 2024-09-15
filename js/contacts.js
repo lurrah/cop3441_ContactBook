@@ -59,10 +59,10 @@ function renderContacts() {
 
     contacts.forEach((contact, index) => {
         let row = `<tr>
-            <td>${contact.firstName}</td>
-            <td>${contact.lastName}</td>
-            <td>${contact.phone}</td>
-            <td>${contact.email}</td>
+            <td>${contact.FirstName}</td>
+            <td>${contact.LastName}</td>
+            <td>${contact.Phone}</td>
+            <td>${contact.Email}</td>
             <td>
                 <button onclick="editContact(${index})">Edit</button>
                 <button onclick="deleteContact(${index})">Delete</button>
