@@ -4,12 +4,15 @@ const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
 
 // const extension = 'php';
 
-function saveCookie()
-{
-	let minutes = 20;
-	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + userFirstName + ",lastName=" + userLastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+function saveCookie() {
+    let minutes = 20;
+    let date = new Date();
+    date.setTime(date.getTime() + minutes * 60 * 1000);
+    document.cookie =
+        "firstName=" + userFirstName +
+        ";lastName=" + userLastName +
+        ";userId=" + userId +
+        ";expires=" + date.toGMTString() + ";path=/";
 }
 
 function readCookie()
