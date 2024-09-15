@@ -203,5 +203,12 @@ function saveContact(index) {
 }
 
 window.onload = function () {
-    renderContacts();
-};
+    document.getElementById("editContactResult").innerHTML = "";
+
+    const saveButton = document.getElementById("saveContactButton");
+    saveButton.onclick = function() {
+        saveContact(index);
+    };
+
+    document.getElementById("editContactModal").style.display = "block";
+}
