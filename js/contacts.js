@@ -20,6 +20,9 @@ function addContact() {
         return;
     }
 
+    // Delete me
+    console.log();
+
     // Prepare data for API call
     let newContact = {
         firstName: firstName,
