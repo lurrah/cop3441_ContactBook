@@ -201,8 +201,33 @@ function loadContacts() {
 }
 
 function deleteContact(index) {
-    contacts.splice(index, 1);
-    renderContacts();
+    let contactId = contacts[index].ID; // Assuming your contact has an 'ID' field
+
+    let tmp = { ID: contactId, userId: userId };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/DeleteContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+                if (response.error === "") {
+                    // Remove contact from local array and re-render
+                    contacts.splice(index, 1);
+                    renderContacts();
+                } else {
+                    alert("Error deleting contact: " + response.error);
+                }
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        alert(err.message);
+    }
 }
 
 function editContact(index) {
