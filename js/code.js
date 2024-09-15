@@ -83,12 +83,15 @@ function doSignUp()
 				// Status set to success
 				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
 
 				if (jsonObject.error != "") {
 					document.getElementById("signUpResult").innerHTML = jsonObject.error;
 					return;
 				}
+
+				userId = jsonObject.id;
+				userFirstName = jsonObject.firstName;
+				userLastName = jsonObject.lastName;
 
 				saveCookie();
 	
