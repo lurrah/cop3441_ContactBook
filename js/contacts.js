@@ -73,13 +73,12 @@ function addContact() {
     xhr.open("POST", url, true);  // Replace with your actual server path
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
-                // If success, add the new contact to the local array and render
-                contacts.push(newContact);
-                renderContacts();
+                // Reload contacts after adding a new one
+                loadContacts();
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
             } else {
@@ -87,7 +86,7 @@ function addContact() {
             }
         }
     };
-    
+
     xhr.send(JSON.stringify(newContact));
 }
 
