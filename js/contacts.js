@@ -5,7 +5,7 @@ const urlBase = 'http://lamp-project.com/LAMPAPI';
 
 const extension = 'php';
 
-readCookie();
+// readCookie();
 
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
