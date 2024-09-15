@@ -116,37 +116,28 @@ function saveCookie() {
         ";expires=" + date.toGMTString() + ";path=/";
 }
 
-function readCookie()
-{
-	userId = -1;
-	let data = document.cookie;
-	let splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
-	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
-		{
-			userFirstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			userLastName = tokens[1];
-		}
-		else if( tokens[0] == "userId" )
-		{
-			userId = parseInt( tokens[1].trim() );
-		}
-	}
-	
-	if( userId < 0 )
-	{
-		window.location.href = "index.html";
-	}
-	else
-	{
-//		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-	}
+function readCookie() {
+    userId = -1;
+    const data = document.cookie;
+    const pairs = data.split(";");
+
+    pairs.forEach(pair => {
+        const [key, value] = pair.trim().split("=");
+        if (key === "firstName") {
+            userFirstName = value;
+        } else if (key === "lastName") {
+            userLastName = value;
+        } else if (key === "userId") {
+            userId = parseInt(value.trim());
+        }
+    });
+
+    if (userId < 0) {
+        window.location.href = "index.html";
+    } else {
+        // Optionally display the user's name
+        // document.getElementById("userName").innerHTML = "Logged in as " + userFirstName + " " + userLastName;
+    }
 }
 
 function doSignOut()

@@ -4,6 +4,11 @@ const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
 
 // const extension = 'php';
 
+document.addEventListener('DOMContentLoaded', function() {
+    readCookie();
+    loadContacts();
+});
+
 function saveCookie() {
     let minutes = 20;
     let date = new Date();
@@ -15,38 +20,28 @@ function saveCookie() {
         ";expires=" + date.toGMTString() + ";path=/";
 }
 
-function readCookie()
-{
-	userId = -1;
-	let data = document.cookie;
-    console.log(data);
-	let splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
-	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
-		{
-			userFirstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			userLastName = tokens[1];
-		}
-		else if( tokens[0] == "userId" )
-		{
-			userId = parseInt( tokens[1].trim() );
-		}
-	}
-	
-	if( userId < 0 )
-	{
-		window.location.href = "index.html";
-	}
-	else
-	{
-//		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
-	}
+function readCookie() {
+    userId = -1;
+    const data = document.cookie;
+    const pairs = data.split(";");
+
+    pairs.forEach(pair => {
+        const [key, value] = pair.trim().split("=");
+        if (key === "firstName") {
+            userFirstName = value;
+        } else if (key === "lastName") {
+            userLastName = value;
+        } else if (key === "userId") {
+            userId = parseInt(value.trim());
+        }
+    });
+
+    if (userId < 0) {
+        window.location.href = "index.html";
+    } else {
+        // Optionally display the user's name
+        // document.getElementById("userName").innerHTML = "Logged in as " + userFirstName + " " + userLastName;
+    }
 }
 
 readCookie();
@@ -178,18 +173,14 @@ function searchContacts() {
 	
 }
 
-function deleteContact(index) {
-    contacts.splice(index, 1);
-    renderContacts();
-}
+function loadContacts() {
+    let tmp = { search: "", userId: userId };
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/SearchContacts.' + extension;
 
-function editContact(index) {
-    let contact = contacts[index];
-    document.getElementById("addContactFirstName").value = contact.firstName;
-    document.getElementById("addContactLastName").value = contact.lastName;
-    document.getElementById("addContactPhone").value = contact.phone;
-    document.getElementById("addContactEmail").value = contact.email;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-    contacts.splice(index, 1); // Remove the contact from the list so we can add the updated one
-    renderContacts();
-}
+    try {
+        xhr.onreadystatechange = fun
