@@ -158,6 +158,7 @@ function doSignOut()
 	window.location.href = "index.html";
 }
 
+/*
 function addContact()
 {
 	let addContactFirstName = document.getElementById("addContactFirstName").value;
@@ -268,3 +269,4 @@ function deleteContact() {
 function loadContacts() {
 	let tmp = {search: "", userId: userId};
 }
+*/
