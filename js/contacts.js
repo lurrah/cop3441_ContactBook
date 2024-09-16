@@ -113,6 +113,7 @@ function deleteContact(index) {
     let namel_val = contact.lastName;
     let email_val = contact.email;
     let phone_val = contact.phone;
+    let contactId = contact.id;
 
     //display confirmation dialog for user
     let check = confirm('Confirm deletion of contact: ' + namef_val + ' ' + namel_val);
