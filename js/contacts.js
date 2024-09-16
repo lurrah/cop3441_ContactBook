@@ -153,6 +153,12 @@ function openEditModal(index) {
     document.getElementById("editContactModal").style.display = "block";
 }
 
+function closeEditModal() {
+    document.getElementById("editContactModal").style.display = "none";
+    document.getElementById("editContactForm").reset();
+    document.getElementById("editContactResult").innerHTML = "";
+}
+
 function saveContact(index) {
     let id = contacts[index].id;
     console.log("id of contact to update: "+ id);
@@ -187,8 +193,7 @@ function saveContact(index) {
                     contacts[index] = updatedContact;
                     renderContacts();
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
-                    document.getElementById("editContactModal").style.display = "none";
-                    document.getElementById("editContactForm").reset();
+                    closeEditModal();
                 } else {
                     document.getElementById("editContactResult").innerHTML = "Error updating contact: " + response.error;
                 }
