@@ -147,13 +147,13 @@ function openEditModal(index) {
 
     const saveButton = document.getElementById("saveContactButton");
     saveButton.onclick = function() {
-        saveContact();
+        saveContact(index);
     };
 
     document.getElementById("editContactModal").style.display = "block";
 }
 
-function saveContact() {
+function saveContact(index) {
     let id = contacts[index].id;
     let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
