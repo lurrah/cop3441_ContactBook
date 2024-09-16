@@ -138,10 +138,10 @@ function deleteContact(index) {
 
 function openEditModal(index) {
     let contact = contacts[index];
-    document.getElementById("editContactFirstName").value = contact.firstName;
-    document.getElementById("editContactLastName").value = contact.lastName;
-    document.getElementById("editContactPhone").value = contact.phone;
-    document.getElementById("editContactEmail").value = contact.email;
+    document.getElementById("editContactFirstName").value = contact.FirstName;
+    document.getElementById("editContactLastName").value = contact.LastName;
+    document.getElementById("editContactPhone").value = contact.Phone;
+    document.getElementById("editContactEmail").value = contact.Email;
 
     document.getElementById("editContactResult").innerHTML = "";
 
