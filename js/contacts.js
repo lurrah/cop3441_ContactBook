@@ -180,6 +180,11 @@ function saveContact(index) {
         email,
     };
 
+    if (updatedContact === contacts[index]) {
+        document.getElementById("editContactResult").innerHTML = "No changes detected.";
+        return;
+    }
+
     let url = urlBase + '/EditContact.' + extension;
 
     let xhr = new XMLHttpRequest();
