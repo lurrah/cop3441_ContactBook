@@ -107,9 +107,62 @@ function fetchContacts(searchTerm) {
 }
 
 function deleteContact(index) {
-    let contactId = contacts[index].id; // Assuming your contact has an 'ID' field
+    //get contact's info
+    let contact = contacts[index];
+    let namef_val = contact.firstName;
+    let namel_val = contact.lastName;
+    let email_val = contact.email;
+    let phone_val = contact.phone;
 
-    let tmp = { id: contactId, userId: userId };
+    //display confirmation dialog for user
+    let check = confirm('Confirm deletion of contact: ' + namef_val + ' ' + namel_val);
+
+    if (check === true) {
+        //data for API
+        let tmp = {
+            id: contactId,
+            userId: userId, 
+            firstName: namef_val,
+            lastName: namel_val,
+            email: email_val,
+            phone: phone_val
+        };
+
+        let jsonPayload = JSON.stringify(tmp);
+        let url = urlBase + '/DeleteContact.' + extension;
+
+        //send request to the server
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+        try {
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.error === "") {
+                            console.log("Contact has been deleted successfully.");
+                            fetchContacts(""); 
+                        } else {
+                            console.error("Error deleting contact: " + response.error);
+                        }
+                    } else {
+                        console.error("Request failed with status: " + xhr.status);
+                    }  
+                }
+            };
+            xhr.send(jsonPayload);
+        } catch (e) {
+            console.error("Error parsing response or handling request: " + e.message);
+        }
+    }
+}
+
+/*
+// non-functioning deleteContact function
+function deleteContact(index) {
+    let tmp = { userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/DeleteContact.' + extension;
 
@@ -135,6 +188,7 @@ function deleteContact(index) {
         alert(err.message);
     }
 }
+*/
 
 function openEditModal(index) {
     let contact = contacts[index];
@@ -198,8 +252,7 @@ function saveContact(index) {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response = JSON.parse(xhr.responseText);
                 if (response.error === "") {
-                    contacts[index] = updatedContact;
-                    renderContacts();
+                    fetchContacts("");
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
                 } else {
