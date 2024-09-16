@@ -7,7 +7,7 @@
     $inData = getRequestInfo();
 
     // Extract contact details from the request
-    $contactId = $inData["contactId"];
+    $contactId = $inData["id"];
     $firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     $phone = $inData["phone"];

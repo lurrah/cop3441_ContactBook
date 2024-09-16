@@ -107,9 +107,9 @@ function fetchContacts(searchTerm) {
 }
 
 function deleteContact(index) {
-    let contactId = contacts[index].ID; // Assuming your contact has an 'ID' field
+    let contactId = contacts[index].id; // Assuming your contact has an 'ID' field
 
-    let tmp = { ID: contactId, userId: userId };
+    let tmp = { id: contactId, userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/DeleteContact.' + extension;
 
@@ -155,6 +155,7 @@ function openEditModal(index) {
 
 function saveContact(index) {
     let id = contacts[index].id;
+    console.log("id of contact to update: "+ id);
     let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
     let phone = document.getElementById("editContactPhone").value;
