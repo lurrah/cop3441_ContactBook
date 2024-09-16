@@ -59,10 +59,10 @@ function renderContacts() {
 
     contacts.forEach((contact, index) => {
         let row = `<tr>
-            <td>${contact.FirstName}</td>
-            <td>${contact.LastName}</td>
-            <td>${contact.Phone}</td>
-            <td>${contact.Email}</td>
+            <td>${contact.firstName}</td>
+            <td>${contact.lastName}</td>
+            <td>${contact.phone}</td>
+            <td>${contact.email}</td>
             <td>
                 <button onclick="openEditModal(${index})">Edit</button>
                 <button onclick="deleteContact(${index})">Delete</button>
@@ -138,22 +138,22 @@ function deleteContact(index) {
 
 function openEditModal(index) {
     let contact = contacts[index];
-    document.getElementById("editContactFirstName").value = contact.FirstName;
-    document.getElementById("editContactLastName").value = contact.LastName;
-    document.getElementById("editContactPhone").value = contact.Phone;
-    document.getElementById("editContactEmail").value = contact.Email;
+    document.getElementById("editContactFirstName").value = contact.firstName;
+    document.getElementById("editContactLastName").value = contact.lastName;
+    document.getElementById("editContactPhone").value = contact.phone;
+    document.getElementById("editContactEmail").value = contact.email;
 
     document.getElementById("editContactResult").innerHTML = "";
 
     const saveButton = document.getElementById("saveContactButton");
     saveButton.onclick = function() {
-        saveContact(index);
+        saveContact();
     };
 
     document.getElementById("editContactModal").style.display = "block";
 }
 
-function saveContact(index) {
+function saveContact() {
     let id = contacts[index].id;
     let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
