@@ -172,6 +172,14 @@ function saveContact(index) {
         return;
     }
 
+    if (firstName === contacts[index].firstName && 
+        lastName === contacts[index].lastName && 
+        phone === contacts[index].phone && 
+        email === contacts[index].email) { // No changes
+        document.getElementById("editContactResult").innerHTML = "No changes to save.";
+        return;
+    }
+
     let updatedContact = {
         id,
         firstName,
@@ -179,11 +187,6 @@ function saveContact(index) {
         phone,
         email,
     };
-
-    if (updatedContact === contacts[index]) {
-        document.getElementById("editContactResult").innerHTML = "No changes detected.";
-        return;
-    }
 
     let url = urlBase + '/EditContact.' + extension;
 
