@@ -1,6 +1,6 @@
 let contacts = [];
 const urlBase = 'http://lamp-project.com/LAMPAPI';
-// const urlBase = 'http://localhost:8000/LAMPAPI'; // For testing purposes
+// const urlBase = 'http://localhost:8000/LAMPAPI';
 
 const extension = 'php';
 
@@ -19,9 +19,6 @@ function addContact() {
         document.getElementById("addContactResult").innerHTML = "Please fill in all fields.";
         return;
     }
-
-    // Delete me
-    console.log();
 
     // Prepare data for API call
     let newContact = {
@@ -200,15 +197,4 @@ function saveContact(index) {
     } catch (err) {
         document.getElementById("editContactResult").innerHTML = err.message;
     }
-}
-
-window.onload = function () {
-    document.getElementById("editContactResult").innerHTML = "";
-
-    const saveButton = document.getElementById("saveContactButton");
-    saveButton.onclick = function() {
-        saveContact(index);
-    };
-
-    document.getElementById("editContactModal").style.display = "block";
 }
