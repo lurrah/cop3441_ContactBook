@@ -9,6 +9,225 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f3f4f7;
     color: #333;
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Style for the main content header */
+.main-header {
+    background-color: #063146;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
+  }
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Hide sidebar initially */
+    width: 250px;
+    height: 100%;
+    background: #042331;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding-top: 0px;
+}
+
+.sidebar.active {
+    transform: translateX(250px); /* Slide in sidebar */
+}
+
+.sidebar header {
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    background: #063146;
+    user-select: none;
+    border-radius: 4px;
+    margin-top: 0px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li .button, .button-propone, .button-proptwo, .button-propthree {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #4d7275;
+    color: white;
+    border: none;
+    border-radius: 55px;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 15px 19px;
+    cursor: pointer;
+    margin: 10px;
+    width: 80%;
+}
+
+.sidebar ul li .button:hover, .button-propone:hover, .button-proptwo:hover, .button-propthree:hover {
+    /*background: #cccccc;*/
+    background: #90b4b6;
+}
+
+/*sidebar Toggle Button*/
+/*.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    background: #4d7275;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+*/
+
+/*.sidebar-toggle:focus {
+    outline: none;
+}*/
+
+/*content styles*/
+.content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    width: 100%;
+}
+
+.content.active {
+    margin-left: 250px;
+}
+
+/*modal styles*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/*form section styles */
+.form-section,
+.table-section {
+    margin-bottom: 30px;
+}
+
+.form-section h2,
+.table-section h2,
+.modal-content h2 {
+    margin-top: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    /*color: #4a90e2;*/
+    color: #063146;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+form input,
+form button {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 55px;
+    font-size: 16px;
+    color: #4d7275;
+}
+
+form button {
+   /* background-color: #4a90e2;*/
+    background-color: #4d7275;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+form button:hover {
+    /*background-color: #357ABD;*/
+    background-color: #90b4b6;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    /*background-color: #4a90e2;*/
+    background-color: #063146;
+    color: white;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+input#searchInput {
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 55px;
+    font-size: 16px;
+}
+
+/** {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f3f4f7;
+    color: #333;
 }
 
 .container {
@@ -21,14 +240,14 @@ body {
     display: none;
     position: fixed;
     z-index: 1; /* Sit on top of everything */
-    left: 0;
+ /*   left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
+/*    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+/*}
 
 .modal-content {
     background-color: #fefefe;
@@ -138,4 +357,4 @@ input#searchInput {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-}
+}*/
