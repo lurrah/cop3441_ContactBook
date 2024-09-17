@@ -15,25 +15,24 @@
 
 	$phoneRegex = '/^\d{3}-\d{3}-\d{4}$/';
 
-	if (!preg_match($phoneRegex, $phone) && !filter_var($email, FILTER_VALIDATE_EMAIL))
-	{
-		returnWithError("Invalid phone and email.");
-	}
-	else if (!preg_match($phoneRegex, $phone))
-	{
-		returnWithError("Invalid phone.");
-	}
-	else
-	{
-		returnWithError("Invalid email.");
-	}
-
 	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	
 
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
+	else if (!preg_match($phoneRegex, $phone) && !filter_var($email, FILTER_VALIDATE_EMAIL)) // Return error if invalid phone and email.
+	{
+		returnWithError("Invalid phone and email.");
+	}
+	else if (!preg_match($phoneRegex, $phone)) // Return error if email is valid but phone is invalid.
+	{
+		returnWithError("Invalid phone.");
+	}
+	else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) // Return error if phone is valid but email is invalid.
+	{
+		returnWithError("Invalid email.");
+	}
 	else
 	{
 		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, Phone, Email, UserID) VALUES(?,?,?,?,?)");
