@@ -122,11 +122,7 @@ function deleteContact(index) {
         //data for API
         let tmp = {
             id: contactId,
-            userId: userId, 
-            firstName: namef_val,
-            lastName: namel_val,
-            email: email_val,
-            phone: phone_val
+            userId: userId
         };
 
         let jsonPayload = JSON.stringify(tmp);
