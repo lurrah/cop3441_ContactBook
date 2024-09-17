@@ -6,6 +6,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Manager</title>
   <link rel="stylesheet" href="css/contacts.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script defer src="js/contacts.js"></script>
+  <script src="js/code.js"></script>
+</head>
+
+<body>
+  <!-- sidebar toggle button -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+  <!-- sidebar -->
+  <div id="sidebar" class="sidebar">
+    <!-- sidebar toggle button -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <header>Contact Manager</header>
+    <ul>
+      <li><button class="button"><span class="material-symbols-outlined">home</span><span>Home</span></button></li>
+      <li><button class="button button-propone"><span class="material-symbols-outlined">contacts</span><span>Contacts</span></button></li>
+      <li><button class="button button-proptwo"><span class="material-symbols-outlined">logout</span><span>Logout</span></button></li>
+      <li><button class="button button-propthree"><span class="material-symbols-outlined">group</span><span>About</span></button></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div id="content" class="content">
+    <header class="main-header">
+      <h1>Contact Manager</h1>
+    </header>
+
+    <section class="form-section">
+      <h2>Add New Contact</h2>
+      <form id="addContactForm">
+        <input type="text" id="addContactFirstName" placeholder="First Name" required>
+        <input type="text" id="addContactLastName" placeholder="Last Name" required>
+        <input type="text" id="addContactPhone" placeholder="Phone Number" required>
+        <input type="email" id="addContactEmail" placeholder="Email" required>
+        <button type="button" onclick="addContact()">+ Add Contact</button>
+      </form>
+      <p id="addContactResult"></p>
+    </section>
+
+    <div id="editContactModal" class="modal">
+      <div class="modal-content">
+        <h2>Edit Contact</h2>
+        <form id="editContactForm">
+          <input type="text" id="editContactFirstName" placeholder="First Name" required>
+          <input type="text" id="editContactLastName" placeholder="Last Name" required>
+          <input type="text" id="editContactPhone" placeholder="Phone Number" required>
+          <input type="email" id="editContactEmail" placeholder="Email" required>
+          <button type="button" id="saveContactButton">Save</button>
+          <button type="button" id="closeEditModalButton" onclick="closeEditModal()">Close</button>
+        </form>
+        <p id="editContactResult"></p>
+      </div>
+    </div>
+
+    <section class="table-section">
+      <h2>Your Contacts</h2>
+      <input type="text" id="searchInput" placeholder="Search contacts..." oninput="fetchContacts(this.value)">
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="contactTableBody">
+          <!-- Contacts will be dynamically added here -->
+        </tbody>
+      </table>
+      <p id="searchContactsResult"></p>
+    </section>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const content = document.getElementById('content');
+      sidebar.classList.toggle('active');
+      content.classList.toggle('active');
+    }
+  </script>
+</body>
+
+</html>
+
+<!--<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Manager</title>
+  <link rel="stylesheet" href="css/contacts.css">
   <script defer src="js/contacts.js"></script>
   <script src="js/code.js"></script>
 </head>
@@ -37,7 +134,7 @@
           <input type="text" id="editContactPhone" placeholder="Phone Number" required>
           <input type="email" id="editContactEmail" placeholder="Email" required>
           <button type="button" id="saveContactButton">Save</button> <!-- On click, calls saveContact(row_index) function (see openEditModal() function in contacts.js) -->
-          <button type="button" id="closeEditModalButton" onclick="closeEditModal()">Close</button>
+          <!--<button type="button" id="closeEditModalButton" onclick="closeEditModal()">Close</button>
         </form>
         <p id="editContactResult"></p>
       </div>
@@ -58,7 +155,7 @@
         </thead>
         <tbody id="contactTableBody">
           <!-- Contacts will be dynamically added here -->
-        </tbody>
+        <!--</tbody>
       </table>
       <p id="searchContactsResult"></p>
     </section>
@@ -66,3 +163,4 @@
 </body>
 
 </html>
+-->
