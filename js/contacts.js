@@ -26,17 +26,19 @@ function addContact() {
 
     if (!phoneRegex.test(phone) && !emailRegex.test(email)) {
         document.getElementById("addContactResult").innerHTML = "Invalid phone and email.";
+        return;
     }
     else if (!phoneRegex.test(phone)) {
         document.getElementById("addContactResult").innerHTML = "Invalid phone.";
+        return;
     }
-    else {
+    else if (!emailRegex.test(email)) {
         document.getElementById("addContactResult").innerHTML = "Invalid email.";
+        return;
     }
 
     if (firstName && lastName && phone && email && phoneRegex.test(phone) && emailRegex.test(email)) {
         document.getElementById("addContactResult").innerHTML = "Everything is correct";
-        return;
     }
 
     // Prepare data for API call
