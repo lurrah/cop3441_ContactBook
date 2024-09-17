@@ -13,6 +13,21 @@
 	$email = $inData["email"];
 	$userId = $inData["userId"];
 
+	$phoneRegex = '/^\d{3}-\d{3}-\d{4}$/';
+
+	if (!preg_match($phoneRegex, $phone) && !filter_var($email, FILTER_VALIDATE_EMAIL))
+	{
+		returnWithError("Invalid phone and email.");
+	}
+	else if (!preg_match($phoneRegex, $phone))
+	{
+		returnWithError("Invalid phone.");
+	}
+	else
+	{
+		returnWithError("Invalid email.");
+	}
+
 	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	
 
 	if ($conn->connect_error) 

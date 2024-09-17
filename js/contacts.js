@@ -15,8 +15,27 @@ function addContact() {
     let phone = document.getElementById("addContactPhone").value;
     let email = document.getElementById("addContactEmail").value;
 
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
     if (!firstName || !lastName || !phone || !email) {
         document.getElementById("addContactResult").innerHTML = "Please fill in all fields.";
+        return;
+    }
+
+    if (!phoneRegex.test(phone) && !emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone and email.";
+    }
+    else if (!phoneRegex.test(phone)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone.";
+    }
+    else {
+        document.getElementById("addContactResult").innerHTML = "Invalid email.";
+    }
+
+    if (firstName && lastName && phone && email && phoneRegex.test(phone) && emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Everything is correct";
         return;
     }
 
