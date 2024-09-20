@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Manager</title>
+  <title>Contact Wizard</title>
   <link rel="stylesheet" href="css/contacts.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="icon" type="image/png" href="images/contactWizardIcon.png" />
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script defer src="js/contacts.js"></script>
   <script src="js/code.js"></script>
@@ -20,7 +21,9 @@
   <div id="sidebar" class="sidebar">
     <!-- sidebar toggle button -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    <header>Contact Manager</header>
+    <header>
+      <img src="images/ContactWizardIcon.png" alt="Contact Wizard Icon" style="height: 7.5rem; margin-left: 10px; vertical-align: middle;">
+    </header>
     <ul>
       <li><button class="button" id="homeButton"><span class="material-symbols-outlined">home</span><span>Home</span></button></li>
       <li><button class="button button-propone" id="contactsButton"><span class="material-symbols-outlined">contacts</span><span>Contacts</span></button></li>
@@ -32,12 +35,15 @@
   <!-- Main Content -->
   <div id="content" class="content">
     <header class="main-header">
-      <h1>Contact Manager</h1>
+      <h1>
+        Contact Wizard
+        <img src="images/wand.png" alt="Wizard's Wand" style="height: 3.0rem; margin-left: 10px; vertical-align: middle;">
+      </h1>
     </header>
 
     <section class="form-section">
       <h2>Add New Contact</h2>
-      <form id="addContactForm">
+      <form id="addContactForm"> 
         <input type="text" id="addContactFirstName" placeholder="First Name" required>
         <input type="text" id="addContactLastName" placeholder="Last Name" required>
         <input type="text" id="addContactPhone" placeholder="Phone Number" required>
