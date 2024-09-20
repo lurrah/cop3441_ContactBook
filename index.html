@@ -4,11 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In and Sign Up Form</title>
+    <title>Contact Wizard</title>
     <link rel="stylesheet" href = "css/styles.css">
+    <link rel="icon" type="image/png" href="images/contactWizardIcon.png" />
     <script type="text/javascript" src="js/code.js"></script>
     </head>
 <body>
+    <div class="header">
+        <a href="https://github.com/lurrah/cop3441_ContactBook/tree/main" target="_blank" id="title">Contact Wizard</a>
+        <img src="images/wand.png" alt="Wizard's Wand" class="logo">
+    </div>
     <div class="container">
         <div class="form-toggle">
             <button id="signInBtn" class="toggle-btn active">Sign In</button>
@@ -47,7 +52,7 @@
                     <input type="password" placeholder="Password" id="signUpPassword" />
                 </div>
                 <input id="signUpSubmitBtn" type="submit" class="btn" value="Sign up"/>
-                <span id="signUpResult">Sign-up result.</span>
+                <span id="signUpResult" style="color: transparent; ">Sign-up result.</span>
             </form>
         </div>
     </div>
@@ -85,6 +90,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>
