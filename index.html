@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Contact Wizard - Get Started</title>
     <link rel="stylesheet" href="css/auth.css">
+    <script type="text/javascript" src="js/auth.js"></script>
+
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap" rel="stylesheet">
@@ -17,28 +19,31 @@
             <div class="form-content">
                 <h1>Get Started</h1>
                 <p>Welcome to Contact Wizard - Let's create your account.</p>
-                <form action="#">
-                    <input type="text" name="first_name" placeholder="First Name" required>
-                    <input type="text" name="last_name" placeholder="Last Name" required>
-                    <input type="text" name="username" placeholder="Username" required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-                    <button class="btn-arrow" type="submit">Sign Up</button>
+                <form id="signUpForm" onsubmit="doSignUp(); return false;">
+                    <input type="text" id="signUpFirstName" name="first_name" placeholder="First Name" required>
+                    <input type="text" id="signUpLastName" name="last_name" placeholder="Last Name" required>
+                    <input type="text" id="signUpUsername" name="username" placeholder="Username" required>
+                    <input type="password" id="signUpPassword" name="password" placeholder="Password" required>
+                    <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password"
+                        required>
+                    <button type="submit">Sign Up</button>
                 </form>
                 <p class="switch-link">Already have an account? <a href="#" id="signIn">Log in.</a></p>
+                <p id="signUpResult"></p> <!-- Display sign-up result here -->
             </div>
         </div>
         <!-- Sign In Form -->
         <div class="form-container sign-in-container">
             <div class="form-content">
                 <h1>Sign In</h1>
-                <p>Welcome back! Please login to your account.</p>
-                <form action="#">
-                    <input type="text" name="username" placeholder="Username" required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <button class="btn-arrow" type="submit">Log In</button>
+                <p>Welcome back! Please log in to your account.</p>
+                <form id="signInForm" onsubmit="doSignIn(); return false;">
+                    <input type="text" id="signInUsername" name="username" placeholder="Username" required>
+                    <input type="password" id="signInPassword" name="password" placeholder="Password" required>
+                    <button type="submit">Log In</button>
                 </form>
                 <p class="switch-link">Don't have an account? <a href="#" id="signUp">Sign up.</a></p>
+                <p id="signInResult"></p> <!-- Display sign-in result here -->
             </div>
         </div>
         <!-- Overlay Panel -->
