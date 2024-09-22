@@ -10,7 +10,7 @@
 
     // Store the needed information.
     $userId = $inData['userId'];
-    $contactId = $inData["id"]
+    $contactId = $inData["id"];
 
     $conn = new mysqli("157.230.189.53", "TheBeast", "WeLoveCOP4331", "COP4331");
 
