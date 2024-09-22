@@ -1,5 +1,6 @@
 let contacts = [];
 // const urlBase = 'http://lamp-project.com/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI';
 
 // const extension = 'php';
 
@@ -108,7 +109,7 @@ function fetchContacts(searchTerm) {
 function deleteContact(index) {
     //get contact's info
     let contact = contacts[index];
-    let table = document.getElementsById("contactTableBody");
+    let table = document.getElementById("contactTableBody");
     let namef_val = contact.firstName;
     let namel_val = contact.lastName;
     let email_val = contact.email;
@@ -122,7 +123,11 @@ function deleteContact(index) {
         //data for API
         let tmp = {
             id: contactId,
-            userId: userId
+            userId: userId, 
+            firstName: namef_val,
+            lastName: namel_val,
+            email: email_val,
+            phone: phone_val
         };
 
         let jsonPayload = JSON.stringify(tmp);
@@ -140,7 +145,8 @@ function deleteContact(index) {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
-                            table.deleteRow(index)
+                            table.deleteRow(index);
+                            contact[index].splice(index, 1);
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
@@ -213,7 +219,7 @@ function closeEditModal() {
 function saveContact(index) {
     let id = contacts[index].id;
     console.log("id of contact to update: "+ id);
-    let table = document.getElementsById("contactTableBody");
+    let table = document.getElementById("contactTableBody");
     let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
     let phone = document.getElementById("editContactPhone").value;
@@ -255,6 +261,12 @@ function saveContact(index) {
                     contacts[index].lastName = lastName;
                     contacts[index].phone = phone;
                     contacts[index].email = email;
+                    
+                    table.rows[index] = `
+                    <td>${firstName}</td>
+                    <td>${lastName}</td>
+                    <td>${phone}</td>
+                    <td>${email}</td>`
 
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
