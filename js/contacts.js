@@ -109,7 +109,6 @@ function fetchContacts(searchTerm) {
 function deleteContact(index) {
     //get contact's info
     let contact = contacts[index];
-    let table = document.getElementById("contactTableBody");
     let namef_val = contact.firstName;
     let namel_val = contact.lastName;
     let email_val = contact.email;
@@ -145,8 +144,8 @@ function deleteContact(index) {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
-                            table.deleteRow(index);
                             contact[index].splice(index, 1);
+                            renderContacts();
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
@@ -218,9 +217,7 @@ function closeEditModal() {
 
 function saveContact(index) {
     let id = contacts[index].id;
-    console.log("id of contact to update: "+ id);
-    let table = document.getElementById("contactTableBody");
-    let firstName = document.getElementById("editContactFirstName").value;
+    console.log("id of contact to update: "+ id);    let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
     let phone = document.getElementById("editContactPhone").value;
     let email = document.getElementById("editContactEmail").value;
@@ -262,12 +259,7 @@ function saveContact(index) {
                     contacts[index].phone = phone;
                     contacts[index].email = email;
                     
-                    table.rows[index] = `
-                    <td>${firstName}</td>
-                    <td>${lastName}</td>
-                    <td>${phone}</td>
-                    <td>${email}</td>`
-
+                    renderContacts();
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
                 } else {
