@@ -1,5 +1,5 @@
 let contacts = [];
-/*const urlBase = 'http://lamp-project.com/LAMPAPI';*/
+// const urlBase = 'http://lamp-project.com/LAMPAPI';
 
 // const extension = 'php';
 
@@ -108,6 +108,7 @@ function fetchContacts(searchTerm) {
 function deleteContact(index) {
     //get contact's info
     let contact = contacts[index];
+    let table = document.getElementsById("contactTableBody");
     let namef_val = contact.firstName;
     let namel_val = contact.lastName;
     let email_val = contact.email;
@@ -121,11 +122,7 @@ function deleteContact(index) {
         //data for API
         let tmp = {
             id: contactId,
-            userId: userId, 
-            firstName: namef_val,
-            lastName: namel_val,
-            email: email_val,
-            phone: phone_val
+            userId: userId
         };
 
         let jsonPayload = JSON.stringify(tmp);
@@ -143,7 +140,7 @@ function deleteContact(index) {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
-                            fetchContacts(""); 
+                            table.deleteRow(index)
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
@@ -216,6 +213,7 @@ function closeEditModal() {
 function saveContact(index) {
     let id = contacts[index].id;
     console.log("id of contact to update: "+ id);
+    let table = document.getElementsById("contactTableBody");
     let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
     let phone = document.getElementById("editContactPhone").value;
@@ -252,7 +250,12 @@ function saveContact(index) {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response = JSON.parse(xhr.responseText);
                 if (response.error === "") {
-                    fetchContacts("");
+                    // change contact info to updated
+                    contacts[index].firstName = firstName;
+                    contacts[index].lastName = lastName;
+                    contacts[index].phone = phone;
+                    contacts[index].email = email;
+
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
                 } else {

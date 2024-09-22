@@ -9,11 +9,8 @@
     $inData = getRequestInfo();
 
     // Store the needed information.
-    $userId = $inData["userId"];
-    $firstName = $inData["firstName"];
-    $lastName = $inData["lastName"];
-    $phone = $inData["phone"];
-    $email = $inData["email"];
+    $userId = $inData['userId'];
+    $contactId = $inData["id"]
 
     $conn = new mysqli("157.230.189.53", "TheBeast", "WeLoveCOP4331", "COP4331");
 
@@ -24,8 +21,8 @@
     }
     else
     {
-        $stmt = $conn->prepare("DELETE FROM Contacts WHERE FirstName = ? AND LastName = ? AND UserID = ? AND Phone = ? AND Email = ?");
-        $stmt->bind_param("ssiss", $firstName, $lastName, $userId, $phone, $email);
+        $stmt = $conn->prepare("DELETE FROM Contacts WHERE userID = ? AND Id = ?");
+        $stmt->bind_param("ii", $userId, $contactId);
   	    $stmt->execute();
   	    $stmt->close();
   	    $conn->close();
