@@ -144,9 +144,7 @@ function deleteContact(index) {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
-                            console.log("here")
                             contacts.splice(index, 1);
-                            console.log("here2")
                             renderContacts();
                         } else {
                             console.error("Error deleting contact: " + response.error);
