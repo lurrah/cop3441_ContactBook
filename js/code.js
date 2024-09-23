@@ -147,7 +147,7 @@ function readCookie() {
 
 	console.log(userId);
     if (userId < 0 || isNaN(userId)) {
-        window.location.href = "index.html";
+        //window.location.href = "index.html";
     } else {
         // Optionally display the user's name
         // document.getElementById("userName").innerHTML = "Logged in as " + userFirstName + " " + userLastName;
