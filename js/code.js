@@ -96,8 +96,9 @@ function doSignUp()
 
 				// ensure cookie is saved
 				setTimeout(function() {
-					window.location.href = "contacts.html";
+					//window.location.href = "contacts.html";
 				}, 100);
+				readCookie();
 			}
 			
 		};
@@ -143,6 +144,8 @@ function readCookie() {
             userId = parseInt(value);
         }
     }
+
+	console.log(userId);
     if (userId < 0 || isNaN(userId)) {
         window.location.href = "index.html";
     } else {
