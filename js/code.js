@@ -140,7 +140,7 @@ function readCookie() {
             userId = parseInt(value);
         }
     }
-
+	console.log(userId);
     if (userId < 0 || isNaN(userId)) {
         window.location.href = "index.html";
     } else {
