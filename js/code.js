@@ -107,6 +107,7 @@ function doSignUp()
 	catch(err)
 	{
 		document.getElementById("signUpResult").innerHTML = err.message;
+		console.log(err);
 	}
 
 }
