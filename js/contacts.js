@@ -15,9 +15,43 @@ function addContact() {
     let phone = document.getElementById("addContactPhone").value;
     let email = document.getElementById("addContactEmail").value;
 
+    // RegEx validation for phone numbers.
+    // Allows for the user to input phone numbers with or without the dashes.
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    const phoneRegex2 = /^\d{3}\d{3}\d{4}$/;
+
+    // RegEx validation for the email. The email does not have to be a working email.
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // All error messages are mainly used for debugging.
+    // If any field is empty, prompts user to fill all fields.
     if (!firstName || !lastName || !phone || !email) {
         document.getElementById("addContactResult").innerHTML = "Please fill in all fields.";
         return;
+    }
+
+    // Prompts the user according to the validation error.
+    if ((!phoneRegex.test(phone) && !phoneRegex2.test(phone)) && !emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone and email.";
+        return;
+    }
+    else if (!phoneRegex.test(phone) && !phoneRegex2.test(phone)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone.";
+        return;
+    }
+    else if (!emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid email.";
+        return;
+    }
+
+    // Auto adds dashes if the user input 10 digits with no dashes.
+    if (phoneRegex2.test(phone)) {
+        phone = phone.slice(0, 3) + "-" + phone.slice(3, 6) + "-" + phone.slice(6);
+    }
+
+    // Final check to ensure everything is correct and update error message.
+    if (firstName && lastName && phone && email && phoneRegex.test(phone) && emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Everything is correct";
     }
 
     // Prepare data for API call
