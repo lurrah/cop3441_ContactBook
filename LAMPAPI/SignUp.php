@@ -34,9 +34,8 @@
 			$id = $conn->insert_id;
 			
 			http_response_code(200);
-			$searchResults = '{"id": "'.$id.'"}';
 			
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo( $firstName, $lastName, $id);
 		} else {
 			http_response_code(409);
 			returnWithError("Username is already taken.");
