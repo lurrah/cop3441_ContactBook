@@ -95,9 +95,7 @@ function doSignUp()
 				saveCookie();
 
 				// ensure cookie is saved
-				setTimeout(function() {
 					//window.location.href = "contacts.html";
-				}, 100);
 				readCookie();
 			}
 			
