@@ -82,7 +82,6 @@ function doSignUp()
 				// Status set to success
 				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
-				console.log(jsonObject);
 				if (jsonObject.error != "") {
 					document.getElementById("signUpResult").innerHTML = jsonObject.error;
 					return;
@@ -94,9 +93,7 @@ function doSignUp()
 
 				saveCookie();
 
-				// ensure cookie is saved
-					//window.location.href = "contacts.html";
-				readCookie();
+				window.location.href = "contacts.html";
 			}
 			
 		};
@@ -105,7 +102,6 @@ function doSignUp()
 	catch(err)
 	{
 		document.getElementById("signUpResult").innerHTML = err.message;
-		console.log(err);
 	}
 
 }
