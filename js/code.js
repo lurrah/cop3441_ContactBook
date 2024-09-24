@@ -89,8 +89,8 @@ function doSignUp()
 				}
 
 				userId = jsonObject.id;
-				// userFirstName = jsonObject.firstName;
-				// userLastName = jsonObject.lastName;
+				userFirstName = jsonObject.firstName;
+				userLastName = jsonObject.lastName;
 
 				saveCookie();
 
