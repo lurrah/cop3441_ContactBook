@@ -82,7 +82,7 @@ function doSignUp()
 				// Status set to success
 				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
-
+				console.log(jsonObject);
 				if (jsonObject.error != "") {
 					document.getElementById("signUpResult").innerHTML = jsonObject.error;
 					return;
