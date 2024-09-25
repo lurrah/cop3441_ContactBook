@@ -802,7 +802,19 @@ body {
     /* Change color to green when valid */
 }
 
+#requirementsMessage .valid:before {
+    position: relative;
+    content: "\2714";
+    margin-right: 20px;
+  }
+
 #requirementsMessage .invalid {
     color: red !important;
     /* Ensure color remains red when invalid */
 }
+
+#requirementsMessage .invalid:before {
+    position: relative;
+    content: "\2718";
+    margin-right: 20px;
+  }
