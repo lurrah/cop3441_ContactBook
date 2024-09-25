@@ -30,7 +30,7 @@ function doSignIn() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
-
+					console.log(jsonObject);
                     if (jsonObject.error != '') {
                         document.getElementById("signInResult").innerHTML = jsonObject.error;
                         return;
