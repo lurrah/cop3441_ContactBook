@@ -32,13 +32,9 @@ function doSignIn() {
                     let jsonObject = JSON.parse(xhr.responseText);
 					console.log(jsonObject);
                     if (jsonObject.error) {
-                        document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
+                        document.getElementById("signInResult").innerHTML = jsonObject.error;
                         return;
-                    } 
-					//else if (jsonObject.error !== '') {
-                    //     document.getElementById("signInResult").innerHTML = jsonObject.error;
-					// 	return;
-					// }
+                    }
 
                     userId = jsonObject.id;
                     userFirstName = jsonObject.firstName;
@@ -83,10 +79,11 @@ function doSignUp()
 		xhr.onreadystatechange = function() 
 		{
 			if (this.readyState == 4 && this.status == 200) {
+				if (this.status == 200) {}
 				// Status set to success
 				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
-				if (jsonObject.error != "") {
+				if (jsonObject.error) {
 					document.getElementById("signUpResult").innerHTML = jsonObject.error;
 					return;
 				}
@@ -98,6 +95,10 @@ function doSignUp()
 				saveCookie();
 
 				window.location.href = "contacts.html";
+			} 
+			else 
+			{
+				document.getElementById("signUpResult").innerHTML = "Username taken";
 			}
 			
 		};
