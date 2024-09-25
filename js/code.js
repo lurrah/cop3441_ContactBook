@@ -78,6 +78,8 @@ function doSignUp()
 	{
 		xhr.onreadystatechange = function() 
 		{
+			console.log(this.readyState)
+			console.log(this.status);
 			if (this.readyState == 4) {
 				if (this.status == 200) {
 				// Status set to success
