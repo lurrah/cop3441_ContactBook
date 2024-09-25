@@ -25,10 +25,10 @@
       <img src="images/ContactWizardIcon.png" alt="Contact Wizard Icon" style="height: 7.5rem; margin-left: 10px; vertical-align: middle;">
     </header>
     <ul>
-      <li><button class="button" id="homeButton"><span class="material-symbols-outlined">home</span><span>Home</span></button></li>
+      <!-- <li><button class="button" id="homeButton"><span class="material-symbols-outlined">home</span><span>Home</span></button></li> -->
       <li><button class="button button-propone" id="contactsButton"><span class="material-symbols-outlined">contacts</span><span>Contacts</span></button></li>
-      <li><button class="button button-proptwo" id="logoutButton"><span class="material-symbols-outlined">logout</span><span>Logout</span></button></li>
-      <li><button class="button button-propthree"><span class="material-symbols-outlined">group</span><span>About</span></button></li>
+      <li><button class="button button-proptwo" id="signOutButton"><span class="material-symbols-outlined">logout</span><span>Sign Out</span></button></li>
+      <li><button class="button button-propthree" id="aboutButton"><span class="material-symbols-outlined">group</span><span>About</span></button></li>
     </ul>
   </div>
 
@@ -48,9 +48,9 @@
         <input type="text" id="addContactLastName" placeholder="Last Name" required>
         <input type="text" id="addContactPhone" placeholder="Phone Number" required>
         <input type="email" id="addContactEmail" placeholder="Email" required>
-        <button type="button" onclick="addContact()">+ Add Contact</button>
+        <button type="button" onclick="addContact()"><span class="material-symbols-outlined">add</span><span>Add Contact</span></button>
       </form>
-      <p id="addContactResult"></p>
+      <p class=result id="addContactResult">Add Contact Result.</p>
     </section>
 
     <div id="editContactModal" class="modal">
@@ -61,10 +61,10 @@
           <input type="text" id="editContactLastName" placeholder="Last Name" required>
           <input type="text" id="editContactPhone" placeholder="Phone Number" required>
           <input type="email" id="editContactEmail" placeholder="Email" required>
-          <button type="button" id="saveContactButton">Save</button>
-          <button type="button" id="closeEditModalButton" onclick="closeEditModal()">Close</button>
+          <button type="button" id="saveContactButton"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+          <button type="button" id="closeEditModalButton" onclick="closeEditModal()" ><span class="material-symbols-outlined">close</span><span>Close</span></button>
         </form>
-        <p id="editContactResult"></p>
+        <p class=result id="editContactResult">Edit Contact Result.</p>
       </div>
     </div>
 
@@ -85,28 +85,27 @@
           <!-- Contacts will be dynamically added here -->
         </tbody>
       </table>
-      <p id="searchContactsResult"></p>
+      <p class=result id="searchContactsResult">Search Contacts Result.</p>
     </section>
   </div>
 
   <script>
+      /*
       document.getElementById('homeButton').addEventListener('click', function() {
         window.location.href = 'index.html';
       });
-
+      */
       document.getElementById('contactsButton').addEventListener('click', function() {
         window.location.href = 'contacts.html';
       });
 
-      document.getElementById('logoutButton').addEventListener('click', function() {
+      document.getElementById('signOutButton').addEventListener('click', function() {
         window.location.href = 'index.html';
       });
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      sidebar.classList.toggle('active');
-      content.classList.toggle('active');
-    }
+
+      document.getElementById('aboutButton').addEventListener('click', function() {
+        window.location.href = 'about.html';
+      });
   </script>
 </body>
 

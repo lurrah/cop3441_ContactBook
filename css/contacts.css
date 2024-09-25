@@ -63,6 +63,7 @@ body {
     margin: 10px 0;
 }
 
+
 .sidebar ul li .button, .button-propone, .button-proptwo, .button-propthree {
     display: inline-flex;
     text-align: center;
@@ -156,6 +157,13 @@ body {
     width: 80%;
 }
 
+.result {
+    font-style: italic;
+    margin-top: 10px;
+    margin-left: 14px;
+    font-size: 12px;
+}
+
 /*form section styles */
 .form-section,
 .table-section {
@@ -164,7 +172,8 @@ body {
 
 .form-section h2,
 .table-section h2,
-.modal-content h2 {
+.modal-content h2,
+.about h2 {
     margin-top: 10px;
     font-size: 20px;
     margin-bottom: 20px;
@@ -179,7 +188,8 @@ form {
 }
 
 form input,
-form button {
+form button,
+table td button {
     padding: 12px;
     border: 1px solid #444;
     border-radius: 55px;
@@ -188,16 +198,31 @@ form button {
     color: white;
 }
 
-form button {
-   /* background-color: #4a90e2;*/
+form button, 
+table td button {
+    /* background-color: #4a90e2;*/
+    /*
     background-color: #20dbc0;
     color: white;
     border: none;
     cursor: pointer;
     transition: background 0.3s, transform 0.3s ease;
+    */
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    background: #20dbc0;
+    color: white;
+    font-family: 'Lexend', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    /*margin: 10px;*/
+    transition: background 0.3s, transform 0.3s ease;
 }
 
-form button:hover {
+form button:hover,
+table td button:hover {
     /*background-color: #357ABD;*/
     background-color: #00bfa6;
     transform: scale(1.05);

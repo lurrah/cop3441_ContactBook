@@ -98,8 +98,8 @@ function renderContacts() {
             <td>${contact.phone}</td>
             <td>${contact.email}</td>
             <td>
-                <button onclick="openEditModal(${index})">Edit</button>
-                <button onclick="deleteContact(${index})">Delete</button>
+                <button onclick="openEditModal(${index})"><span class="material-symbols-outlined">edit</span><span>Edit</span></button>
+                <button onclick="deleteContact(${index})"><span class="material-symbols-outlined">delete</span><span>Delete</span></button>
             </td>
         </tr>`;
         tbody.innerHTML += row;
@@ -305,4 +305,11 @@ function saveContact(index) {
     } catch (err) {
         document.getElementById("editContactResult").innerHTML = err.message;
     }
+}
+
+function toggleSidebar() {
+	const sidebar = document.getElementById('sidebar');
+	const content = document.getElementById('content');
+	sidebar.classList.toggle('active');
+	content.classList.toggle('active');
 }
