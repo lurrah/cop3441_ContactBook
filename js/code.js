@@ -15,7 +15,7 @@ function doSignIn() {
     let signInUsername = document.getElementById("signInUsername").value;
     let signInPassword = document.getElementById("signInPassword").value;
 
-	if (signInUsername === null || signInPassword === null) {
+	if (signInUsername === '' || signInPassword === '') {
 		document.getElementById('signInResult') = "Please fill out all fields"
 		document.getElementById('signInResult').removeAttribute('hidden');
 		return;
@@ -72,7 +72,7 @@ function doSignUp()
 	let signUpPassword = document.getElementById("signUpPassword").value;
 
 	// check if user forgot to input anything
-	if (signUpFirstName === null || signUpLastName === null || signUpUsername === null || signUpPassword === null) {
+	if (signUpFirstName === '' || signUpLastName === '' || signUpUsername === '' || signUpPassword === '') {
 		document.getElementById('signUpResult') = "Please fill out all fields"
 		document.getElementById('signUpResult').removeAttribute('hidden');
 		return;
