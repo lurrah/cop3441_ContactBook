@@ -105,6 +105,7 @@ function doSignUp()
 			else 
 			{
 				document.getElementById("signUpResult").innerHTML = "Username taken";
+				document.getElementById("signUpResult").removeAttribute('hidden');
 			}
 		}
 	};
