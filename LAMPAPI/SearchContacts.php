@@ -16,11 +16,15 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID=?");
+		// limit and offset
+		$limit = isset($inData["limit"]) ? intval($inData["limit"]) : 10; // Default limit of 10
+        $offset = isset($inData["offset"]) ? intval($inData["offset"]) : 0; // Default offset of 0
+
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID=? LIMIT ? OFFSET ?");
 		$contactName = "%" . $inData["search"] . "%";
 		$userId = intval($inData["userId"]); // Ensure it's an integer
 
-		$stmt->bind_param("ssssi", $contactName, $contactName, $contactName, $contactName, $userId);
+		$stmt->bind_param("ssssi", $contactName, $contactName, $contactName, $contactName, $userId, $limit, $offset);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
