@@ -15,6 +15,13 @@ function doSignIn() {
     let signInUsername = document.getElementById("signInUsername").value;
     let signInPassword = document.getElementById("signInPassword").value;
 
+	if (signInUsername === '' || signInPassword === '') {
+		document.getElementById('signInResult').innerHTML = "Please fill out all fields"
+		document.getElementById('signInResult').removeAttribute('hidden');
+		return;
+	}
+
+
     document.getElementById("signInResult").innerHTML = "";
 
     let tmp = { login: signInUsername, password: signInPassword };
@@ -30,9 +37,9 @@ function doSignIn() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
-
-                    if (jsonObject.error) {
-                        document.getElementById("signInResult").innerHTML = jsonObject.error;
+                    if (jsonObject.error !== '') {
+                        document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
+						document.getElementById("signInResult").removeAttribute('hidden');
                         return;
                     }
 
@@ -63,6 +70,13 @@ function doSignUp()
 	let signUpLastName = document.getElementById("signUpLastName").value;
 	let signUpUsername = document.getElementById("signUpUsername").value;
 	let signUpPassword = document.getElementById("signUpPassword").value;
+
+	// check if user forgot to input anything
+	if (signUpFirstName === '' || signUpLastName === '' || signUpUsername === '' || signUpPassword === '') {
+		document.getElementById('signUpResult').innerHTML = "Please fill out all fields"
+		document.getElementById('signUpResult').removeAttribute('hidden');
+		return;
+	}
 	
 	document.getElementById("signUpResult").innerHTML = "";
 
@@ -78,12 +92,15 @@ function doSignUp()
 	{
 		xhr.onreadystatechange = function() 
 		{
-			if (this.readyState == 4 && this.status == 200) {
+			if (this.readyState == 4) {
+				if (this.status == 200) {
 				// Status set to success
-				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
-				if (jsonObject.error != "") {
-					document.getElementById("signUpResult").innerHTML = jsonObject.error;
+
+				if (jsonObject.error !== '') {
+					document.getElementById("signUpResult").innerHTML = "Username taken";
+					document.getElementById("signUpResult").removeAttribute('hidden');
+
 					return;
 				}
 
@@ -94,9 +111,14 @@ function doSignUp()
 				saveCookie();
 
 				window.location.href = "contacts.html";
-			}
-			
-		};
+			} 
+				else 
+				{
+					document.getElementById("signUpResult").innerHTML = "Username taken";
+					document.getElementById("signUpResult").removeAttribute('hidden');
+				}
+		}
+	};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
