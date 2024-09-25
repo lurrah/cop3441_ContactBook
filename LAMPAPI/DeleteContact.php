@@ -1,7 +1,7 @@
 <?php
 
     // Allow cross origin requests.
-    header("Access-Control-Allow-Origin: *");
+   header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 	header("Content-Type: application/json; charset=UTF-8");
 
@@ -10,7 +10,7 @@
 
     // Store the needed information.
     $userId = $inData['userId'];
-    $contactId = $inData["id"]
+    $contactId = $inData["id"];
 
     $conn = new mysqli("157.230.189.53", "TheBeast", "WeLoveCOP4331", "COP4331");
 

@@ -15,9 +15,43 @@ function addContact() {
     let phone = document.getElementById("addContactPhone").value;
     let email = document.getElementById("addContactEmail").value;
 
+    // RegEx validation for phone numbers.
+    // Allows for the user to input phone numbers with or without the dashes.
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    const phoneRegex2 = /^\d{3}\d{3}\d{4}$/;
+
+    // RegEx validation for the email. The email does not have to be a working email.
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // All error messages are mainly used for debugging.
+    // If any field is empty, prompts user to fill all fields.
     if (!firstName || !lastName || !phone || !email) {
         document.getElementById("addContactResult").innerHTML = "Please fill in all fields.";
         return;
+    }
+
+    // Prompts the user according to the validation error.
+    if ((!phoneRegex.test(phone) && !phoneRegex2.test(phone)) && !emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone and email.";
+        return;
+    }
+    else if (!phoneRegex.test(phone) && !phoneRegex2.test(phone)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone.";
+        return;
+    }
+    else if (!emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid email.";
+        return;
+    }
+
+    // Auto adds dashes if the user input 10 digits with no dashes.
+    if (phoneRegex2.test(phone)) {
+        phone = phone.slice(0, 3) + "-" + phone.slice(3, 6) + "-" + phone.slice(6);
+    }
+
+    // Final check to ensure everything is correct and update error message.
+    if (firstName && lastName && phone && email && phoneRegex.test(phone) && emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Everything is correct";
     }
 
     // Prepare data for API call
@@ -64,8 +98,8 @@ function renderContacts() {
             <td>${contact.phone}</td>
             <td>${contact.email}</td>
             <td>
-                <button onclick="openEditModal(${index})">Edit</button>
-                <button onclick="deleteContact(${index})">Delete</button>
+                <button onclick="openEditModal(${index})"><span class="material-symbols-outlined">edit</span><span>Edit</span></button>
+                <button onclick="deleteContact(${index})"><span class="material-symbols-outlined">delete</span><span>Delete</span></button>
             </td>
         </tr>`;
         tbody.innerHTML += row;
@@ -122,7 +156,11 @@ function deleteContact(index) {
         //data for API
         let tmp = {
             id: contactId,
-            userId: userId
+            userId: userId, 
+            firstName: namef_val,
+            lastName: namel_val,
+            email: email_val,
+            phone: phone_val
         };
 
         let jsonPayload = JSON.stringify(tmp);
@@ -140,7 +178,8 @@ function deleteContact(index) {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
-                            fetchContacts(""); 
+                            contacts.splice(index, 1);
+                            renderContacts();
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
@@ -212,8 +251,7 @@ function closeEditModal() {
 
 function saveContact(index) {
     let id = contacts[index].id;
-    console.log("id of contact to update: "+ id);
-    let firstName = document.getElementById("editContactFirstName").value;
+    console.log("id of contact to update: "+ id);    let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
     let phone = document.getElementById("editContactPhone").value;
     let email = document.getElementById("editContactEmail").value;
@@ -249,7 +287,13 @@ function saveContact(index) {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 let response = JSON.parse(xhr.responseText);
                 if (response.error === "") {
-                    fetchContacts("");
+                    // change contact info to updated
+                    contacts[index].firstName = firstName;
+                    contacts[index].lastName = lastName;
+                    contacts[index].phone = phone;
+                    contacts[index].email = email;
+                    
+                    renderContacts();
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
                 } else {
@@ -261,4 +305,11 @@ function saveContact(index) {
     } catch (err) {
         document.getElementById("editContactResult").innerHTML = err.message;
     }
+}
+
+function toggleSidebar() {
+	const sidebar = document.getElementById('sidebar');
+	const content = document.getElementById('content');
+	sidebar.classList.toggle('active');
+	content.classList.toggle('active');
 }

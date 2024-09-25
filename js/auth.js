@@ -1,5 +1,5 @@
 const urlBase = 'http://lamp-project.com/LAMPAPI';
-// const urlBase = 'http://localhost:8000/LAMPAPI';
+//const urlBase = 'http://localhost:8000/LAMPAPI';
 
 const extension = 'php';
 
@@ -14,6 +14,13 @@ function doSignIn() {
 
     let signInUsername = document.getElementById("signInUsername").value;
     let signInPassword = document.getElementById("signInPassword").value;
+
+	if (signInUsername === '' || signInPassword === '') {
+		document.getElementById('signInResult').innerHTML = "Please fill out all fields"
+		document.getElementById('signInResult').removeAttribute('hidden');
+		return;
+	}
+
 
     document.getElementById("signInResult").innerHTML = "";
 
@@ -30,9 +37,9 @@ function doSignIn() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
-
-                    if (jsonObject.error) {
-                        document.getElementById("signInResult").innerHTML = jsonObject.error;
+                    if (jsonObject.error !== '') {
+                        document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
+						document.getElementById("signInResult").removeAttribute('hidden');
                         return;
                     }
 
@@ -63,6 +70,13 @@ function doSignUp()
 	let signUpLastName = document.getElementById("signUpLastName").value;
 	let signUpUsername = document.getElementById("signUpUsername").value;
 	let signUpPassword = document.getElementById("signUpPassword").value;
+
+	// check if user forgot to input anything
+	if (signUpFirstName === '' || signUpLastName === '' || signUpUsername === '' || signUpPassword === '') {
+		document.getElementById('signUpResult').innerHTML = "Please fill out all fields"
+		document.getElementById('signUpResult').removeAttribute('hidden');
+		return;
+	}
 	
 	document.getElementById("signUpResult").innerHTML = "";
 
@@ -78,13 +92,15 @@ function doSignUp()
 	{
 		xhr.onreadystatechange = function() 
 		{
-			if (this.readyState == 4 && this.status == 200) {
+			if (this.readyState == 4) {
+				if (this.status == 200) {
 				// Status set to success
-				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
 
-				if (jsonObject.error != "") {
-					document.getElementById("signUpResult").innerHTML = jsonObject.error;
+				if (jsonObject.error !== '') {
+					document.getElementById("signUpResult").innerHTML = "Username taken";
+					document.getElementById("signUpResult").removeAttribute('hidden');
+
 					return;
 				}
 
@@ -93,11 +109,16 @@ function doSignUp()
 				userLastName = jsonObject.lastName;
 
 				saveCookie();
-	
+
 				window.location.href = "contacts.html";
-			}
-			
-		};
+			} 
+				else 
+				{
+					document.getElementById("signUpResult").innerHTML = "Username taken";
+					document.getElementById("signUpResult").removeAttribute('hidden');
+				}
+		}
+	};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -142,7 +163,7 @@ function readCookie() {
     }
 
     if (userId < 0 || isNaN(userId)) {
-        window.location.href = "index.html";
+        //window.location.href = "index.html";
     } else {
         // Optionally display the user's name
         // document.getElementById("userName").innerHTML = "Logged in as " + userFirstName + " " + userLastName;
@@ -158,115 +179,3 @@ function doSignOut()
 	window.location.href = "index.html";
 }
 
-/*
-function addContact()
-{
-	let addContactFirstName = document.getElementById("addContactFirstName").value;
-	let addContactLastName = document.getElementById("addContactLastName").value;
-	//let userId = document.getElementById("userId").value;
-	let addContactPhone = document.getElementById("addContactPhone").value;
-	let addContactEmail = document.getElementById("addContactEmail").value;
-	document.getElementById("addContactResult").innerHTML = "";
-
-	let tmp = 
-	{ 
-		userId: userId,
-		firstName: addContactFirstName, 
-		lastName: addContactLastName, 
-		phone: addContactPhone, 
-		email: addContactEmail
-	};
-
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/AddContact.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState != 4) {
-				return;
-			}
-			if (this.status == 404) {
-				document.getElementById("addContactResult").innerHTML = "URL not found.";
-				return;
-			}
-			if (this.status == 200) {
-				document.getElementById("addContactResult").innerHTML = "Contact added.";
-				return;
-			}
-			
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("addContactResult").innerHTML = err.message;
-	}
-	
-}
-
-function searchContacts()
-{
-	const srch = document.getElementById("searchInput").value;
-	document.getElementById("searchContactsResult").innerHTML = "";
-
-	const table = document.getElementById("contacts"); // table in contacts.html needs to have id="contacts"
-	const row = table.getElementsByTagName("tr");  
-
-	// reset contact table
-	while (table.rows.length > 1) {
-		table.deleteRow(1);
-	}
-	
-	let tmp = {search:srch,userId:userId};
-
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchContacts.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for (let i=0; i<jsonObject.results.length; i++)
-				{
-					tableHTML += "<tr id='row" + i + "'>";
-					tableHTML += "<td id= 'firstName" + i + "'><span>" + jsonObject.results[i].FirstName + "</span></td>";
-					tableHTML += "<td id = 'lastName" + i +"'><span>" + jsonObject.results[i].LastName + "</span></td>";
-					tableHTML += "<td id = 'email" + i + "'><span>" + jsonObject.results[i].Email + "</span></td>";
-					tableHTML += "<td id = 'phone" + i + "'><span>" + jsonObject.results[i].Phone + "</span></td>";
-					tableHTML += "<td>" 
-				}
-				//tableHTML += "</table>";
-				document.getElementById("tbody").innerHTML = tableHTML;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("searchContactsResult").innerHTML = err.message;	}
-	
-}
-
-function deleteContact() {
-	let tmp = {"userId": userId, "firstName": "John","lastName": "Doe"}
-}
-
-function loadContacts() {
-	let tmp = {search: "", userId: userId};
-}
-*/
