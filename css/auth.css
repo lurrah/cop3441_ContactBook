@@ -123,7 +123,7 @@ body {
 
 .form-content button {
     margin-top: 10px;
-    background: linear-gradient(to right, #003366, #00aaff);
+    background: linear-gradient(to right,#462964, #9c54d5);
     color: #fff;
     border: none;
     padding: 15px;
@@ -134,7 +134,8 @@ body {
 }
 
 .form-content button:hover {
-    background: linear-gradient(to right, #004080, #33bbff);
+    background: linear-gradient(to right, #462964,
+        #9c54d5);
     transform: scale(1.05);
 }
 
@@ -164,7 +165,7 @@ body {
 }
 
 .overlay {
-    background: linear-gradient(to bottom, #5dade2, #154360);
+    background: linear-gradient(to bottom,#9c54d5, #462964);
     background-repeat: no-repeat;
     background-size: cover;
     color: #ffffff;
