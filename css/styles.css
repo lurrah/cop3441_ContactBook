@@ -338,28 +338,4 @@ select {
     }
     
 }
-
-/* Password Requirements styling. */
-#requirementsMessage {
-    display:none;
-    border-radius: 10px;
-    background: #222;
-    color: #aaa;
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-}
-
-#requirementsMessage p {
-    padding: 10px 35px;
-    font-size: 18px;
-}
-
-.valid {
-    color: green;
-}
-
-.invalid {
-    color: red;
-}
 -->
