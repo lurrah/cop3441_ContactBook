@@ -777,6 +777,10 @@ body {
 }
 
 /* Password Requirements styling */
+#requirementsMessage {
+    display: none;
+}
+
 #requirementsMessage h3 {
     margin-bottom: 10px;
     /* Space below the heading */
