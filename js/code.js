@@ -31,7 +31,7 @@ function doSignIn() {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
 
-                    if (jsonObject.error) {
+                    if (jsonObject.error != '') {
                         document.getElementById("signInResult").innerHTML = jsonObject.error;
                         return;
                     }
