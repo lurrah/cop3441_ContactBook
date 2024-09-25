@@ -18,6 +18,7 @@ function doSignIn() {
 	if (signInUsername === null || signInPassword === null) {
 		document.getElementById('signInResult') = "Please fill out all fields"
 		document.getElementById('signInResult').removeAttribute('hidden');
+		return;
 	}
 
 
@@ -74,6 +75,7 @@ function doSignUp()
 	if (signUpFirstName === null || signUpLastName === null || signUpUsername === null || signUpPassword === null) {
 		document.getElementById('signUpResult') = "Please fill out all fields"
 		document.getElementById('signUpResult').removeAttribute('hidden');
+		return;
 	}
 	
 	document.getElementById("signUpResult").innerHTML = "";
