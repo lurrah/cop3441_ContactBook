@@ -31,13 +31,14 @@ function doSignIn() {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
 					console.log(jsonObject);
-                    if (jsonObject.error === "No Records Found") {
+                    if (jsonObject.error) {
                         document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
                         return;
-                    } else if (jsonObject.error !== '') {
-                        document.getElementById("signInResult").innerHTML = jsonObject.error;
-						return;
-					}
+                    } 
+					//else if (jsonObject.error !== '') {
+                    //     document.getElementById("signInResult").innerHTML = jsonObject.error;
+					// 	return;
+					// }
 
                     userId = jsonObject.id;
                     userFirstName = jsonObject.firstName;
