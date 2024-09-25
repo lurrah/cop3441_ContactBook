@@ -31,8 +31,9 @@ function doSignIn() {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
 					console.log(jsonObject);
-                    if (jsonObject.error) {
-                        document.getElementById("signInResult").innerHTML = jsonObject.error;
+                    if (jsonObject.error !== '') {
+                        document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
+						document.getElementById("signInResult").removeAttribute('hidden');
                         return;
                     }
 
@@ -84,7 +85,9 @@ function doSignUp()
 				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
 				if (jsonObject.error) {
-					document.getElementById("signUpResult").innerHTML = jsonObject.error;
+					document.getElementById("signUpResult").innerHTML = "Username taken";
+					document.getElementById("signUpResult").removeAttribute('hidden');
+
 					return;
 				}
 
