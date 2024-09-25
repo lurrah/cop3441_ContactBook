@@ -30,7 +30,6 @@ function doSignIn() {
             if (this.readyState == 4) {
                 if (this.status == 200) {
                     let jsonObject = JSON.parse(xhr.responseText);
-					console.log(jsonObject);
                     if (jsonObject.error !== '') {
                         document.getElementById("signInResult").innerHTML = "Username or password is incorrect.";
 						document.getElementById("signInResult").removeAttribute('hidden');
@@ -80,7 +79,7 @@ function doSignUp()
 		xhr.onreadystatechange = function() 
 		{
 			if (this.readyState == 4 && this.status == 200) {
-				if (this.status == 200) {}
+				if (this.status == 200) {
 				// Status set to success
 				console.log(xhr.responseText);
 				let jsonObject = JSON.parse( xhr.responseText );
@@ -103,8 +102,8 @@ function doSignUp()
 			{
 				document.getElementById("signUpResult").innerHTML = "Username taken";
 			}
-			
-		};
+		}
+	};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
