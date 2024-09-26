@@ -1,6 +1,7 @@
 let contacts = [];
 let offset = 0;
 let limit = 10;
+let moreResults = true;
 // const urlBase = 'http://lamp-project.com/LAMPAPI';
 // const urlBase = 'http://localhost:8000/LAMPAPI';
 
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener('scroll', () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    if (moreResults === true && window.innerHeight + window.scrollY >= document.body.offsetHeight) {
         fetchContacts(document.getElementById("searchInput").value);
     }
 })
@@ -135,6 +136,10 @@ function fetchContacts(searchTerm) {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
                 } else {
+
+                    if (jsonObject.results.length < length) {
+                        moreResults = false;
+                    }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
                     
                     
