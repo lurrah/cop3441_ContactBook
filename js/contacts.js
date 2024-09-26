@@ -143,6 +143,8 @@ function fetchContacts(searchTerm, isScroll) {
 
                     if (jsonObject.results.length < limit) {
                         moreResults = false;
+                    } else {
+                        moreResults = true;
                     }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
                     
