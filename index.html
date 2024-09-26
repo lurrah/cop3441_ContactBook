@@ -23,7 +23,7 @@
                     <input type="text" id="signUpFirstName" name="first_name" placeholder="First Name" required autocomplete="off">
                     <input type="text" id="signUpLastName" name="last_name" placeholder="Last Name" required autocomplete="off">
                     <input type="text" id="signUpUsername" name="username" placeholder="Username" required autocomplete="off">
-                    <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password">
+                    <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}">
                     <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password"
                         required >
                     <div id="requirementsMessage">
@@ -135,48 +135,59 @@
         });
 
         let passwordInput = document.getElementById("signUpPassword");
-            let capitalLetter = document.getElementById("capitalLetter");
-            let number = document.getElementById("number");
-            let length = document.getElementById("length");
+        let confirmPasswordInput = document.getElementById("signUpConfirmPassword");
+        let capitalLetter = document.getElementById("capitalLetter");
+        let number = document.getElementById("number");
+        let length = document.getElementById("length");
 
-            passwordInput.onfocus = function () {
-                document.getElementById("requirementsMessage").style.display = "block";
+
+        // Controls opening and closing the password requirements box when users are "in" the password input boxes.
+        passwordInput.onfocus = function () {
+            document.getElementById("requirementsMessage").style.display = "block";
+        }
+
+        passwordInput.onblur = function () {
+            document.getElementById("requirementsMessage").style.display = "none";
+        }
+
+        confirmPasswordInput.onfocus = function () {
+            document.getElementById("requirementsMessage").style.display = "block";
+        }
+
+        confirmPasswordInput.onblur = function () {
+            document.getElementById("requirementsMessage").style.display = "none";
+        }
+
+        passwordInput.onkeyup = function () {
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if (upperCaseLetters.test(passwordInput.value)) {
+                capitalLetter.classList.remove("invalid");
+                capitalLetter.classList.add("valid");
+            } else {
+                capitalLetter.classList.remove("valid");
+                capitalLetter.classList.add("invalid");
             }
 
-            passwordInput.onblur = function () {
-                document.getElementById("requirementsMessage").style.display = "none";
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if (numbers.test(passwordInput.value)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
             }
 
-            passwordInput.onkeyup = function () {
-                // Validate capital letters
-                var upperCaseLetters = /[A-Z]/g;
-                if (upperCaseLetters.test(passwordInput.value)) {
-                    capitalLetter.classList.remove("invalid");
-                    capitalLetter.classList.add("valid");
-                } else {
-                    capitalLetter.classList.remove("valid");
-                    capitalLetter.classList.add("invalid");
-                }
-
-                // Validate numbers
-                var numbers = /[0-9]/g;
-                if (numbers.test(passwordInput.value)) {
-                    number.classList.remove("invalid");
-                    number.classList.add("valid");
-                } else {
-                    number.classList.remove("valid");
-                    number.classList.add("invalid");
-                }
-
-                // Validate length
-                if (passwordInput.value.length >= 8) {
-                    length.classList.remove("invalid");
-                    length.classList.add("valid");
-                } else {
-                    length.classList.remove("valid");
-                    length.classList.add("invalid");
-                }
+            // Validate length
+            if (passwordInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
             }
+        }
 
     </script>
 </body>

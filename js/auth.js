@@ -70,6 +70,7 @@ function doSignUp()
 	let signUpLastName = document.getElementById("signUpLastName").value;
 	let signUpUsername = document.getElementById("signUpUsername").value;
 	let signUpPassword = document.getElementById("signUpPassword").value;
+    let signUpConfirmPassword = document.getElementById("signUpConfirmPassword").value;
 
 	// check if user forgot to input anything
 	if (signUpFirstName === '' || signUpLastName === '' || signUpUsername === '' || signUpPassword === '') {
@@ -77,6 +78,23 @@ function doSignUp()
 		document.getElementById('signUpResult').removeAttribute('hidden');
 		return;
 	}
+
+    // Check if password meets the requirements.
+    const passwordRequirements = /(?=.*\d)(?=.*[A-Z]).{8,}/;
+    
+    if (!passwordRequirements.test(signUpPassword)) {
+        document.getElementById('signUpResult').innerHTML = "Please fulfill the password requirements"
+		document.getElementById('signUpResult').removeAttribute('hidden');
+	    return;
+    }
+
+    // Check if both passwords match.
+    if (signUpPassword !== signUpConfirmPassword) {
+        document.getElementById('signUpResult').innerHTML = "Please match the confirmation password"
+		document.getElementById('signUpResult').removeAttribute('hidden');
+		return;
+    }
+
 	
 	document.getElementById("signUpResult").innerHTML = "";
 
