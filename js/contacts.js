@@ -1,4 +1,8 @@
 let contacts = [];
+let offset = 0;
+let limit = 10;
+let moreResults = true;
+let isFetching = false;
 // const urlBase = 'http://lamp-project.com/LAMPAPI';
 // const urlBase = 'http://localhost:8000/LAMPAPI';
 
@@ -6,8 +10,17 @@ let contacts = [];
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
+    console.log(offset);
     fetchContacts(""); // Load all contacts when the page loads
+    console.log(offset);
 });
+
+window.addEventListener('scroll', function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
+        console.log(moreResults);
+        fetchContacts(document.getElementById("searchInput").value); // Re-fetch contacts with the same search term
+        }
+    })
 
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
@@ -107,10 +120,11 @@ function renderContacts() {
 }
 
 function fetchContacts(searchTerm) {
+    isFetching = true;
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
-    let tmp = { search: srch, userId: userId };
+    let tmp = { search: srch, userId: userId, limit: limit, offset: offset };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -122,21 +136,31 @@ function fetchContacts(searchTerm) {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-
+                console.log(tmp);
+                console.log(jsonObject);
                 if (jsonObject.error && jsonObject.error !== "") {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
                 } else {
+                    if(jsonObject.results.length < limit) {
+                        moreResults = false;
+                    } else {
+                        moreResults = true;
+                    }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-                    contacts = jsonObject.results; // Update the contacts array
+                    contacts = contacts.concat(jsonObject.results); // Update the contacts array
+                    offset += limit;
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
             }
+
+            isFetching = false;
         };
         xhr.send(jsonPayload);
     } catch (err) {
         document.getElementById("searchContactsResult").innerHTML = err.message;
+        isFetching = false;
     }
 }
 
