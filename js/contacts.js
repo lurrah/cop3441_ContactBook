@@ -117,7 +117,7 @@ function renderContacts() {
 
 function fetchContacts(searchTerm, isScroll) {
     if (!isScroll) {
-        contacts=[];
+        contacts = [];
         offset = 0;
     }
 
@@ -140,6 +140,7 @@ function fetchContacts(searchTerm, isScroll) {
                 if (jsonObject.error && jsonObject.error !== "") {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
+                    offset = 0;
                 } else {
 
                     if (jsonObject.results.length < limit) {
@@ -152,7 +153,6 @@ function fetchContacts(searchTerm, isScroll) {
                     
                     contacts = contacts.concat(jsonObject.results); // Update the contacts array
                     offset+= limit;
-                    console.log(contacts);
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
@@ -203,7 +203,8 @@ function deleteContact(index) {
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
-                            fetchContacts(document.getElementById("searchInput").value, true);
+                            offset--;
+                            renderContacts;
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
