@@ -120,6 +120,8 @@ function fetchContacts(searchTerm, isScroll) {
         contacts=[];
         offset = 0;
     }
+
+    console.log(searchTerm);
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
