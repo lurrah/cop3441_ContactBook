@@ -204,8 +204,6 @@ function deleteContact(index) {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
                             fetchContacts(document.getElementById("searchInput").value, true);
-                            renderContacts();
-
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
