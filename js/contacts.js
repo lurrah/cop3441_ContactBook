@@ -116,6 +116,9 @@ function renderContacts() {
 }
 
 function fetchContacts(searchTerm) {
+    if (searchTerm !== '') {
+        contacts=[];
+    }
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
