@@ -10,6 +10,7 @@
     <!-- Include Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
@@ -23,9 +24,15 @@
                     <input type="text" id="signUpFirstName" name="first_name" placeholder="First Name" required autocomplete="off">
                     <input type="text" id="signUpLastName" name="last_name" placeholder="Last Name" required autocomplete="off">
                     <input type="text" id="signUpUsername" name="username" placeholder="Username" required autocomplete="off">
-                    <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password">
-                    <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password"
-                        required >
+                    /* Eye Icon for password visbility */
+                    <div class="pass">
+                      <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}">
+                      <span class="material-symbols-outlined" id="toggleSignUpPassword" onclick="togglePasswordVisibility('signUpPassword', this)">visibility_off</span>
+                    </div> 
+                    <div class="pass">
+                      <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password" required>
+                      <span class="material-symbols-outlined" id="toggleConfirmPassword" onclick="togglePasswordVisibility('signUpConfirmPassword', this)">visibility_off</span>
+                    </div> 
                     <div id="requirementsMessage">
                         <h3>Password Requirements:</h3>
                         <p id="capitalLetter" class="invalid">At least 1 capital letter</p>
@@ -45,7 +52,11 @@
                 <p>Welcome back! Please log in to your account.</p>
                 <form id="signInForm" onsubmit="doSignIn(); return false;">
                     <input type="text" id="signInUsername" name="username" placeholder="Username" required>
-                    <input type="password" id="signInPassword" name="password" placeholder="Password" required>
+                    /* Eye Icon for password visbility */
+                   <div class="pass">
+                      <input type="password" id="signInPassword" name="password" placeholder="Password" required>
+                      <span class="material-symbols-outlined" id="toggleSignInPassword" onclick="togglePasswordVisibility('signInPassword', this)">visibility_off</span>
+                    </div>
                     <button type="submit">Log In</button>
                 </form>
                 <p class="switch-link">Don't have an account? <a href="#" id="signUp">Sign up.</a></p>
@@ -133,50 +144,72 @@
         signInLink.addEventListener('click', () => {
             container.classList.add('right-panel-active');
         });
+        /* Eye Icon for Password Visibility */
+        function togglePasswordVisibility(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "visibility"; // Change icon to visible
+            } else {
+                input.type = "password";
+                icon.textContent = "visibility_off"; // Change icon to hidden
+            }
+        }
 
         let passwordInput = document.getElementById("signUpPassword");
-            let capitalLetter = document.getElementById("capitalLetter");
-            let number = document.getElementById("number");
-            let length = document.getElementById("length");
+        let confirmPasswordInput = document.getElementById("signUpConfirmPassword");
+        let capitalLetter = document.getElementById("capitalLetter");
+        let number = document.getElementById("number");
+        let length = document.getElementById("length");
 
-            passwordInput.onfocus = function () {
-                document.getElementById("requirementsMessage").style.display = "block";
+
+        // Controls opening and closing the password requirements box when users are "in" the password input boxes.
+        passwordInput.onfocus = function () {
+            document.getElementById("requirementsMessage").style.display = "block";
+        }
+
+        passwordInput.onblur = function () {
+            document.getElementById("requirementsMessage").style.display = "none";
+        }
+
+        confirmPasswordInput.onfocus = function () {
+            document.getElementById("requirementsMessage").style.display = "block";
+        }
+
+        confirmPasswordInput.onblur = function () {
+            document.getElementById("requirementsMessage").style.display = "none";
+        }
+
+        passwordInput.onkeyup = function () {
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if (upperCaseLetters.test(passwordInput.value)) {
+                capitalLetter.classList.remove("invalid");
+                capitalLetter.classList.add("valid");
+            } else {
+                capitalLetter.classList.remove("valid");
+                capitalLetter.classList.add("invalid");
             }
 
-            passwordInput.onblur = function () {
-                document.getElementById("requirementsMessage").style.display = "none";
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if (numbers.test(passwordInput.value)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
             }
 
-            passwordInput.onkeyup = function () {
-                // Validate capital letters
-                var upperCaseLetters = /[A-Z]/g;
-                if (upperCaseLetters.test(passwordInput.value)) {
-                    capitalLetter.classList.remove("invalid");
-                    capitalLetter.classList.add("valid");
-                } else {
-                    capitalLetter.classList.remove("valid");
-                    capitalLetter.classList.add("invalid");
-                }
-
-                // Validate numbers
-                var numbers = /[0-9]/g;
-                if (numbers.test(passwordInput.value)) {
-                    number.classList.remove("invalid");
-                    number.classList.add("valid");
-                } else {
-                    number.classList.remove("valid");
-                    number.classList.add("invalid");
-                }
-
-                // Validate length
-                if (passwordInput.value.length >= 8) {
-                    length.classList.remove("invalid");
-                    length.classList.add("valid");
-                } else {
-                    length.classList.remove("valid");
-                    length.classList.add("invalid");
-                }
+            // Validate length
+            if (passwordInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
             }
+        }
 
     </script>
 </body>
