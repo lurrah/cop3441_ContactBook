@@ -9,7 +9,7 @@ let moreResults = true;
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    fetchContacts(""); // Load all contacts when the page loads
+    fetchContacts("", false); // Load all contacts when the page loads
 });
 
 window.addEventListener('scroll', () => {
@@ -84,7 +84,7 @@ function addContact() {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
                 // Reload contacts after adding a new one
-                fetchContacts("");
+                fetchContacts("", false);
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
             } else {
@@ -200,7 +200,9 @@ function deleteContact(index) {
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
+                            fetchContacts(document.getElementById("searchInput"), true);
                             renderContacts();
+
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
