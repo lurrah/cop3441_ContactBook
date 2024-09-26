@@ -9,7 +9,7 @@ let moreResults = true;
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    fetchContacts("",true); // Load all contacts when the page loads
+    fetchContacts(""); // Load all contacts when the page loads
 });
 
 window.addEventListener('scroll', () => {
@@ -84,7 +84,7 @@ function addContact() {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
                 // Reload contacts after adding a new one
-                fetchContacts("", false);
+                fetchContacts("");
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
             } else {
@@ -117,10 +117,9 @@ function renderContacts() {
 
 function fetchContacts(searchTerm, isScroll) {
     if (!isScroll) {
-        contacts = [];
+        contacts=[];
         offset = 0;
     }
-
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
@@ -140,7 +139,6 @@ function fetchContacts(searchTerm, isScroll) {
                 if (jsonObject.error && jsonObject.error !== "") {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
-                    offset = 0;
                 } else {
 
                     if (jsonObject.results.length < limit) {
@@ -151,6 +149,7 @@ function fetchContacts(searchTerm, isScroll) {
                     
                     contacts = contacts.concat(jsonObject.results); // Update the contacts array
                     offset+= limit;
+                    console.log(contacts);
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
@@ -202,6 +201,8 @@ function deleteContact(index) {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
                             renderContacts();
+
+                            fetchContacts(document.getElementById("searchInput").value, true);
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
