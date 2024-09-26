@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('scroll', () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        fetchContacts();
+        fetchContacts(document.getElementById("searchInput").value);
     }
 })
 
@@ -137,6 +137,8 @@ function fetchContacts(searchTerm) {
                 } else {
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
                     contacts.push(jsonObject.results); // Update the contacts array
+                    offset+= limit;
+                    
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
