@@ -123,7 +123,7 @@ function fetchContacts(searchTerm, isScroll) {
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
-    let tmp = { search: srch, userId: userId };
+    let tmp = { search: srch, userId: userId, offset: offset, limit: limit};
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
