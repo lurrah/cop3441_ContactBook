@@ -145,8 +145,6 @@ function fetchContacts(searchTerm, isScroll) {
 
                     if (jsonObject.results.length < limit) {
                         moreResults = false;
-                    } else {
-                        moreResults = true;
                     }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
                     
@@ -203,7 +201,6 @@ function deleteContact(index) {
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
-                            offset--;
                             renderContacts();
                         } else {
                             console.error("Error deleting contact: " + response.error);
