@@ -138,7 +138,7 @@ function fetchContacts(searchTerm) {
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
                     contacts.push(jsonObject.results); // Update the contacts array
                     offset+= limit;
-                    
+                    console.log(contacts);
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
