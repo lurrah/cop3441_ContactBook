@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('scroll', () => {
     if (moreResults === true && window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        fetchContacts(document.getElementById("searchInput").value);
+        fetchContacts(document.getElementById("searchInput").value, true);
     }
 })
 
@@ -115,9 +115,10 @@ function renderContacts() {
     });
 }
 
-function fetchContacts(searchTerm) {
-    if (searchTerm !== '') {
+function fetchContacts(searchTerm, isScroll) {
+    if (!isScroll) {
         contacts=[];
+        offset = 0;
     }
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
