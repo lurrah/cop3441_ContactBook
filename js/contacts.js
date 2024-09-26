@@ -136,7 +136,9 @@ function fetchContacts(searchTerm) {
                     contacts = []; // Clear the contacts array
                 } else {
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-                    contacts.push(jsonObject.results); // Update the contacts array
+                    
+                    
+                    contacts = contacts.concat(jsonObject.results); // Update the contacts array
                     offset+= limit;
                     console.log(contacts);
                 }
