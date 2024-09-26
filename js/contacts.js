@@ -10,15 +10,12 @@ let isFetching = false;
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    console.log(offset);
-    fetchContacts(""); // Load all contacts when the page loads
-    console.log(offset);
+    fetchContacts("", false); // Load all contacts when the page loads
 });
 
 window.addEventListener('scroll', function () {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
-        console.log(moreResults);
-        fetchContacts(document.getElementById("searchInput").value); // Re-fetch contacts with the same search term
+        fetchContacts(document.getElementById("searchInput").value, true); // Re-fetch contacts with the same search term
         }
     })
 
@@ -88,7 +85,7 @@ function addContact() {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
                 // Reload contacts after adding a new one
-                fetchContacts("");
+                fetchContacts(document.getElementById('searchInput').value, false);
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
             } else {
@@ -119,8 +116,17 @@ function renderContacts() {
     });
 }
 
-function fetchContacts(searchTerm) {
+function fetchContacts(searchTerm, isScroll) {
+    if (isFetching) {
+        return;
+    }
+
     isFetching = true;
+
+    if (!isScroll) {
+        contacts = [];
+        offset = 0;
+    }
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
@@ -138,17 +144,20 @@ function fetchContacts(searchTerm) {
                 let jsonObject = JSON.parse(xhr.responseText);
                 console.log(tmp);
                 console.log(jsonObject);
-                if (jsonObject.error && jsonObject.error !== "") {
+                if (jsonObject.error && jsonObject.error !== "" && !isScroll) {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
                 } else {
-                    if(jsonObject.results.length < limit) {
+                    if(!jsonObject.results || jsonObject.results.length < limit) {
                         moreResults = false;
                     } else {
                         moreResults = true;
                     }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-                    contacts = contacts.concat(jsonObject.results); // Update the contacts array
+                    if (jsonObject.results) 
+                    {
+                        contacts = contacts.concat(jsonObject.results); // Update the contacts array
+                    }
                     offset += limit;
                 }
 
