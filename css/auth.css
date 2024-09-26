@@ -793,6 +793,9 @@ body {
     transform: translateY(-50%);
     cursor: pointer;
     pointer-events: all; /* Make sure the icon is clickable */
+    font-size: 16px; /* Set font size */
+    width: 20px;
+    height: 20px; 
 }
 
 
