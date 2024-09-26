@@ -24,7 +24,7 @@
 		$contactName = "%" . $inData["search"] . "%";
 		$userId = intval($inData["userId"]); // Ensure it's an integer
 
-		$stmt->bind_param("ssssi", $contactName, $contactName, $contactName, $contactName, $userId, $limit, $offset);
+		$stmt->bind_param("ssssiii", $contactName, $contactName, $contactName, $contactName, $userId, $limit, $offset);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
