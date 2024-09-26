@@ -117,7 +117,7 @@ function renderContacts() {
 
 function fetchContacts(searchTerm, isScroll) {
     if (!isScroll) {
-        contacts=[];
+        //contacts=[];
         offset = 0;
     }
     const srch = searchTerm.trim();
