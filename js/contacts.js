@@ -9,7 +9,7 @@ let moreResults = true;
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    fetchContacts(""); // Load all contacts when the page loads
+    fetchContacts("",true); // Load all contacts when the page loads
 });
 
 window.addEventListener('scroll', () => {
