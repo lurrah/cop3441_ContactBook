@@ -123,7 +123,7 @@ function fetchContacts(searchTerm, isScroll) {
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
-    let tmp = { search: srch, userId: userId, offset: offset, limit: limit};
+    let tmp = { search: srch, userId: userId, offset: offset, limit: limit };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -201,8 +201,6 @@ function deleteContact(index) {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
                             renderContacts();
-
-                            fetchContacts(document.getElementById("searchInput").value, true);
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
