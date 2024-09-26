@@ -137,7 +137,7 @@ function fetchContacts(searchTerm) {
                     contacts = []; // Clear the contacts array
                 } else {
 
-                    if (jsonObject.results.length < length) {
+                    if (jsonObject.results.length < limit) {
                         moreResults = false;
                     }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
