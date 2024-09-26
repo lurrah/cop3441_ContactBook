@@ -204,7 +204,7 @@ function deleteContact(index) {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
                             offset--;
-                            renderContacts;
+                            renderContacts();
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
