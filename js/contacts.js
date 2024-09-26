@@ -121,7 +121,6 @@ function fetchContacts(searchTerm, isScroll) {
         offset = 0;
     }
 
-    console.log(searchTerm);
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
@@ -204,7 +203,7 @@ function deleteContact(index) {
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
-                            fetchContacts(document.getElementById("searchInput"), true);
+                            fetchContacts(document.getElementById("searchInput").value, true);
                             renderContacts();
 
                         } else {
