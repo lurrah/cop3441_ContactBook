@@ -1,4 +1,8 @@
 let contacts = [];
+let offset = 0;
+let limit = 10;
+let moreResults = true;
+let isFetching = false;
 // const urlBase = 'http://lamp-project.com/LAMPAPI';
 // const urlBase = 'http://localhost:8000/LAMPAPI';
 
@@ -6,8 +10,14 @@ let contacts = [];
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    fetchContacts(""); // Load all contacts when the page loads
+    fetchContacts("", false); // Load all contacts when the page loads
 });
+window.addEventListener('scroll', function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
+        console.log("here");
+        fetchContacts(document.getElementById("searchInput").value.toLowerCase(), true); // Re-fetch contacts with the same search term
+        }
+    })
 
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
@@ -74,10 +84,21 @@ function addContact() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
-                // Reload contacts after adding a new one
-                fetchContacts("");
+                searchTerm = document.getElementById("searchInput").value.toLowerCase();
+                if ((firstName.toLowerCase().includes(searchTerm) || lastName.toLowerCase().includes(searchTerm) ||
+                    phone.toLowerCase().includes(searchTerm) || email.toLowerCase().includes(searchTerm)))
+                {
+                    // add new contact to list if includes search
+                    contacts.push(newContact);
+                    renderContacts();
+                    offset += 1;
+                } else 
+                {
+                    fetchContacts(searchTerm, false);
+                }
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+
             } else {
                 document.getElementById("addContactResult").innerHTML = "Error adding contact: " + response.error;
             }
@@ -106,11 +127,21 @@ function renderContacts() {
     });
 }
 
-function fetchContacts(searchTerm) {
+function fetchContacts(searchTerm, isScroll) {
+    if (isFetching) {
+        return;
+    }
+
+    isFetching = true;
+
+    if (!isScroll) {
+        contacts = [];
+        offset = 0;
+    }
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
-    let tmp = { search: srch, userId: userId };
+    let tmp = { search: srch, userId: userId, limit: limit, offset: offset };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -122,21 +153,34 @@ function fetchContacts(searchTerm) {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-
-                if (jsonObject.error && jsonObject.error !== "") {
+                console.log(tmp);
+                console.log(jsonObject);
+                if (jsonObject.error && jsonObject.error !== "" && !isScroll) {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
                 } else {
+                    if(!jsonObject.results || jsonObject.results.length < limit) {
+                        moreResults = false;
+                    } else {
+                        moreResults = true;
+                    }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-                    contacts = jsonObject.results; // Update the contacts array
+                    if (jsonObject.results) 
+                    {
+                        contacts = contacts.concat(jsonObject.results); // Update the contacts array
+                    }
+                    offset += limit;
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
             }
+
+            isFetching = false;
         };
         xhr.send(jsonPayload);
     } catch (err) {
         document.getElementById("searchContactsResult").innerHTML = err.message;
+        isFetching = false;
     }
 }
 
