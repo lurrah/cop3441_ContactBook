@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
     readCookie();
     fetchContacts("", false); // Load all contacts when the page loads
 });
-
 window.addEventListener('scroll', function () {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
-        fetchContacts(document.getElementById("searchInput").value, true); // Re-fetch contacts with the same search term
+        console.log("here");
+        fetchContacts(document.getElementById("searchInput").value.toLowerCase(), true); // Re-fetch contacts with the same search term
         }
     })
 
@@ -84,10 +84,21 @@ function addContact() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
-                // Reload contacts after adding a new one
-                fetchContacts(document.getElementById('searchInput').value, false);
+                searchTerm = document.getElementById("searchInput").value.toLowerCase();
+                if ((firstName.toLowerCase().includes(searchTerm) || lastName.toLowerCase().includes(searchTerm) ||
+                    phone.toLowerCase().includes(searchTerm) || email.toLowerCase().includes(searchTerm)))
+                {
+                    // add new contact to list if includes search
+                    contacts.push(newContact);
+                    renderContacts();
+                    offset += 1;
+                } else 
+                {
+                    fetchContacts(searchTerm, false);
+                }
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+
             } else {
                 document.getElementById("addContactResult").innerHTML = "Error adding contact: " + response.error;
             }
