@@ -139,6 +139,11 @@ body {
     transform: scale(1.05);
 }
 
+.formLabels {
+    color: black;
+}
+
+
 /* Switch Link */
 .switch-link {
     margin-top: 20px;
