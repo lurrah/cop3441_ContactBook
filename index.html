@@ -24,7 +24,6 @@
                     <input type="text" id="signUpFirstName" name="first_name" placeholder="First Name" required autocomplete="off">
                     <input type="text" id="signUpLastName" name="last_name" placeholder="Last Name" required autocomplete="off">
                     <input type="text" id="signUpUsername" name="username" placeholder="Username" required autocomplete="off">
-                    /* Eye Icon for password visbility */
                     <div class="pass">
                       <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}">
                       <span class="material-symbols-outlined" id="toggleSignUpPassword" onclick="togglePasswordVisibility('signUpPassword', this)">visibility_off</span>
@@ -52,7 +51,6 @@
                 <p>Welcome back! Please log in to your account.</p>
                 <form id="signInForm" onsubmit="doSignIn(); return false;">
                     <input type="text" id="signInUsername" name="username" placeholder="Username" required>
-                    /* Eye Icon for password visbility */
                    <div class="pass">
                       <input type="password" id="signInPassword" name="password" placeholder="Password" required>
                       <span class="material-symbols-outlined" id="toggleSignInPassword" onclick="togglePasswordVisibility('signInPassword', this)">visibility_off</span>
@@ -144,7 +142,6 @@
         signInLink.addEventListener('click', () => {
             container.classList.add('right-panel-active');
         });
-        /* Eye Icon for Password Visibility */
         function togglePasswordVisibility(inputId, icon) {
             const input = document.getElementById(inputId);
             if (input.type === "password") {
