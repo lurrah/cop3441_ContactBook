@@ -78,8 +78,10 @@ function addContact() {
                 fetchContacts("");
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+                showToast('Contact added successfully!', 'success'); // Show success toast
             } else {
                 document.getElementById("addContactResult").innerHTML = "Error adding contact: " + response.error;
+                showToast(data.error, 'Could not add contact'); // Show error toast
             }
         }
     };
@@ -180,8 +182,10 @@ function deleteContact(index) {
                             console.log("Contact has been deleted successfully.");
                             contacts.splice(index, 1);
                             renderContacts();
+                            showToast('Contact deleted successfully!', 'success'); // Show success toast
                         } else {
                             console.error("Error deleting contact: " + response.error);
+                            showToast(data.error, 'Could not delete contact'); // Show error toast
                         }
                     } else {
                         console.error("Request failed with status: " + xhr.status);
@@ -296,8 +300,10 @@ function saveContact(index) {
                     renderContacts();
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
+                    showToast('Contact updated successfully!', 'success'); // Show success toast
                 } else {
                     document.getElementById("editContactResult").innerHTML = "Error updating contact: " + response.error;
+                    showToast(data.error, 'Could not update contact'); // Show error toast
                 }
             }
         };
@@ -313,3 +319,25 @@ function toggleSidebar() {
 	sidebar.classList.toggle('active');
 	content.classList.toggle('active');
 }
+
+function showToast(message, type) {
+    const toastContainer = document.getElementById("toastContainer");
+    
+    const toast = document.createElement("div");
+    toast.classList.add("toast");
+    toast.textContent = message;
+  
+    if (type === "success") {
+      toast.classList.add("success");
+    } else if (type === "error") {
+      toast.classList.add("error");
+    }
+    
+    toastContainer.appendChild(toast);
+  
+    // Automatically remove the toast after 3 seconds
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
+  
