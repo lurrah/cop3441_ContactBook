@@ -1,12 +1,23 @@
 let contacts = [];
+let offset = 0;
+let limit = 10;
+let moreResults = true;
+let isFetching = false;
 // const urlBase = 'http://lamp-project.com/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI';
 
 // const extension = 'php';
 
 document.addEventListener('DOMContentLoaded', function () {
     readCookie();
-    fetchContacts(""); // Load all contacts when the page loads
+    fetchContacts("", false); // Load all contacts when the page loads
 });
+window.addEventListener('scroll', function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
+        console.log("here");
+        fetchContacts(document.getElementById("searchInput").value.toLowerCase(), true); // Re-fetch contacts with the same search term
+        }
+    })
 
 function addContact() {
     let firstName = document.getElementById("addContactFirstName").value;
@@ -14,9 +25,43 @@ function addContact() {
     let phone = document.getElementById("addContactPhone").value;
     let email = document.getElementById("addContactEmail").value;
 
+    // RegEx validation for phone numbers.
+    // Allows for the user to input phone numbers with or without the dashes.
+    const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+    const phoneRegex2 = /^\d{3}\d{3}\d{4}$/;
+
+    // RegEx validation for the email. The email does not have to be a working email.
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // All error messages are mainly used for debugging.
+    // If any field is empty, prompts user to fill all fields.
     if (!firstName || !lastName || !phone || !email) {
         document.getElementById("addContactResult").innerHTML = "Please fill in all fields.";
         return;
+    }
+
+    // Prompts the user according to the validation error.
+    if ((!phoneRegex.test(phone) && !phoneRegex2.test(phone)) && !emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone and email.";
+        return;
+    }
+    else if (!phoneRegex.test(phone) && !phoneRegex2.test(phone)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid phone.";
+        return;
+    }
+    else if (!emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Invalid email.";
+        return;
+    }
+
+    // Auto adds dashes if the user input 10 digits with no dashes.
+    if (phoneRegex2.test(phone)) {
+        phone = phone.slice(0, 3) + "-" + phone.slice(3, 6) + "-" + phone.slice(6);
+    }
+
+    // Final check to ensure everything is correct and update error message.
+    if (firstName && lastName && phone && email && phoneRegex.test(phone) && emailRegex.test(email)) {
+        document.getElementById("addContactResult").innerHTML = "Everything is correct";
     }
 
     // Prepare data for API call
@@ -39,10 +84,21 @@ function addContact() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
-                // Reload contacts after adding a new one
-                fetchContacts("");
+                searchTerm = document.getElementById("searchInput").value.toLowerCase();
+                if ((firstName.toLowerCase().includes(searchTerm) || lastName.toLowerCase().includes(searchTerm) ||
+                    phone.toLowerCase().includes(searchTerm) || email.toLowerCase().includes(searchTerm)))
+                {
+                    // add new contact to list if includes search
+                    contacts.push(newContact);
+                    renderContacts();
+                    offset += 1;
+                } else 
+                {
+                    fetchContacts(searchTerm, false);
+                }
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+
             } else {
                 document.getElementById("addContactResult").innerHTML = "Error adding contact: " + response.error;
             }
@@ -63,19 +119,29 @@ function renderContacts() {
             <td>${contact.phone}</td>
             <td>${contact.email}</td>
             <td>
-                <button onclick="openEditModal(${index})">Edit</button>
-                <button onclick="deleteContact(${index})">Delete</button>
+                <button onclick="openEditModal(${index})"><span class="material-symbols-outlined">edit</span><span>Edit</span></button>
+                <button onclick="deleteContact(${index})"><span class="material-symbols-outlined">delete</span><span>Delete</span></button>
             </td>
         </tr>`;
         tbody.innerHTML += row;
     });
 }
 
-function fetchContacts(searchTerm) {
+function fetchContacts(searchTerm, isScroll) {
+    if (isFetching) {
+        return;
+    }
+
+    isFetching = true;
+
+    if (!isScroll) {
+        contacts = [];
+        offset = 0;
+    }
     const srch = searchTerm.trim();
     document.getElementById("searchContactsResult").innerHTML = "";
 
-    let tmp = { search: srch, userId: userId };
+    let tmp = { search: srch, userId: userId, limit: limit, offset: offset };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -87,28 +153,40 @@ function fetchContacts(searchTerm) {
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let jsonObject = JSON.parse(xhr.responseText);
-
-                if (jsonObject.error && jsonObject.error !== "") {
+                console.log(tmp);
+                console.log(jsonObject);
+                if (jsonObject.error && jsonObject.error !== "" && !isScroll) {
                     document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                     contacts = []; // Clear the contacts array
                 } else {
+                    if(!jsonObject.results || jsonObject.results.length < limit) {
+                        moreResults = false;
+                    } else {
+                        moreResults = true;
+                    }
                     document.getElementById("searchContactsResult").innerHTML = "Contact(s) retrieved.";
-                    contacts = jsonObject.results; // Update the contacts array
+                    if (jsonObject.results) 
+                    {
+                        contacts = contacts.concat(jsonObject.results); // Update the contacts array
+                    }
+                    offset += limit;
                 }
 
                 renderContacts(); // Use the renderContacts function to display contacts
             }
+
+            isFetching = false;
         };
         xhr.send(jsonPayload);
     } catch (err) {
         document.getElementById("searchContactsResult").innerHTML = err.message;
+        isFetching = false;
     }
 }
 
 function deleteContact(index) {
     //get contact's info
     let contact = contacts[index];
-    let table = document.getElementsById("contactTableBody");
     let namef_val = contact.firstName;
     let namel_val = contact.lastName;
     let email_val = contact.email;
@@ -122,7 +200,11 @@ function deleteContact(index) {
         //data for API
         let tmp = {
             id: contactId,
-            userId: userId
+            userId: userId, 
+            firstName: namef_val,
+            lastName: namel_val,
+            email: email_val,
+            phone: phone_val
         };
 
         let jsonPayload = JSON.stringify(tmp);
@@ -140,7 +222,8 @@ function deleteContact(index) {
                         let response = JSON.parse(xhr.responseText);
                         if (response.error === "") {
                             console.log("Contact has been deleted successfully.");
-                            table.deleteRow(index)
+                            contacts.splice(index, 1);
+                            renderContacts();
                         } else {
                             console.error("Error deleting contact: " + response.error);
                         }
@@ -212,9 +295,7 @@ function closeEditModal() {
 
 function saveContact(index) {
     let id = contacts[index].id;
-    console.log("id of contact to update: "+ id);
-    let table = document.getElementsById("contactTableBody");
-    let firstName = document.getElementById("editContactFirstName").value;
+    console.log("id of contact to update: "+ id);    let firstName = document.getElementById("editContactFirstName").value;
     let lastName = document.getElementById("editContactLastName").value;
     let phone = document.getElementById("editContactPhone").value;
     let email = document.getElementById("editContactEmail").value;
@@ -255,7 +336,8 @@ function saveContact(index) {
                     contacts[index].lastName = lastName;
                     contacts[index].phone = phone;
                     contacts[index].email = email;
-
+                    
+                    renderContacts();
                     document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
                     closeEditModal();
                 } else {
@@ -267,4 +349,11 @@ function saveContact(index) {
     } catch (err) {
         document.getElementById("editContactResult").innerHTML = err.message;
     }
+}
+
+function toggleSidebar() {
+	const sidebar = document.getElementById('sidebar');
+	const content = document.getElementById('content');
+	sidebar.classList.toggle('active');
+	content.classList.toggle('active');
 }

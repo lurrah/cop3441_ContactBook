@@ -3,94 +3,182 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Wizard</title>
-    <link rel="stylesheet" href = "css/styles.css">
-    <link rel="icon" type="image/png" href="images/contactWizardIcon.png" />
-    <script type="text/javascript" src="js/code.js"></script>
-    </head>
+    <title>Contact Wizard - Get Started</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <script type="text/javascript" src="js/auth.js"></script>
+
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700&display=swap" rel="stylesheet">
+</head>
+
 <body>
-    <div class="header">
-        <a href="https://github.com/lurrah/cop3441_ContactBook/tree/main" target="_blank" id="title">Contact Wizard</a>
-        <img src="images/wand.png" alt="Wizard's Wand" class="logo">
-    </div>
-    <div class="container">
-        <div class="form-toggle">
-            <button id="signInBtn" class="toggle-btn active">Sign In</button>
-            <button id="signUpBtn" class="toggle-btn">Sign Up</button>
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="form-container sign-up-container">
+            <div class="form-content">
+                <h1>Get Started</h1>
+                <p>Welcome to Contact Wizard - Let's create your account.</p>
+                <form id="signUpForm" onsubmit="doSignUp(); return false;" autocomplete="off">
+                    <input type="text" id="signUpFirstName" name="first_name" placeholder="First Name" required autocomplete="off">
+                    <input type="text" id="signUpLastName" name="last_name" placeholder="Last Name" required autocomplete="off">
+                    <input type="text" id="signUpUsername" name="username" placeholder="Username" required autocomplete="off">
+                    <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password">
+                    <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password"
+                        required >
+                    <div id="requirementsMessage">
+                        <h3>Password Requirements:</h3>
+                        <p id="capitalLetter" class="invalid">At least 1 capital letter</p>
+                        <p id="number" class="invalid">At least 1 number</p>
+                        <p id="length" class="invalid">At least 8 characters</p>
+                    </div>
+                    <button type="submit" >Sign Up</button>
+                </form>
+                <p class="switch-link">Already have an account? <a href="#" id="signIn">Log in.</a></p>
+                <p id="signUpResult"></p> <!-- Display sign-up result here -->
+            </div>
         </div>
-        <div class="forms-container">
-            <form id="signInForm" class="form active">
-                <h2 class="title">Sign In</h2>
-                <div class="input-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" id="signInUsername" />
-                </div>
-                <div class="input-field">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" id="signInPassword" />
-                </div>
-                <input id="signInSubmitBtn" type="submit" class="btn" value="Sign in"/>
-                <span id="signInResult">Sign-in result.</span>
-            </form>
-            <form id="signUpForm" class="form">
-                <h2 class="title">Sign Up</h2>
-                <div class="input-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="First Name" id="signUpFirstName" />
-                </div>
-                <div class="input-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Last Name" id="signUpLastName" />
-                </div>
-                <div class="input-field">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" id="signUpUsername" />
-                </div>
-                <div class="input-field">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" id="signUpPassword" />
-                </div>
-                <input id="signUpSubmitBtn" type="submit" class="btn" value="Sign up"/>
-                <span id="signUpResult" style="color: transparent; ">Sign-up result.</span>
-            </form>
+        <!-- Sign In Form -->
+        <div class="form-container sign-in-container">
+            <div class="form-content">
+                <h1>Sign In</h1>
+                <p>Welcome back! Please log in to your account.</p>
+                <form id="signInForm" onsubmit="doSignIn(); return false;">
+                    <input type="text" id="signInUsername" name="username" placeholder="Username" required>
+                    <input type="password" id="signInPassword" name="password" placeholder="Password" required>
+                    <button type="submit">Log In</button>
+                </form>
+                <p class="switch-link">Don't have an account? <a href="#" id="signUp">Sign up.</a></p>
+                <p id="signInResult"></p> <!-- Display sign-in result here -->
+            </div>
         </div>
+        <!-- Overlay Panel -->
+        <div class="overlay-container">
+            <div class="overlay">
+                <!-- Overlay Content Left -->
+                <div class="overlay-panel overlay-left">
+                    <div class="overlay-content">
+                        <a href="https://github.com" target="_blank">
+                            <div class="wand-icon">
+                            </div>
+                        </a>
+                        <h1 class="scroll-header">Who will you
+                            <div class="scrolling-words-box">
+                                <ul>
+                                    <li>email?</li>
+                                    <li>call?</li>
+                                    <li>connect?</li>
+                                    <li>chat?</li>
+                                    <li>message?</li>
+                                    <li>engage?</li>
+                                    <li>inspire?</li>
+                                    <li>lead?</li>
+                                    <!-- Repeat the first word at the end for smooth looping -->
+                                    <li>email?</li>
+                                </ul>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+                <!-- Overlay Content Right -->
+                <div class="overlay-panel overlay-right">
+                    <div class="overlay-content">
+                        <a href="https://github.com/lurrah/cop3441_ContactBook" target="_blank">
+                            <div class="wand-icon">
+                                <div class="sparkles">
+                                    <!-- Sparkle elements -->
+                                    <div class="sparkle sparkle-1"></div>
+                                    <div class="sparkle sparkle-2"></div>
+                                    <div class="sparkle sparkle-3"></div>
+                                    <div class="sparkle sparkle-4"></div>
+                                    <div class="sparkle sparkle-5"></div>
+                                    <div class="sparkle sparkle-6"></div>
+                                    <div class="sparkle sparkle-7"></div>
+                                    <div class="sparkle sparkle-8"></div>
+                                    <div class="sparkle sparkle-9"></div>
+                                    <div class="sparkle sparkle-10"></div>
+                                    <div class="sparkle sparkle-11"></div>
+                                    <div class="sparkle sparkle-12"></div>
+                                    <div class="sparkle sparkle-13"></div>
+                                    <div class="sparkle sparkle-14"></div>
+                                    <div class="sparkle sparkle-15"></div>
+                                    <div class="sparkle sparkle-16"></div>
+                                    <div class="sparkle sparkle-17"></div>
+                                    <div class="sparkle sparkle-18"></div>
+                                    <div class="sparkle sparkle-19"></div>
+                                    <div class="sparkle sparkle-20"></div>
+                                </div>
+                            </div>
+                        </a>
+                        <h1>Enter the <strong>Future</strong><br> of contact management,<br> today</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
     </div>
+        
+    <!-- Include JavaScript -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const signInBtn = document.getElementById('signInBtn');
-            const signUpBtn = document.getElementById('signUpBtn');
-            const signInForm = document.getElementById('signInForm');
-            const signUpForm = document.getElementById('signUpForm');
-            const signInSubmitBtn = document.getElementById('signInSubmitBtn'); // Define these
-            const signUpSubmitBtn = document.getElementById('signUpSubmitBtn'); // Define these
+        const signUpLink = document.getElementById('signUp');
+        const signInLink = document.getElementById('signIn');
+        const container = document.getElementById('container');
 
-            signInBtn.addEventListener('click', () => {
-                signInForm.classList.add('active');
-                signUpForm.classList.remove('active');
-                signInBtn.classList.add('active');
-                signUpBtn.classList.remove('active');
-            });
-
-            signUpBtn.addEventListener('click', () => {
-                signUpForm.classList.add('active');
-                signInForm.classList.remove('active');
-                signUpBtn.classList.add('active');
-                signInBtn.classList.remove('active');
-            });
-
-            signInSubmitBtn.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent the default form submission
-                doSignIn();
-            });
-
-            signUpSubmitBtn.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent the default form submission
-                doSignUp();
-            });
+        signUpLink.addEventListener('click', () => {
+            container.classList.remove('right-panel-active');
         });
+
+        signInLink.addEventListener('click', () => {
+            container.classList.add('right-panel-active');
+        });
+
+        let passwordInput = document.getElementById("signUpPassword");
+            let capitalLetter = document.getElementById("capitalLetter");
+            let number = document.getElementById("number");
+            let length = document.getElementById("length");
+
+            passwordInput.onfocus = function () {
+                document.getElementById("requirementsMessage").style.display = "block";
+            }
+
+            passwordInput.onblur = function () {
+                document.getElementById("requirementsMessage").style.display = "none";
+            }
+
+            passwordInput.onkeyup = function () {
+                // Validate capital letters
+                var upperCaseLetters = /[A-Z]/g;
+                if (upperCaseLetters.test(passwordInput.value)) {
+                    capitalLetter.classList.remove("invalid");
+                    capitalLetter.classList.add("valid");
+                } else {
+                    capitalLetter.classList.remove("valid");
+                    capitalLetter.classList.add("invalid");
+                }
+
+                // Validate numbers
+                var numbers = /[0-9]/g;
+                if (numbers.test(passwordInput.value)) {
+                    number.classList.remove("invalid");
+                    number.classList.add("valid");
+                } else {
+                    number.classList.remove("valid");
+                    number.classList.add("invalid");
+                }
+
+                // Validate length
+                if (passwordInput.value.length >= 8) {
+                    length.classList.remove("invalid");
+                    length.classList.add("valid");
+                } else {
+                    length.classList.remove("valid");
+                    length.classList.add("invalid");
+                }
+            }
+
     </script>
-
 </body>
-
+        
 </html>
