@@ -61,7 +61,7 @@
 		echo $obj;
 	}
 
-	function returnWithInfo( $searchResults )
+	function returnWithInfo( $contactId )
 	{
 		$retValue = '{"contactId":"' . $contactId . '", "error":"",}';
 
