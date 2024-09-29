@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listeners
     document.getElementById('createContactButton').addEventListener('click', toggleContactForm);
-    document.getElementById('submitContactButton').addEventListener('click', submitContact);
+    /* document.getElementById('submitContactButton').addEventListener('click', submitContact); */
     document.getElementById('cancelButton').addEventListener('click', cancelEdit);
+    document.getElementById('contactPhone').addEventListener('input', formatPhoneNumber);
 });
 
 function toggleContactForm() {
@@ -35,15 +36,18 @@ function resetForm() {
 }
 
 function submitContact() {
+    console.log("Submitting contact.");
     let firstName = document.getElementById("contactFirstName").value.trim();
     let lastName = document.getElementById("contactLastName").value.trim();
     let email = document.getElementById("contactEmail").value.trim();
-    let phone = document.getElementById("contactPhone").value.trim();
-
+    let phone = document.getElementById("contactPhone").value.trim().replace(/\D/g, '');
+    console.log(phone);
+    /*
     if (!firstName || !lastName || !email || !phone) {
         document.getElementById("contactResult").innerHTML = "Please fill in all fields.";
         return;
     }
+    */
 
     if (isEditing) {
         updateContact(editingIndex, firstName, lastName, email, phone);
@@ -53,6 +57,7 @@ function submitContact() {
 }
 
 function addContact(firstName, lastName, email, phone) {
+    console.log("Adding contact.")
     // Prepare data for API call
     let newContact = {
         firstName: firstName,
@@ -91,6 +96,7 @@ function addContact(firstName, lastName, email, phone) {
 }
 
 function fetchContacts(searchTerm, isScroll) {
+
     let tmp = { search: searchTerm.trim(), userId: userId };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
@@ -108,6 +114,7 @@ function fetchContacts(searchTerm, isScroll) {
                 contacts = []; // Clear the contacts array
                 renderContacts(); // Clear the table
             } else {
+                document.getElementById("searchContactsResult").innerHTML = "";
                 contacts = jsonObject.results || [];
                 renderContacts(); // Display the contacts
             }
@@ -136,7 +143,8 @@ function renderContacts() {
 
         // Phone cell
         let phoneCell = document.createElement('td');
-        phoneCell.innerText = contact.phone;
+        let phone = contact.phone;
+        phoneCell.innerText = `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`;
         row.appendChild(phoneCell);
 
         // Actions cell
@@ -167,7 +175,8 @@ function openEditForm(index) {
     document.getElementById("contactFirstName").value = contact.firstName;
     document.getElementById("contactLastName").value = contact.lastName;
     document.getElementById("contactEmail").value = contact.email;
-    document.getElementById("contactPhone").value = contact.phone;
+    let phone = contact.phone;
+    document.getElementById("contactPhone").value = `(${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6)}`;
 
     document.getElementById("contactResult").innerHTML = "";
 
@@ -226,6 +235,7 @@ function updateContact(index, firstName, lastName, email, phone) {
 
 function deleteContact(index) {
     let contactId = contacts[index].id;
+    console.log(contactId);
 
     let confirmation = confirm("Are you sure you want to delete this contact?");
     if (!confirmation) {
@@ -261,4 +271,10 @@ function deleteContact(index) {
 function cancelEdit() {
     resetForm();
     toggleContactForm();
+}
+
+function formatPhoneNumber() {
+    const value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
+    const formattedValue = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+    this.value = formattedValue;
 }

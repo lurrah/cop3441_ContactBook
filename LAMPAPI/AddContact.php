@@ -13,7 +13,7 @@
 	$email = $inData["email"];
 	$userId = $inData["userId"];
 
-	$phoneRegex = '/^\d{3}-\d{3}-\d{4}$/';
+	$phoneRegex = '/^\d{10}$/';
 
 	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	
 
