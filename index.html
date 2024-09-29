@@ -27,14 +27,14 @@
                     <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password"
                         required >
                     <div id="requirementsMessage">
-                        <h3>Password Requirements:</h3>
+                        <h3>Password Requirements</h3>
                         <p id="capitalLetter" class="invalid">At least 1 capital letter</p>
                         <p id="number" class="invalid">At least 1 number</p>
                         <p id="length" class="invalid">At least 8 characters</p>
                     </div>
                     <button type="submit" >Sign Up</button>
                 </form>
-                <p class="switch-link">Already have an account? <a href="#" id="signIn">Log in.</a></p>
+                <p class="switch-link">Already have an account? <a href="#" id="signIn">Sign in.</a></p>
                 <p id="signUpResult"></p> <!-- Display sign-up result here -->
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <form id="signInForm" onsubmit="doSignIn(); return false;">
                     <input type="text" id="signInUsername" name="username" placeholder="Username" required>
                     <input type="password" id="signInPassword" name="password" placeholder="Password" required>
-                    <button type="submit">Log In</button>
+                    <button type="submit">Sign In</button>
                 </form>
                 <p class="switch-link">Don't have an account? <a href="#" id="signUp">Sign up.</a></p>
                 <p id="signInResult"></p> <!-- Display sign-in result here -->
