@@ -14,7 +14,7 @@
   <!-- Include CSS -->
   <link rel="stylesheet" href="css/contacts.css">
   <!-- Include favicon -->
-  <link rel="icon" type="image/png" href="images/contactWizardIcon.png" />
+  <link rel="icon" type="image/png" href="images/ContactWizardIcon.png" />
   <!-- Include JS -->
   <script defer src="js/contacts.js"></script>
   <script src="js/auth.js"></script>
@@ -23,6 +23,7 @@
 <body>
   <!-- Sidebar -->
   <div class="sidebar">
+    <!-- <img src="images/ContactWizardIconTransparent.png"/> -->
     <ul>
       <li>
         <button id="contactsButton" class="active">
@@ -39,7 +40,7 @@
       <li>
         <button id="logoutButton">
           <span class="material-icons">logout</span>
-          Log Out
+          Sign Out
         </button>
       </li>
     </ul>
@@ -57,12 +58,13 @@
     <!-- Add/Edit Contact Form -->
     <div id="contactFormContainer" class="contact-form-container hidden">
       <h2 id="formHeader">Add Contact</h2>
-      <form id="contactForm">
+      <form id="contactForm" onsubmit="submitContact(); return false;">
         <input type="text" id="contactFirstName" placeholder="First Name" required>
         <input type="text" id="contactLastName" placeholder="Last Name" required>
-        <input type="email" id="contactEmail" placeholder="Email" required>
-        <input type="text" id="contactPhone" placeholder="Phone Number" required>
-        <button type="button" id="submitContactButton">
+        <input type="email" id="contactEmail" placeholder="Email" title="Email address" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
+        <!-- <input type="text" id="contactPhone" placeholder="(___) ___-___" pattern="\(\d{3}\) \d{3}-\d{4}" title="(###) ###-####" required> -->
+        <input type="text" inputmode=numeric id="contactPhone" placeholder="(___) ___-___" pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit number" required>
+        <button type="submit" id="submitContactButton">
           <span class="material-icons">save</span>
           Save
         </button>
