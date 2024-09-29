@@ -89,6 +89,7 @@ function addContact() {
                     phone.toLowerCase().includes(searchTerm) || email.toLowerCase().includes(searchTerm)))
                 {
                     // add new contact to list if includes search
+                    newContact["id"] = response.id;
                     contacts.push(newContact);
                     renderContacts();
                     offset += 1;
