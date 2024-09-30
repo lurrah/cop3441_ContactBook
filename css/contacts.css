@@ -11,7 +11,44 @@ body {
     background-color: #462964;
 }
 
+<<<<<<< HEAD
 /* Sidebar */
+=======
+/* Style for the main content header */
+.main-header {
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
+}
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .toast {
+    background-color: #333;
+    color: #fff;
+    padding: 16px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    opacity: 0.9;
+    transition: opacity 0.5s ease;
+  }
+  
+  .toast.success {
+    background-color: #28a745;
+  }
+  
+  .toast.error {
+    background-color: #dc3545;
+  }  
+
+/* Sidebar Styles */
+>>>>>>> toast
 .sidebar {
     position: fixed;
     top: 0;
