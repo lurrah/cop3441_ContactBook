@@ -1,4 +1,9 @@
 let contacts = [];
+let offset = 0;
+let limit = 10;
+let moreResults = true;
+let isFetching = false;
+
 
 let isEditing = false;
 let editingIndex = -1;
@@ -19,6 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cancelButton').addEventListener('click', cancelEdit);
     document.getElementById('contactPhone').addEventListener('input', formatPhoneNumber);
 });
+
+window.addEventListener('scroll', function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
+        fetchContacts(document.getElementById("searchInput").value.toLowerCase(), true); // Re-fetch contacts with the same search term
+        }
+    })
 
 function toggleContactForm() {
     const formContainer = document.getElementById('contactFormContainer');
@@ -104,8 +115,18 @@ function addContact(firstName, lastName, email, phone) {
 }
 
 function fetchContacts(searchTerm, isScroll) {
+    if (isFetching) {
+        return;
+    }
 
-    let tmp = { search: searchTerm.trim(), userId: userId };
+    isFetching = true;
+
+    if (!isScroll) {
+        contacts = [];
+        offset = 0;
+    }
+
+    let tmp = { search: searchTerm.trim(), userId: userId, limit: limit, offset: offset };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -117,16 +138,27 @@ function fetchContacts(searchTerm, isScroll) {
         if (this.readyState === 4 && this.status === 200) {
             let jsonObject = JSON.parse(xhr.responseText);
 
-            if (jsonObject.error && jsonObject.error !== "") {
+            if (jsonObject.error && jsonObject.error !== "" && !isSCroll) {
                 document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                 contacts = []; // Clear the contacts array
                 renderContacts(); // Clear the table
             } else {
+                if(!jsonObject.results || jsonObject.results.length < limit) {
+                    moreResults = false;
+                } else {
+                    moreResults = true;
+                }
                 document.getElementById("searchContactsResult").innerHTML = "";
                 contacts = jsonObject.results || [];
-                renderContacts(); // Display the contacts
+                if (jsonObject.results) {
+                    contacts = contacts.concat(jsonObject.results);
+                }
+                offset += limit;
             }
+            renderContacts(); // Display the contacts
+
         }
+        isFetching = false;
     };
 
     xhr.send(jsonPayload);
