@@ -78,14 +78,22 @@ function addContact(firstName, lastName, email, phone) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let response = JSON.parse(xhr.responseText);
             if (response.error === "") {
-                // Add the new contact to the contacts array
-                newContact.id = response.id; // Assuming the API returns the new contact's id
-                contacts.push(newContact);
-                // Re-render the contacts
-                renderContacts();
-                // Reset the form
-                resetForm();
-                toggleContactForm();
+                searchTerm = document.getElementById("searchInput").value.toLowerCase();
+                if ((firstName.toLowerCase().includes(searchTerm) || lastName.toLowerCase().includes(searchTerm) ||
+                    phone.toLowerCase().includes(searchTerm) || email.toLowerCase().includes(searchTerm)))
+                {
+                    // add new contact to list if includes search
+                    newContact["id"] = response.id;
+                    contacts.push(newContact);
+                    renderContacts();
+                    offset += 1;
+                } else 
+                {
+                    fetchContacts(searchTerm, false);
+                }
+                document.getElementById("addContactForm").reset();
+                document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+
             } else {
                 document.getElementById("contactResult").innerHTML = "Error adding contact: " + response.error;
             }
