@@ -102,8 +102,9 @@ function addContact(firstName, lastName, email, phone) {
                 {
                     fetchContacts(searchTerm, false);
                 }
-                document.getElementById("addContactForm").reset();
-                document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+
+                document.getElementById("contactForm").reset(); 
+                document.getElementById("contactResult").innerHTML = "Contact added successfully.";
 
             } else {
                 document.getElementById("contactResult").innerHTML = "Error adding contact: " + response.error;
@@ -138,25 +139,30 @@ function fetchContacts(searchTerm, isScroll) {
         if (this.readyState === 4 && this.status === 200) {
             let jsonObject = JSON.parse(xhr.responseText);
 
-            if (jsonObject.error && jsonObject.error !== "" && !isSCroll) {
+            if (jsonObject.error && jsonObject.error !== "" && !isScroll) {
                 document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                 contacts = []; // Clear the contacts array
                 renderContacts(); // Clear the table
             } else {
-                if(!jsonObject.results || jsonObject.results.length < limit) {
+                if (!jsonObject.results || jsonObject.results.length < limit) {
                     moreResults = false;
                 } else {
                     moreResults = true;
                 }
                 document.getElementById("searchContactsResult").innerHTML = "";
-                contacts = jsonObject.results || [];
+
                 if (jsonObject.results) {
-                    contacts = contacts.concat(jsonObject.results);
+                    if (isScroll) {
+                        // Append new results to the existing contacts array
+                        contacts = contacts.concat(jsonObject.results);
+                    } else {
+                        // Replace contacts array with new results
+                        contacts = jsonObject.results;
+                    }
                 }
                 offset += limit;
+                renderContacts(); // Display the contacts
             }
-            renderContacts(); // Display the contacts
-
         }
         isFetching = false;
     };
@@ -166,16 +172,24 @@ function fetchContacts(searchTerm, isScroll) {
 
 function renderContacts() {
     let tbody = document.getElementById("contactTableBody");
-    tbody.innerHTML = '';
+
+    if (!isFetching && offset === limit) {
+        // Clear the table only if it's a new search (offset reset)
+        tbody.innerHTML = '';
+    }
 
     if (contacts.length === 0) {
-        document.getElementById("searchContactsResult").innerHTML = 'No contacts found.'
+        document.getElementById("searchContactsResult").innerHTML = 'No contacts found.';
     } else {
         document.getElementById("searchContactsResult").innerHTML = '';
     }
 
+    // Start index for new contacts
+    let startIndex = tbody.childElementCount;
 
-    contacts.forEach((contact, index) => {
+    // Render only the new contacts
+    for (let i = startIndex; i < contacts.length; i++) {
+        let contact = contacts[i];
         let row = document.createElement('tr');
 
         // Name cell (First Name + Last Name)
@@ -201,22 +215,21 @@ function renderContacts() {
         let editButton = document.createElement('button');
         editButton.classList.add('action-button');
         editButton.innerHTML = '<span class="material-icons">edit</span>';
-        editButton.onclick = function() { openEditForm(index); };
+        editButton.onclick = function () { openEditForm(i); };
         actionsCell.appendChild(editButton);
 
         // Delete button
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('action-button', 'delete');
         deleteButton.innerHTML = '<span class="material-icons">delete</span>';
-        deleteButton.onclick = function() { deleteContact(index); };
+        deleteButton.onclick = function () { deleteContact(i); };
         actionsCell.appendChild(deleteButton);
 
         row.appendChild(actionsCell);
 
         tbody.appendChild(row);
-    });
+    }
 }
-
 function openEditForm(index) {
     let contact = contacts[index];
     document.getElementById("contactFirstName").value = contact.firstName;
