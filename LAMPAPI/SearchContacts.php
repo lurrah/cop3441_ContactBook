@@ -8,7 +8,7 @@
 	
 	$searchResults = "";
 	$searchCount = 0;
-	$limit = isset($inData["limit"]) ? intval($inData["limit"]) : 10; // Default limit
+	$limit = isset($inData["limit"]) ? intval($inData["limit"]) : 25; // Default limit
 	$offset = isset($inData["offset"]) ? intval($inData["offset"]) : 0; // Default offset
 
 	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	

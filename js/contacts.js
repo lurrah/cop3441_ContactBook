@@ -1,4 +1,9 @@
 let contacts = [];
+let offset = 0;
+let limit = 25;
+let moreResults = true;
+let isFetching = false;
+
 
 let isEditing = false;
 let editingIndex = -1;
@@ -19,6 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cancelButton').addEventListener('click', cancelEdit);
     document.getElementById('contactPhone').addEventListener('input', formatPhoneNumber);
 });
+
+window.addEventListener('scroll', function () {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && moreResults && !isFetching) {
+        fetchContacts(document.getElementById("searchInput").value.toLowerCase(), true); // Re-fetch contacts with the same search term
+        }
+    })
 
 function toggleContactForm() {
     const formContainer = document.getElementById('contactFormContainer');
@@ -91,8 +102,9 @@ function addContact(firstName, lastName, email, phone) {
                 {
                     fetchContacts(searchTerm, false);
                 }
-                document.getElementById("addContactForm").reset();
-                document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+
+                document.getElementById("contactForm").reset(); 
+                document.getElementById("contactResult").innerHTML = "Contact added successfully.";
 
             } else {
                 document.getElementById("contactResult").innerHTML = "Error adding contact: " + response.error;
@@ -104,8 +116,25 @@ function addContact(firstName, lastName, email, phone) {
 }
 
 function fetchContacts(searchTerm, isScroll) {
+    if (isFetching) {
+        return;
+    }
 
-    let tmp = { search: searchTerm.trim(), userId: userId };
+    isFetching = true;
+
+    if (!isScroll) {
+        contacts = [];
+        offset = 0;
+    }
+
+    let searchParam = searchTerm.trim();
+
+    // If searchTerm is empty, adjust searchParam to fetch all contacts
+    if (searchParam === "") {
+        searchParam = "%"; // Assuming your backend treats '%' as a wildcard to return all contacts
+    }
+
+    let tmp = { search: searchParam, userId: userId, limit: limit, offset: offset };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -117,16 +146,40 @@ function fetchContacts(searchTerm, isScroll) {
         if (this.readyState === 4 && this.status === 200) {
             let jsonObject = JSON.parse(xhr.responseText);
 
-            if (jsonObject.error && jsonObject.error !== "") {
+            // Log the response for debugging
+            console.log("Response:", jsonObject);
+
+            if (jsonObject.error && jsonObject.error !== "" && !isScroll) {
                 document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                 contacts = []; // Clear the contacts array
                 renderContacts(); // Clear the table
             } else {
-                document.getElementById("searchContactsResult").innerHTML = "";
-                contacts = jsonObject.results || [];
+                if (!jsonObject.results || jsonObject.results.length < limit) {
+                    moreResults = false;
+                } else {
+                    moreResults = true;
+                }
+
+                if (jsonObject.results && jsonObject.results.length > 0) {
+                    if (isScroll) {
+                        // Append new results to the existing contacts array
+                        contacts = contacts.concat(jsonObject.results);
+                    } else {
+                        // Replace contacts array with new results
+                        contacts = jsonObject.results;
+                    }
+                    document.getElementById("searchContactsResult").innerHTML = "";
+                } else {
+                    // No results found
+                    contacts = []; // Clear contacts array
+                    document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
+                }
+
+                offset += limit;
                 renderContacts(); // Display the contacts
             }
         }
+        isFetching = false;
     };
 
     xhr.send(jsonPayload);
@@ -134,16 +187,20 @@ function fetchContacts(searchTerm, isScroll) {
 
 function renderContacts() {
     let tbody = document.getElementById("contactTableBody");
+
+    // Always clear the table body
     tbody.innerHTML = '';
 
     if (contacts.length === 0) {
-        document.getElementById("searchContactsResult").innerHTML = 'No contacts found.'
+        document.getElementById("searchContactsResult").innerHTML = 'No contacts found.';
+        return; // Exit early since there are no contacts to render
     } else {
         document.getElementById("searchContactsResult").innerHTML = '';
     }
 
-
-    contacts.forEach((contact, index) => {
+    // Render all contacts
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
         let row = document.createElement('tr');
 
         // Name cell (First Name + Last Name)
@@ -169,20 +226,20 @@ function renderContacts() {
         let editButton = document.createElement('button');
         editButton.classList.add('action-button');
         editButton.innerHTML = '<span class="material-icons">edit</span>';
-        editButton.onclick = function() { openEditForm(index); };
+        editButton.onclick = function () { openEditForm(i); };
         actionsCell.appendChild(editButton);
 
         // Delete button
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('action-button', 'delete');
         deleteButton.innerHTML = '<span class="material-icons">delete</span>';
-        deleteButton.onclick = function() { deleteContact(index); };
+        deleteButton.onclick = function () { deleteContact(i); };
         actionsCell.appendChild(deleteButton);
 
         row.appendChild(actionsCell);
 
         tbody.appendChild(row);
-    });
+    }
 }
 
 function openEditForm(index) {
@@ -208,6 +265,7 @@ function openEditForm(index) {
     isEditing = true;
     editingIndex = index;
 }
+
 
 function updateContact(index, firstName, lastName, email, phone) {
     let prevContact = contacts[index];
