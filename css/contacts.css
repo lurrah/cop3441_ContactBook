@@ -196,6 +196,14 @@ body {
     margin-top: 10px;
 }
 
+.contactValid {
+    color: green;
+}
+
+.contactError {
+    color: red;
+}
+
 /* Search bar */
 .search-bar {
     margin-top: 20px;

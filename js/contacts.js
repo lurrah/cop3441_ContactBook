@@ -104,10 +104,10 @@ function addContact(firstName, lastName, email, phone) {
                 }
 
                 document.getElementById("contactForm").reset(); 
-                document.getElementById("contactResult").innerHTML = "Contact added successfully.";
+                document.getElementById("contactValidResult").innerHTML = "Contact added successfully.";
 
             } else {
-                document.getElementById("contactResult").innerHTML = "Error adding contact: " + response.error;
+                document.getElementById("contactErrorResult").innerHTML = "Error adding contact: " + response.error;
             }
         }
     };
