@@ -2,184 +2,141 @@
 <html lang="en">
 
 <head>
+  <!-- Meta tags and title -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My Contacts, Contact Manager, Contact Wizard">
   <title>Contact Wizard</title>
+  <!-- Viewport for responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Include Poppins font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Include Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Include CSS -->
   <link rel="stylesheet" href="css/contacts.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link rel="icon" type="image/png" href="images/contactWizardIcon.png" />
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- Include favicon -->
+  <link rel="icon" type="image/png" href="images/ContactWizardIcon.png" />
+  <!-- Include JS -->
   <script defer src="js/contacts.js"></script>
   <script src="js/auth.js"></script>
 </head>
 
 <body>
-
-  <div id="toastContainer" class="toast-container"></div>
-
-  <!-- sidebar toggle button -->
-  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-
-  <!-- sidebar -->
-  <div id="sidebar" class="sidebar">
-    <!-- sidebar toggle button -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    <header>
-      <img src="images/ContactWizardIcon.png" alt="Contact Wizard Icon" style="height: 7.5rem; margin-left: 10px; vertical-align: middle;">
-    </header>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- <img src="images/ContactWizardIconTransparent.png"/> -->
     <ul>
-      <!-- <li><button class="button" id="homeButton"><span class="material-symbols-outlined">home</span><span>Home</span></button></li> -->
-      <li><button class="button button-propone" id="contactsButton"><span class="material-symbols-outlined">contacts</span><span>Contacts</span></button></li>
-      <li><button class="button button-proptwo" id="signOutButton"><span class="material-symbols-outlined">logout</span><span>Sign Out</span></button></li>
-      <li><button class="button button-propthree" id="aboutButton"><span class="material-symbols-outlined">group</span><span>About</span></button></li>
+      <li>
+        <button id="contactsButton" class="active">
+          <span class="material-icons">contacts</span>
+          Contacts
+        </button>
+      </li>
+      <li>
+        <button id="aboutButton">
+          <span class="material-icons">group</span>
+          About
+        </button>
+      </li>
+      <li>
+        <button id="logoutButton">
+          <span class="material-icons">logout</span>
+          Sign Out
+        </button>
+      </li>
     </ul>
   </div>
-
-  <!-- Main Content -->
-  <div id="content" class="content">
-    <header class="main-header">
-      <h1>
-        Contact Wizard
-        <img src="images/wand.png" alt="Wizard's Wand" style="height: 3.0rem; margin-left: 10px; vertical-align: middle;">
-      </h1>
+  <!-- Main content area -->
+  <div class="main-content">
+    <header>
+      <h1>Contacts</h1>
+      <!-- Create Contact Button -->
+      <button id="createContactButton">
+        <span class="material-icons">add</span>
+        Create Contact
+      </button>
     </header>
-
-    <section class="form-section">
-      <h2>Add New Contact</h2>
-      <form id="addContactForm"> 
-        <input type="text" id="addContactFirstName" placeholder="First Name" required>
-        <input type="text" id="addContactLastName" placeholder="Last Name" required>
-        <input type="text" id="addContactPhone" placeholder="Phone Number" required>
-        <input type="email" id="addContactEmail" placeholder="Email" required>
-        <button type="button" onclick="addContact()"><span class="material-symbols-outlined">add</span><span>Add Contact</span></button>
+    <!-- Add/Edit Contact Form -->
+    <div id="contactFormContainer" class="contact-form-container hidden">
+      <h2 id="formHeader">Add Contact</h2>
+      <form id="contactForm" onsubmit="submitContact(); return false;">
+        <input type="text" id="contactFirstName" placeholder="First Name" required>
+        <input type="text" id="contactLastName" placeholder="Last Name" required>
+        <input type="email" id="contactEmail" placeholder="Email" title="Email address" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
+        <!-- <input type="text" id="contactPhone" placeholder="(___) ___-___" pattern="\(\d{3}\) \d{3}-\d{4}" title="(###) ###-####" required> -->
+        <input type="text" inputmode=numeric id="contactPhone" placeholder="(   )    -   " pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit number" required>
+        <button type="submit" id="submitContactButton">
+          <span class="material-icons">save</span>
+          Save
+        </button>
+        <button type="button" id="cancelButton">
+          <span class="material-icons">close</span>
+          Discard
+        </button>
       </form>
-      <p class=result id="addContactResult">Add Contact Result.</p>
-    </section>
-
-    <div id="editContactModal" class="modal">
-      <div class="modal-content">
-        <h2>Edit Contact</h2>
-        <form id="editContactForm">
-          <input type="text" id="editContactFirstName" placeholder="First Name" required>
-          <input type="text" id="editContactLastName" placeholder="Last Name" required>
-          <input type="text" id="editContactPhone" placeholder="Phone Number" required>
-          <input type="email" id="editContactEmail" placeholder="Email" required>
-          <button type="button" id="saveContactButton"><span class="material-symbols-outlined">save</span><span>Save</span></button>
-          <button type="button" id="closeEditModalButton" onclick="closeEditModal()" ><span class="material-symbols-outlined">close</span><span>Close</span></button>
-        </form>
-        <p class=result id="editContactResult">Edit Contact Result.</p>
-      </div>
+      <p class="result" id="contactResult"></p>
     </div>
-
-    <section class="table-section">
-      <h2>Your Contacts</h2>
-      <input type="text" id="searchInput" placeholder="Search contacts..." oninput="fetchContacts(this.value)">
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="contactTableBody">
-          <!-- Contacts will be dynamically added here -->
-        </tbody>
-      </table>
-      <p class=result id="searchContactsResult">Search Contacts Result.</p>
-    </section>
+    <!-- Search bar -->
+    <div class="search-bar">
+      <span class="material-icons">search</span>
+      <input type="text" id="searchInput" placeholder="Search contacts..."
+        oninput="fetchContacts(this.value.toLowerCase(), false)">
+    </div>
+    <!-- Contact table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="contactTableBody">
+        <!-- Contacts will be dynamically added here -->
+      </tbody>
+    </table>
+    <p class="result" id="searchContactsResult"></p>
   </div>
-
+  <div class="wand-icon" id="wand-animated">
+    <div class="sparkles">
+        <!-- Sparkle elements -->
+        <div class="sparkle sparkle-1"></div>
+        <div class="sparkle sparkle-2"></div>
+        <div class="sparkle sparkle-3"></div>
+        <div class="sparkle sparkle-4"></div>
+        <div class="sparkle sparkle-5"></div>
+        <div class="sparkle sparkle-6"></div>
+        <div class="sparkle sparkle-7"></div>
+        <div class="sparkle sparkle-8"></div>
+        <div class="sparkle sparkle-9"></div>
+        <div class="sparkle sparkle-10"></div>
+        <div class="sparkle sparkle-11"></div>
+        <div class="sparkle sparkle-12"></div>
+        <div class="sparkle sparkle-13"></div>
+        <div class="sparkle sparkle-14"></div>
+        <div class="sparkle sparkle-15"></div>
+        <div class="sparkle sparkle-16"></div>
+        <div class="sparkle sparkle-17"></div>
+        <div class="sparkle sparkle-18"></div>
+        <div class="sparkle sparkle-19"></div>
+        <div class="sparkle sparkle-20"></div>
+    </div>
+</div>
+  <!-- Include JS for navigation -->
   <script>
-      /*
-      document.getElementById('homeButton').addEventListener('click', function() {
-        window.location.href = 'index.html';
-      });
-      */
-      document.getElementById('contactsButton').addEventListener('click', function() {
-        window.location.href = 'contacts.html';
-      });
-
-      document.getElementById('signOutButton').addEventListener('click', function() {
-        window.location.href = 'index.html';
-      });
-
-      document.getElementById('aboutButton').addEventListener('click', function() {
-        window.location.href = 'about.html';
-      });
+    document.getElementById('contactsButton').addEventListener('click', function () {
+      window.location.href = 'contacts.html';
+    });
+    document.getElementById('aboutButton').addEventListener('click', function () {
+      window.location.href = 'about.html';
+    });
+    document.getElementById('logoutButton').addEventListener('click', function () {
+      // Implement logout functionality
+      window.location.href = 'index.html';
+    });
   </script>
 </body>
 
 </html>
-
-<!--<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Manager</title>
-  <link rel="stylesheet" href="css/contacts.css">
-  <script defer src="js/contacts.js"></script>
-  <script src="js/auth.js"></script>
-</head>
-
-<body>
-  <div class="container">
-    <header>
-      <h1>Contact Manager</h1>
-    </header>
-
-    <section class="form-section">
-      <h2>Add New Contact</h2>
-      <form id="addContactForm">
-        <input type="text" id="addContactFirstName" placeholder="First Name" required>
-        <input type="text" id="addContactLastName" placeholder="Last Name" required>
-        <input type="text" id="addContactPhone" placeholder="Phone Number" required>
-        <input type="email" id="addContactEmail" placeholder="Email" required>
-        <button type="button" onclick="addContact()">Add Contact</button>
-      </form>
-      <p id="addContactResult"></p>
-    </section>
-
-    <div id="editContactModal" class="modal">
-      <div class="modal-content"> 
-        <h2>Edit Contact</h2>
-        <form id="editContactForm"> 
-          <input type="text" id="editContactFirstName" placeholder="First Name" required>
-          <input type="text" id="editContactLastName" placeholder="Last Name" required>
-          <input type="text" id="editContactPhone" placeholder="Phone Number" required>
-          <input type="email" id="editContactEmail" placeholder="Email" required>
-          <button type="button" id="saveContactButton">Save</button> <!-- On click, calls saveContact(row_index) function (see openEditModal() function in contacts.js) -->
-          <!--<button type="button" id="closeEditModalButton" onclick="closeEditModal()">Close</button>
-        </form>
-        <p id="editContactResult"></p>
-      </div>
-    </div>
-
-    <section class="table-section">
-      <h2>Your Contacts</h2>
-      <input type="text" id="searchInput" placeholder="Search contacts..." oninput="fetchContacts(this.value)">
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="contactTableBody">
-          <!-- Contacts will be dynamically added here -->
-        <!--</tbody>
-      </table>
-      <p id="searchContactsResult"></p>
-    </section>
-  </div>
-</body>
-
-</html>
--->

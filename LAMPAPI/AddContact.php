@@ -13,7 +13,7 @@
 	$email = $inData["email"];
 	$userId = $inData["userId"];
 
-	$phoneRegex = '/^\d{3}-\d{3}-\d{4}$/';
+	$phoneRegex = '/^\d{10}$/';
 
 	$conn = new mysqli("157.230.189.53", "Team25", "smallProj1", "COP4331"); 	
 
@@ -37,10 +37,17 @@
 	{
 		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, Phone, Email, UserID) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $userId);
-		$stmt->execute();
+		
+		if ($stmt->execute()) 
+		{
+			$contactId = $conn->insert_id;
+			returnWithInfo($contactId);
+		} else {
+			returnWithError("Failed to add contact.");
+		}
+
 		$stmt->close();
 		$conn->close();
-		returnWithError("");
 	}
 
 	function getRequestInfo()
@@ -53,10 +60,17 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
+
+	function returnWithInfo( $contactId )
+	{
+		$retValue = '{"id":"' . $contactId . '", "error":""}';
+
+		sendResultInfoAsJson( $retValue );
+	}
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"error":"' . $err . '"}';
+		$retValue = '{"id":0,"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

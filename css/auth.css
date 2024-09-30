@@ -83,6 +83,10 @@ body {
     margin-bottom: 30px;
 }
 
+.form-content .susiResult {
+    color: red;
+}
+
 /* Form Styling */
 .form-content h1 {
     font-size: 32px;
@@ -138,6 +142,11 @@ body {
         #9c54d5);
     transform: scale(1.05);
 }
+
+.formLabels {
+    color: black;
+}
+
 
 /* Switch Link */
 .switch-link {

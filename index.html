@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Contact Wizard - Get Started</title>
+    <!-- Viewport for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign In/Sign Up, Contact Manager, Contact Wizard">
     <link rel="stylesheet" href="css/auth.css">
     <script type="text/javascript" src="js/auth.js"></script>
 
@@ -21,28 +24,33 @@
                 <h1>Get Started</h1>
                 <p>Welcome to Contact Wizard - Let's create your account.</p>
                 <form id="signUpForm" onsubmit="doSignUp(); return false;" autocomplete="off">
+                    <label for="signUpFirstName" class="formLabels">First Name</label>
                     <input type="text" id="signUpFirstName" name="first_name" placeholder="First Name" required autocomplete="off">
+                    <label for="signUpLastName" class="formLabels">Last Name</label>
                     <input type="text" id="signUpLastName" name="last_name" placeholder="Last Name" required autocomplete="off">
+                    <label for="signUpUsername" class="formLabels">Username</label>
                     <input type="text" id="signUpUsername" name="username" placeholder="Username" required autocomplete="off">
-                    /* Eye Icon for password visbility */
+                
                     <div class="pass">
+                    <label for="signUpPassword" class="formLabels">Password</label>
                       <input type="password" id="signUpPassword" name="password" placeholder="Password" required autocomplete="new-password" pattern="(?=.*\d)(?=.*[A-Z]).{8,}">
                       <span class="material-symbols-outlined" id="toggleSignUpPassword" onclick="togglePasswordVisibility('signUpPassword', this)">visibility_off</span>
                     </div> 
-                    <div class="pass">
+                    <div class="pass" class="formLabels">
+                    <label for="signUpConfirmPassword" class="formLabels">Confirm Password</label>
                       <input type="password" id="signUpConfirmPassword" name="confirm_password" placeholder="Confirm Password" required>
                       <span class="material-symbols-outlined" id="toggleConfirmPassword" onclick="togglePasswordVisibility('signUpConfirmPassword', this)">visibility_off</span>
                     </div> 
                     <div id="requirementsMessage">
-                        <h3>Password Requirements:</h3>
+                        <h3>Password Requirements</h3>
                         <p id="capitalLetter" class="invalid">At least 1 capital letter</p>
                         <p id="number" class="invalid">At least 1 number</p>
                         <p id="length" class="invalid">At least 8 characters</p>
                     </div>
                     <button type="submit" >Sign Up</button>
                 </form>
-                <p class="switch-link">Already have an account? <a href="#" id="signIn">Log in.</a></p>
-                <p id="signUpResult"></p> <!-- Display sign-up result here -->
+                <p class="switch-link">Already have an account? <a href="#" id="signIn">Sign in.</a></p>
+                <p id="signUpResult" class="susiResult"></p> <!-- Display sign-up result here -->
             </div>
         </div>
         <!-- Sign In Form -->
@@ -51,16 +59,17 @@
                 <h1>Sign In</h1>
                 <p>Welcome back! Please log in to your account.</p>
                 <form id="signInForm" onsubmit="doSignIn(); return false;">
+                    <label for="signInUsername" class="formLabels">Username</label>
                     <input type="text" id="signInUsername" name="username" placeholder="Username" required>
-                    /* Eye Icon for password visbility */
                    <div class="pass">
+                    <label for="signInPassword" class="formLabels">Password</label>
                       <input type="password" id="signInPassword" name="password" placeholder="Password" required>
                       <span class="material-symbols-outlined" id="toggleSignInPassword" onclick="togglePasswordVisibility('signInPassword', this)">visibility_off</span>
                     </div>
-                    <button type="submit">Log In</button>
+                    <button type="submit">Sign In</button>
                 </form>
                 <p class="switch-link">Don't have an account? <a href="#" id="signUp">Sign up.</a></p>
-                <p id="signInResult"></p> <!-- Display sign-in result here -->
+                <p id="signInResult" class="susiResult"></p> <!-- Display sign-in result here -->
             </div>
         </div>
         <!-- Overlay Panel -->
@@ -69,10 +78,6 @@
                 <!-- Overlay Content Left -->
                 <div class="overlay-panel overlay-left">
                     <div class="overlay-content">
-                        <a href="https://github.com" target="_blank">
-                            <div class="wand-icon">
-                            </div>
-                        </a>
                         <h1 class="scroll-header">Who will you
                             <div class="scrolling-words-box">
                                 <ul>
@@ -94,8 +99,8 @@
                 <!-- Overlay Content Right -->
                 <div class="overlay-panel overlay-right">
                     <div class="overlay-content">
-                        <a href="https://github.com/lurrah/cop3441_ContactBook" target="_blank">
-                            <div class="wand-icon">
+                        <a href="https://github.com/lurrah/cop3441_ContactBook" target="_blank" aria-label="GitHub repository link">
+                            <div class="wand-icon" id="wand-animated">
                                 <div class="sparkles">
                                     <!-- Sparkle elements -->
                                     <div class="sparkle sparkle-1"></div>
@@ -120,6 +125,7 @@
                                     <div class="sparkle sparkle-20"></div>
                                 </div>
                             </div>
+
                         </a>
                         <h1>Enter the <strong>Future</strong><br> of contact management,<br> today</h1>
                     </div>
@@ -144,7 +150,6 @@
         signInLink.addEventListener('click', () => {
             container.classList.add('right-panel-active');
         });
-        /* Eye Icon for Password Visibility */
         function togglePasswordVisibility(inputId, icon) {
             const input = document.getElementById(inputId);
             if (input.type === "password") {
