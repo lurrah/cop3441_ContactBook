@@ -91,7 +91,8 @@ function addContact(firstName, lastName, email, phone) {
                 {
                     fetchContacts(searchTerm, false);
                 }
-                document.getElementById("addContactForm").reset();
+                //document.getElementById("addContactForm").reset();
+                toggleContactForm();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
 
             } else {
