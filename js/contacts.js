@@ -173,22 +173,18 @@ function fetchContacts(searchTerm, isScroll) {
 function renderContacts() {
     let tbody = document.getElementById("contactTableBody");
 
-    if (!isFetching && offset === limit) {
-        // Clear the table only if it's a new search (offset reset)
-        tbody.innerHTML = '';
-    }
+    // Always clear the table body
+    tbody.innerHTML = '';
 
     if (contacts.length === 0) {
         document.getElementById("searchContactsResult").innerHTML = 'No contacts found.';
+        return; // Exit early since there are no contacts to render
     } else {
         document.getElementById("searchContactsResult").innerHTML = '';
     }
 
-    // Start index for new contacts
-    let startIndex = tbody.childElementCount;
-
-    // Render only the new contacts
-    for (let i = startIndex; i < contacts.length; i++) {
+    // Render all contacts
+    for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
         let row = document.createElement('tr');
 
@@ -230,6 +226,7 @@ function renderContacts() {
         tbody.appendChild(row);
     }
 }
+
 function openEditForm(index) {
     let contact = contacts[index];
     document.getElementById("contactFirstName").value = contact.firstName;
@@ -253,6 +250,7 @@ function openEditForm(index) {
     isEditing = true;
     editingIndex = index;
 }
+
 
 function updateContact(index, firstName, lastName, email, phone) {
     let contactId = contacts[index].id;
