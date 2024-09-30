@@ -1,6 +1,6 @@
 let contacts = [];
 let offset = 0;
-let limit = 10;
+let limit = 25;
 let moreResults = true;
 let isFetching = false;
 
