@@ -4,9 +4,11 @@
 <head>
   <!-- Meta tags and title -->
   <meta charset="UTF-8">
+  <meta name="description" content="My Contacts, Contact Manager, Contact Wizard">
   <title>Contact Wizard</title>
   <!-- Viewport for responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <!-- Include Poppins font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <!-- Include Material Icons -->
@@ -63,7 +65,7 @@
         <input type="text" id="contactLastName" placeholder="Last Name" required>
         <input type="email" id="contactEmail" placeholder="Email" title="Email address" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
         <!-- <input type="text" id="contactPhone" placeholder="(___) ___-___" pattern="\(\d{3}\) \d{3}-\d{4}" title="(###) ###-####" required> -->
-        <input type="text" inputmode=numeric id="contactPhone" placeholder="(___) ___-___" pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit number" required>
+        <input type="text" inputmode=numeric id="contactPhone" placeholder="(   )    -   " pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit number" required>
         <button type="submit" id="submitContactButton">
           <span class="material-icons">save</span>
           Save
@@ -97,6 +99,31 @@
     </table>
     <p class="result" id="searchContactsResult"></p>
   </div>
+  <div class="wand-icon" id="wand-animated">
+    <div class="sparkles">
+        <!-- Sparkle elements -->
+        <div class="sparkle sparkle-1"></div>
+        <div class="sparkle sparkle-2"></div>
+        <div class="sparkle sparkle-3"></div>
+        <div class="sparkle sparkle-4"></div>
+        <div class="sparkle sparkle-5"></div>
+        <div class="sparkle sparkle-6"></div>
+        <div class="sparkle sparkle-7"></div>
+        <div class="sparkle sparkle-8"></div>
+        <div class="sparkle sparkle-9"></div>
+        <div class="sparkle sparkle-10"></div>
+        <div class="sparkle sparkle-11"></div>
+        <div class="sparkle sparkle-12"></div>
+        <div class="sparkle sparkle-13"></div>
+        <div class="sparkle sparkle-14"></div>
+        <div class="sparkle sparkle-15"></div>
+        <div class="sparkle sparkle-16"></div>
+        <div class="sparkle sparkle-17"></div>
+        <div class="sparkle sparkle-18"></div>
+        <div class="sparkle sparkle-19"></div>
+        <div class="sparkle sparkle-20"></div>
+    </div>
+</div>
   <!-- Include JS for navigation -->
   <script>
     document.getElementById('contactsButton').addEventListener('click', function () {
