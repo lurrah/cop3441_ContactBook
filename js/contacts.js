@@ -93,9 +93,16 @@ function addContact(firstName, lastName, email, phone) {
                 }
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+<<<<<<< HEAD
 
             } else {
                 document.getElementById("contactResult").innerHTML = "Error adding contact: " + response.error;
+=======
+                showToast('Contact added successfully!', 'success'); // Show success toast
+            } else {
+                document.getElementById("addContactResult").innerHTML = "Error adding contact: " + response.error;
+                showToast(data.error, 'Could not add contact'); // Show error toast
+>>>>>>> toast
             }
         }
     };
@@ -126,6 +133,69 @@ function fetchContacts(searchTerm, isScroll) {
                 contacts = jsonObject.results || [];
                 renderContacts(); // Display the contacts
             }
+<<<<<<< HEAD
+=======
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("searchContactsResult").innerHTML = err.message;
+    }
+}
+
+function deleteContact(index) {
+    //get contact's info
+    let contact = contacts[index];
+    let namef_val = contact.firstName;
+    let namel_val = contact.lastName;
+    let email_val = contact.email;
+    let phone_val = contact.phone;
+    let contactId = contact.id;
+
+    //display confirmation dialog for user
+    let check = confirm('Confirm deletion of contact: ' + namef_val + ' ' + namel_val);
+
+    if (check === true) {
+        //data for API
+        let tmp = {
+            id: contactId,
+            userId: userId, 
+            firstName: namef_val,
+            lastName: namel_val,
+            email: email_val,
+            phone: phone_val
+        };
+
+        let jsonPayload = JSON.stringify(tmp);
+        let url = urlBase + '/DeleteContact.' + extension;
+
+        //send request to the server
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+        try {
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.error === "") {
+                            console.log("Contact has been deleted successfully.");
+                            contacts.splice(index, 1);
+                            renderContacts();
+                            showToast('Contact deleted successfully!', 'success'); // Show success toast
+                        } else {
+                            console.error("Error deleting contact: " + response.error);
+                            showToast(data.error, 'Could not delete contact'); // Show error toast
+                        }
+                    } else {
+                        console.error("Request failed with status: " + xhr.status);
+                    }  
+                }
+            };
+            xhr.send(jsonPayload);
+        } catch (e) {
+            console.error("Error parsing response or handling request: " + e.message);
+>>>>>>> toast
         }
     };
 
@@ -226,6 +296,7 @@ function updateContact(index, firstName, lastName, email, phone) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
 
+<<<<<<< HEAD
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
     xhr.onreadystatechange = function () {
@@ -241,6 +312,27 @@ function updateContact(index, firstName, lastName, email, phone) {
                 toggleContactForm();
             } else {
                 document.getElementById("contactResult").innerHTML = "Error updating contact: " + response.error;
+=======
+    try {
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+                if (response.error === "") {
+                    // change contact info to updated
+                    contacts[index].firstName = firstName;
+                    contacts[index].lastName = lastName;
+                    contacts[index].phone = phone;
+                    contacts[index].email = email;
+                    
+                    renderContacts();
+                    document.getElementById("editContactResult").innerHTML = "Contact updated successfully.";
+                    closeEditModal();
+                    showToast('Contact updated successfully!', 'success'); // Show success toast
+                } else {
+                    document.getElementById("editContactResult").innerHTML = "Error updating contact: " + response.error;
+                    showToast(data.error, 'Could not update contact'); // Show error toast
+                }
+>>>>>>> toast
             }
         }
     };
@@ -248,6 +340,7 @@ function updateContact(index, firstName, lastName, email, phone) {
     xhr.send(JSON.stringify(updatedContact));
 }
 
+<<<<<<< HEAD
 function deleteContact(index) {
     let contactId = contacts[index].id;
     console.log(contactId);
@@ -302,3 +395,33 @@ function formatPhoneNumber() {
     }
     this.value = formattedValue;
 }
+=======
+function toggleSidebar() {
+	const sidebar = document.getElementById('sidebar');
+	const content = document.getElementById('content');
+	sidebar.classList.toggle('active');
+	content.classList.toggle('active');
+}
+
+function showToast(message, type) {
+    const toastContainer = document.getElementById("toastContainer");
+    
+    const toast = document.createElement("div");
+    toast.classList.add("toast");
+    toast.textContent = message;
+  
+    if (type === "success") {
+      toast.classList.add("success");
+    } else if (type === "error") {
+      toast.classList.add("error");
+    }
+    
+    toastContainer.appendChild(toast);
+  
+    // Automatically remove the toast after 3 seconds
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
+  
+>>>>>>> toast
