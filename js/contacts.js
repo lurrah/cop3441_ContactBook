@@ -274,7 +274,16 @@ function cancelEdit() {
 }
 
 function formatPhoneNumber() {
-    const value = this.value.replace(/\D/g, ''); // Remove non-numeric characters
-    const formattedValue = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+    const value = this.value.trim().replace(/\D/g, ''); // Remove non-numeric characters
+    let formattedValue = ``;
+    if (value.length > 0) {
+        formattedValue += `(${value.slice(0, 3)}`;
+    }
+    if (value.length > 3) {
+        formattedValue += `) ${value.slice(3, 6)}`;
+    }
+    if (value.length > 6) {
+        formattedValue += `-${value.slice(6)}`;
+    }
     this.value = formattedValue;
 }
