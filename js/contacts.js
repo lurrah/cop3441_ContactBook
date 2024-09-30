@@ -93,9 +93,11 @@ function addContact(firstName, lastName, email, phone) {
                 }
                 document.getElementById("addContactForm").reset();
                 document.getElementById("addContactResult").innerHTML = "Contact added successfully.";
+                showToast('Contact added successfully!', 'success'); // Show success toast
 
             } else {
                 document.getElementById("contactResult").innerHTML = "Error adding contact: " + response.error;
+                showToast(data.error, 'Could not add contact'); // Show error toast
             }
         }
     };
@@ -239,8 +241,10 @@ function updateContact(index, firstName, lastName, email, phone) {
                 // Reset the form
                 resetForm();
                 toggleContactForm();
+                showToast('Contact updated successfully!', 'success'); // Show success toast
             } else {
                 document.getElementById("contactResult").innerHTML = "Error updating contact: " + response.error;
+                showToast(data.error, 'Could not update contact'); // Show error toast
             }
         }
     };
@@ -274,8 +278,10 @@ function deleteContact(index) {
                 contacts.splice(index, 1);
                 // Re-render the contacts
                 renderContacts();
+                showToast('Contact deleted successfully!', 'success'); // Show success toast
             } else {
                 alert("Error deleting contact: " + response.error);
+                showToast(data.error, 'Could not delete contact'); // Show error toast
             }
         }
     };
