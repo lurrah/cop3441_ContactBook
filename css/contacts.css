@@ -23,8 +23,18 @@ body {
     /* Subtle shadow */
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding-top: 20px;
+}
+
+.sidebar h1 {
+    font-family: 'Poppins', serif;
+    font-size: 36px;
+    font-weight:900;
+    color: white;
+    width: 80%;
+    margin-bottom: 20px;
+    margin-left: 5%;
+    padding: 10px;
 }
 
 .sidebar img {
@@ -54,7 +64,6 @@ body {
     align-items: center;
     justify-content: flex-start;
     border-radius: 25px;
-    cursor: pointer;
     font-size: 18px;
     color: #fff;
     /* White text for contrast */
@@ -108,7 +117,6 @@ body {
     border-radius: 25px;
     color: #fff;
     font-size: 16px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     transition: background-color 0.3s;
@@ -162,7 +170,6 @@ body {
     border-radius: 25px;
     color: #fff;
     font-size: 16px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -263,7 +270,6 @@ table tbody td {
 table tbody td .action-button {
     background-color: transparent;
     border: none;
-    cursor: pointer;
     color: #462964;
     /* Support color */
     margin-right: 5px;

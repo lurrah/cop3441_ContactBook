@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener("click", () => {
             sparkles.classList.add("active");
             setTimeout(() => {
-                sparklesContainer.classList.remove("active");
+                sparkles.classList.remove("active");
             }, 3000);
         });
 
@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
         function followCursor(event) {
             const wandWidth = wandCursor.clientWidth;
             const wandHeight = wandCursor.clientHeight;
-            const x = event.clientX + 19 - (wandWidth/2);
-            const y = event.clientY + 22 - (wandHeight/2);
+            const x = event.clientX + 10 - (wandWidth/2);
+            const y = event.clientY + 11 - (wandHeight/2);
             // console.log(`Mouse position: (${event.clientX}, ${event.clientY}), Wand position: (${x}, ${y})`);
             wandCursor.style.transform = `translate(${x}px, ${y}px) rotate(-40deg)`;
         }

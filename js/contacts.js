@@ -210,6 +210,12 @@ function openEditForm(index) {
 }
 
 function updateContact(index, firstName, lastName, email, phone) {
+    let prevContact = contacts[index];
+    if (prevContact.firstName == firstName && prevContact.lastName == lastName && prevContact.email == email && prevContact.phone == phone) {
+        cancelEdit();
+        return;
+    }
+
     let contactId = contacts[index].id;
 
     let updatedContact = {

@@ -1,37 +1,36 @@
-body {
-    /* cursor: none; */
+* {
+    cursor: none;
 }
 
 .wand-icon {
     position: absolute;
     top: 0;
     left: 0;
-    width: 10px;
-    height: 60px;
-    background-color: #505050;
+    width: 5px;
+    height: 30px;
+    background-color: #5EE2F0;
     /* White color for the wand */
-    border-radius: 5px;
+    border-radius: 1px;
     transform: rotate(40deg);
     /* Rotate the wand at +40 degrees */
     margin-bottom: 20px;
     display: block;
     z-index: 1000;
-    mix-blend-mode: exclusion;
-    transition: transform 0.2s ease-out;
+    /* transition: transform 0.05s ease-out; */
     pointer-events: none;
 }
 
 .wand-icon::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -5px;
-    width: 20px;
-    height: 20px;
-    background-color: #505050;
+    top: -5px;
+    left: -2.5px;
+    width: 10px;
+    height: 10px;
+    background-color: #5EE2F0;
     /* White color for the tip */
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(76, 76, 76, 0.8);
+    box-shadow: 0 0 10px rgba(94, 226, 240, 0.8);
 }
 
 /* Sparkles */
@@ -48,7 +47,7 @@ body {
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: #505050;
+    background-color: #5EE2F0;
     border-radius: 50%;
     opacity: 0;
     animation: sparkle-animation 3s infinite;
