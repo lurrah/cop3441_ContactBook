@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Contact Wizard - Get Started</title>
+    <!-- Viewport for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign In/Sign Up, Contact Manager, Contact Wizard">
     <link rel="stylesheet" href="css/auth.css">
     <script type="text/javascript" src="js/auth.js"></script>
 
@@ -39,14 +42,14 @@
                       <span class="material-symbols-outlined" id="toggleConfirmPassword" onclick="togglePasswordVisibility('signUpConfirmPassword', this)">visibility_off</span>
                     </div> 
                     <div id="requirementsMessage">
-                        <h3>Password Requirements:</h3>
+                        <h3>Password Requirements</h3>
                         <p id="capitalLetter" class="invalid">At least 1 capital letter</p>
                         <p id="number" class="invalid">At least 1 number</p>
                         <p id="length" class="invalid">At least 8 characters</p>
                     </div>
                     <button type="submit" >Sign Up</button>
                 </form>
-                <p class="switch-link">Already have an account? <a href="#" id="signIn">Log in.</a></p>
+                <p class="switch-link">Already have an account? <a href="#" id="signIn">Sign in.</a></p>
                 <p id="signUpResult"></p> <!-- Display sign-up result here -->
             </div>
         </div>
@@ -63,7 +66,7 @@
                       <input type="password" id="signInPassword" name="password" placeholder="Password" required>
                       <span class="material-symbols-outlined" id="toggleSignInPassword" onclick="togglePasswordVisibility('signInPassword', this)">visibility_off</span>
                     </div>
-                    <button type="submit">Log In</button>
+                    <button type="submit">Sign In</button>
                 </form>
                 <p class="switch-link">Don't have an account? <a href="#" id="signUp">Sign up.</a></p>
                 <p id="signInResult"></p> <!-- Display sign-in result here -->
@@ -75,10 +78,6 @@
                 <!-- Overlay Content Left -->
                 <div class="overlay-panel overlay-left">
                     <div class="overlay-content">
-                        <a href="https://github.com" target="_blank">
-                            <div class="wand-icon">
-                            </div>
-                        </a>
                         <h1 class="scroll-header">Who will you
                             <div class="scrolling-words-box">
                                 <ul>
@@ -100,8 +99,8 @@
                 <!-- Overlay Content Right -->
                 <div class="overlay-panel overlay-right">
                     <div class="overlay-content">
-                        <a href="https://github.com/lurrah/cop3441_ContactBook" target="_blank">
-                            <div class="wand-icon">
+                        <a href="https://github.com/lurrah/cop3441_ContactBook" target="_blank" aria-label="GitHub repository link">
+                            <div class="wand-icon" id="wand-animated">
                                 <div class="sparkles">
                                     <!-- Sparkle elements -->
                                     <div class="sparkle sparkle-1"></div>
@@ -126,6 +125,7 @@
                                     <div class="sparkle sparkle-20"></div>
                                 </div>
                             </div>
+
                         </a>
                         <h1>Enter the <strong>Future</strong><br> of contact management,<br> today</h1>
                     </div>
