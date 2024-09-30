@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
             wandCursor.style.display = 'none'; 
         });
 
-        document.addEventListener("mousemove", followCursor);
+        document.addEventListener("mousemove", updateCursorPosition);
+        document.addEventListener("scroll", updateCursorPosition);
 
         document.addEventListener("click", () => {
             sparkles.classList.add("active");
@@ -20,15 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 3000);
         });
 
-        /* sparkles.addEventListener("transitionend", () => {
-            sparkles.children.forEach( (item, index) => item.classList.remove("active") );
-        }); */
-
-        function followCursor(event) {
+        function updateCursorPosition(event) {
             const wandWidth = wandCursor.clientWidth;
             const wandHeight = wandCursor.clientHeight;
-            const x = event.clientX + 10 - (wandWidth/2);
-            const y = event.clientY + 11 - (wandHeight/2);
+            const x = event.clientX + 10 - (wandWidth/2) + window.scrollX;
+            const y = event.clientY + 11 - (wandHeight/2) + window.scrollY;
             // console.log(`Mouse position: (${event.clientX}, ${event.clientY}), Wand position: (${x}, ${y})`);
             wandCursor.style.transform = `translate(${x}px, ${y}px) rotate(-40deg)`;
         }
