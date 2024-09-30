@@ -1,0 +1,397 @@
+body {
+    /* cursor: none; */
+}
+
+.wand-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 60px;
+    background-color: #505050;
+    /* White color for the wand */
+    border-radius: 5px;
+    transform: rotate(40deg);
+    /* Rotate the wand at +40 degrees */
+    margin-bottom: 20px;
+    display: block;
+    z-index: 1000;
+    mix-blend-mode: exclusion;
+    transition: transform 0.2s ease-out;
+    pointer-events: none;
+}
+
+.wand-icon::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #505050;
+    /* White color for the tip */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(76, 76, 76, 0.8);
+}
+
+/* Sparkles */
+.sparkles {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+}
+
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #505050;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle-animation 3s infinite;
+}
+
+/* Individual Sparkles with Slightly Varying Angles */
+.sparkle-1 {
+    animation-delay: 0s;
+    animation-name: sparkle-animation-1;
+}
+
+.sparkle-2 {
+    animation-delay: 0.01s;
+    animation-name: sparkle-animation-2;
+}
+
+.sparkle-3 {
+    animation-delay: 0.02s;
+    animation-name: sparkle-animation-3;
+}
+
+.sparkle-4 {
+    animation-delay: 0.03s;
+    animation-name: sparkle-animation-4;
+}
+
+.sparkle-5 {
+    animation-delay: 0.04s;
+    animation-name: sparkle-animation-5;
+}
+
+.sparkle-6 {
+    animation-delay: 0.05s;
+    animation-name: sparkle-animation-6;
+}
+
+.sparkle-7 {
+    animation-delay: 0.06s;
+    animation-name: sparkle-animation-7;
+}
+
+.sparkle-8 {
+    animation-delay: 0.07s;
+    animation-name: sparkle-animation-8;
+}
+
+.sparkle-9 {
+    animation-delay: 0.08s;
+    animation-name: sparkle-animation-9;
+}
+
+.sparkle-10 {
+    animation-delay: 0.09s;
+    animation-name: sparkle-animation-10;
+}
+
+.sparkle-11 {
+    animation-delay: 0.1s;
+    animation-name: sparkle-animation-11;
+}
+
+.sparkle-12 {
+    animation-delay: 0.11s;
+    animation-name: sparkle-animation-12;
+}
+
+.sparkle-13 {
+    animation-delay: 0.12s;
+    animation-name: sparkle-animation-13;
+}
+
+.sparkle-14 {
+    animation-delay: 0.13s;
+    animation-name: sparkle-animation-14;
+}
+
+.sparkle-15 {
+    animation-delay: 0.14s;
+    animation-name: sparkle-animation-15;
+}
+
+.sparkle-16 {
+    animation-delay: 0.15s;
+    animation-name: sparkle-animation-16;
+}
+
+.sparkle-17 {
+    animation-delay: 0.16s;
+    animation-name: sparkle-animation-17;
+}
+
+.sparkle-18 {
+    animation-delay: 0.17s;
+    animation-name: sparkle-animation-18;
+}
+
+.sparkle-19 {
+    animation-delay: 0.18s;
+    animation-name: sparkle-animation-19;
+}
+
+.sparkle-20 {
+    animation-delay: 0.19s;
+    animation-name: sparkle-animation-20;
+}
+
+/* Keyframes for Sparkles Moving Straight Up */
+@keyframes sparkle-animation-1 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(100px, -190px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-2 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(70px, -200px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-3 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-150px, -210px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-4 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(100px, -220px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-5 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50px, -190px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-6 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(75px, -200px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-7 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-80px, -210px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-8 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(8px, -220px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-9 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-80px, -190px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-10 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(250px, -200px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-11 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(150px, -210px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-12 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(200px, -220px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-13 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-200px, -190px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-14 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(50px, -200px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-15 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-75px, -210px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-16 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(200px, -220px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-17 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-10px, -190px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-18 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(8px, -200px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-19 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-8px, -210px);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkle-animation-20 {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0, -220px);
+        opacity: 0;
+    }
+}

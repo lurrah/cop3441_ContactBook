@@ -15,10 +15,12 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Include CSS -->
   <link rel="stylesheet" href="css/contacts.css">
+  <link rel="stylesheet" href="css/wand-cursor.css">
   <!-- Include favicon -->
   <link rel="icon" type="image/png" href="images/ContactWizardIcon.png" />
   <!-- Include JS -->
   <script defer src="js/contacts.js"></script>
+  <script src="js/wand-cursor.js"></script>
   <script src="js/auth.js"></script>
 </head>
 
@@ -99,7 +101,7 @@
     </table>
     <p class="result" id="searchContactsResult"></p>
   </div>
-  <div class="wand-icon" id="wand-animated">
+  <div class="wand-icon" id="wand-cursor">
     <div class="sparkles">
         <!-- Sparkle elements -->
         <div class="sparkle sparkle-1"></div>
@@ -123,7 +125,7 @@
         <div class="sparkle sparkle-19"></div>
         <div class="sparkle sparkle-20"></div>
     </div>
-</div>
+  </div>
   <!-- Include JS for navigation -->
   <script>
     document.getElementById('contactsButton').addEventListener('click', function () {
