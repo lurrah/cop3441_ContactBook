@@ -83,6 +83,10 @@ body {
     margin-bottom: 30px;
 }
 
+.form-content .susiResult {
+    color: red;
+}
+
 /* Form Styling */
 .form-content h1 {
     font-size: 32px;
