@@ -136,6 +136,13 @@ function renderContacts() {
     let tbody = document.getElementById("contactTableBody");
     tbody.innerHTML = '';
 
+    if (contacts.length === 0) {
+        document.getElementById("searchContactsResult").innerHTML = 'No contacts found.'
+    } else {
+        document.getElementById("searchContactsResult").innerHTML = '';
+    }
+
+
     contacts.forEach((contact, index) => {
         let row = document.createElement('tr');
 
