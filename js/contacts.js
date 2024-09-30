@@ -127,7 +127,14 @@ function fetchContacts(searchTerm, isScroll) {
         offset = 0;
     }
 
-    let tmp = { search: searchTerm.trim(), userId: userId, limit: limit, offset: offset };
+    let searchParam = searchTerm.trim();
+
+    // If searchTerm is empty, adjust searchParam to fetch all contacts
+    if (searchParam === "") {
+        searchParam = "%"; // Assuming your backend treats '%' as a wildcard to return all contacts
+    }
+
+    let tmp = { search: searchParam, userId: userId, limit: limit, offset: offset };
     let jsonPayload = JSON.stringify(tmp);
     let url = urlBase + '/SearchContacts.' + extension;
 
@@ -139,6 +146,9 @@ function fetchContacts(searchTerm, isScroll) {
         if (this.readyState === 4 && this.status === 200) {
             let jsonObject = JSON.parse(xhr.responseText);
 
+            // Log the response for debugging
+            console.log("Response:", jsonObject);
+
             if (jsonObject.error && jsonObject.error !== "" && !isScroll) {
                 document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                 contacts = []; // Clear the contacts array
@@ -149,9 +159,8 @@ function fetchContacts(searchTerm, isScroll) {
                 } else {
                     moreResults = true;
                 }
-                document.getElementById("searchContactsResult").innerHTML = "";
 
-                if (jsonObject.results) {
+                if (jsonObject.results && jsonObject.results.length > 0) {
                     if (isScroll) {
                         // Append new results to the existing contacts array
                         contacts = contacts.concat(jsonObject.results);
@@ -159,7 +168,13 @@ function fetchContacts(searchTerm, isScroll) {
                         // Replace contacts array with new results
                         contacts = jsonObject.results;
                     }
+                    document.getElementById("searchContactsResult").innerHTML = "";
+                } else {
+                    // No results found
+                    contacts = []; // Clear contacts array
+                    document.getElementById("searchContactsResult").innerHTML = "No contacts found.";
                 }
+
                 offset += limit;
                 renderContacts(); // Display the contacts
             }
