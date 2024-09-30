@@ -103,11 +103,14 @@ function addContact(firstName, lastName, email, phone) {
                     fetchContacts(searchTerm, false);
                 }
 
-                document.getElementById("contactForm").reset(); 
+                toggleContactForm();
                 document.getElementById("contactValidResult").innerHTML = "Contact added successfully.";
+                document.getElementById("contactErrorResult").innerHTML = "";
+            
 
             } else {
                 document.getElementById("contactErrorResult").innerHTML = "Error adding contact: " + response.error;
+                document.getElementById("contactValidResult").innerHTML = "";
             }
         }
     };
