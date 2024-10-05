@@ -12,13 +12,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Include CSS -->
     <link rel="stylesheet" href="css/contacts.css">
-    <link rel="stylesheet" href="css/magic-wand-cursor.css">
+    <link rel="stylesheet" href="css/wand-cursor.css">
     <!-- Include favicon -->
     <link rel="icon" type="image/png" href="images/contactWizardIcon.png" />
     <!-- Include JS -->
     <script defer src="js/contacts.js"></script>
+    <script src="js/wand-cursor.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/magic-wand-cursor.js"></script>
     <style>
         body {
             color: black;
@@ -60,18 +60,49 @@
     </style>
 </head>
 <body>
-
+    <!-- Wand cursor -->
+    <div class="wand-icon" id="wand-cursor">
+        <div class="sparkles">
+            <!-- Sparkle elements -->
+            <div class="sparkle sparkle-1"></div>
+            <div class="sparkle sparkle-2"></div>
+            <div class="sparkle sparkle-3"></div>
+            <div class="sparkle sparkle-4"></div>
+            <div class="sparkle sparkle-5"></div>
+            <div class="sparkle sparkle-6"></div>
+            <div class="sparkle sparkle-7"></div>
+            <div class="sparkle sparkle-8"></div>
+            <div class="sparkle sparkle-9"></div>
+            <div class="sparkle sparkle-10"></div>
+            <div class="sparkle sparkle-11"></div>
+            <div class="sparkle sparkle-12"></div>
+            <div class="sparkle sparkle-13"></div>
+            <div class="sparkle sparkle-14"></div>
+            <div class="sparkle sparkle-15"></div>
+            <div class="sparkle sparkle-16"></div>
+            <div class="sparkle sparkle-17"></div>
+            <div class="sparkle sparkle-18"></div>
+            <div class="sparkle sparkle-19"></div>
+            <div class="sparkle sparkle-20"></div>
+        </div>
+      </div>
     <!-- Sidebar -->
     <div class="sidebar">
+        
+        <div class="logo">
+        <img src="images/ContactWizardIconTransparent.png"/>
+        <h1>Contact Wizard</h1>
+        </div>
+        
         <ul>
         <li>
-            <button id="contactsButton">
+            <button id="contactsButton" class="active">
             <span class="material-icons">contacts</span>
             Contacts
             </button>
         </li>
         <li>
-            <button id="aboutButton"  class="active">
+            <button id="aboutButton">
             <span class="material-icons">group</span>
             About
             </button>

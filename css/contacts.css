@@ -26,22 +26,26 @@ body {
     padding-top: 20px;
 }
 
-.sidebar h1 {
-    font-family: 'Poppins', serif;
-    font-size: 36px;
-    font-weight:900;
-    color: white;
-    width: 80%;
+
+.sidebar .logo {
+    display: inline-flex;
+    align-items: center;
     margin-bottom: 20px;
     margin-left: 5%;
     padding: 10px;
 }
 
 .sidebar img {
+    margin-right: 5%;
+    width: 20%;
+}
+
+.sidebar h1 {
+    font-family: 'Poppins', serif;
+    font-size: 30px;
+    font-weight:900;
+    color: white;
     width: 80%;
-    margin-bottom: 20px;
-    margin-left: 5%;
-    padding: 10px;
 }
 
 .sidebar ul {
