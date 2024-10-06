@@ -12,7 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         document.addEventListener("mousemove", updateCursorPosition);
-        document.addEventListener("scroll", updateCursorPosition);
+        document.addEventListener("scroll", () => {
+            const event = {
+                clientX: window.mouseX || 0,
+                clientY: window.mouseY || 0,
+                type: 'scroll'
+            };
+            updateCursorPosition(event);
+        });
 
         document.addEventListener("click", () => {
             sparkles.classList.add("active");
@@ -28,6 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const y = event.clientY + 11 - (wandHeight/2) + window.scrollY;
             // console.log(`Mouse position: (${event.clientX}, ${event.clientY}), Wand position: (${x}, ${y})`);
             wandCursor.style.transform = `translate(${x}px, ${y}px) rotate(-40deg)`;
+
+            // Store the mouse position for scroll events
+            if (event.type === 'mousemove') {
+                window.mouseX = event.clientX;
+                window.mouseY = event.clientY;
+            }
         }
     } else {
         console.error("wand-cursor element not found");
