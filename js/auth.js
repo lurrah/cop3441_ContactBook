@@ -1,5 +1,5 @@
-// const urlBase = 'http://lamp-project.com/LAMPAPI';
-const urlBase = 'http://localhost:8000/LAMPAPI';
+const urlBase = 'http://lamp-project.com/LAMPAPI';
+// const urlBase = 'http://localhost:8000/LAMPAPI';
 
 const extension = 'php';
 
